@@ -8,6 +8,8 @@
 bin/
 obj/
 out/
+**/bin/
+**/obj/
 
 # Ignore Rider IDE files
 .idea/
