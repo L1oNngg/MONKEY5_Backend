@@ -1,0 +1,60 @@
+# Ignore Visual Studio specific files
+.vs/
+*.user
+*.suo
+*.vcxproj.user
+
+# Ignore build and output directories
+bin/
+obj/
+out/
+
+# Ignore Rider IDE files
+.idea/
+*.sln.iml
+
+# Ignore NuGet packages
+packages/
+project.lock.json
+*.nuget.props
+*.nuget.targets
+
+# Ignore user-specific settings
+*.rsuser
+*.userosscache
+*.sln.dotSettings*
+
+# Ignore logs and temporary files
+logs/
+*.log
+*.tlog
+*.cache
+*.pdb
+
+# Ignore configuration files (optional, if not tracking secrets)
+appsettings.Development.json
+appsettings.Local.json
+secrets.json
+
+# Ignore compiled DLLs and executables
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Ignore ReSharper files
+*_Resharper.*
+*.DotSettings.user
+
+# Ignore .NET Core global tools
+.dotnet/
+
+# Ignore coverage and test results
+coverage/
+TestResults/
+*.coverage
+*.trx
+
+# Ignore JetBrains Rider & Code Analysis files
+.idea/
+*.sln.iml
