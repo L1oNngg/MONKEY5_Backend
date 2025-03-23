@@ -11,7 +11,7 @@ namespace MONKEY5.BusinessObjects
         public Guid UserId { get; set; } = Guid.NewGuid();
 
         [Required(ErrorMessage = "Vui lòng nhập họ và tên.")]
-        public string? Name { get; set; }
+        public string? FullName { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập email.")]
         [EmailAddress(ErrorMessage = "Email không đúng định dạng. Vui lòng nhập lại!")]
@@ -42,7 +42,6 @@ namespace MONKEY5.BusinessObjects
         [RegularExpression("Male|Female|Other")]
         public string? Gender { get; set; }
 
-        public string? Address { get; set; }
         public string? IdNumber { get; set; }
 
         [Required]

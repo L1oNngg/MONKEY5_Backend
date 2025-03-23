@@ -1,18 +1,15 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using MONKEY5.BusinessObjects.Helpers;
 
 namespace MONKEY5.BusinessObjects
 {
     public class Staff: User
     {
-        [Key]
-        public Guid StaffId { get; set; } = Guid.NewGuid();
+        [Range(1, 5)]
+        public double AvgRating { get; set; } = 0;
 
         [Required]
-        public string Department { get; set; } = string.Empty;
-
-        [Required]
-        public string Position { get; set; } = string.Empty;
+        public AvailabilityStatus Status { get; set; } = AvailabilityStatus.Available;
     }
 }

@@ -5,10 +5,10 @@ using MONKEY5.BusinessObjects.Helpers;
 
 namespace MONKEY5.BusinessObjects
 {
-    public class ServiceOrder
+    public class Booking
     {
         [Key]
-        public Guid OrderId { get; set; } = Guid.NewGuid();
+        public Guid BookingId { get; set; } = Guid.NewGuid();
 
         [Required]
         public Guid CustomerId { get; set; }
@@ -17,10 +17,16 @@ namespace MONKEY5.BusinessObjects
         public Customer? Customer { get; set; }
 
         [Required]
-        public Guid OptionId { get; set; }
+        public Guid StaffId { get; set; }
 
-        [ForeignKey("OptionId")]
-        public ServiceOption? ServiceOption { get; set; }
+        [ForeignKey("StaffId")]
+        public Staff? Staff { get; set; }
+
+        [Required]
+        public Guid ServiceId { get; set; }
+
+        [ForeignKey("ServiceId")]
+        public Service? Service { get; set; }
 
         [Required]
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
@@ -28,9 +34,12 @@ namespace MONKEY5.BusinessObjects
         public DateTime BookingDate { get; set; }
 
         [Required]
-        public PaymentStatus PaymentStatus { get; set; } = PaymentStatus.Pending;
+        public DateTime ServiceStartTime { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        [Required]
+        public DateTime ServiceEndTime { get; set; }
+
+        public DateTime BookingDateTime { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
     }
 }
