@@ -33,7 +33,9 @@ namespace MONKEY5.BusinessObjects
             }
         }
 
-        public string? PhoneNumber { get; set; }
+        [Required]
+        [Phone]
+        public required string PhoneNumber { get; set; }
         public DateTime? DateOfBirth { get; set; }
 
         [Required(ErrorMessage = "Vui lòng chọn giới tính.")]
@@ -44,10 +46,7 @@ namespace MONKEY5.BusinessObjects
         public string? IdNumber { get; set; }
 
         [Required]
-        public Guid RoleId { get; set; }
-
-        [ForeignKey("RoleId")]
-        public Role? Role { get; set; }
+        public Role Role { get; set; } = Role.Customer;
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;

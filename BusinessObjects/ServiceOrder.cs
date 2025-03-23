@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using MONKEY5.BusinessObjects.Helpers;
 
 namespace MONKEY5.BusinessObjects
 {
@@ -22,16 +23,12 @@ namespace MONKEY5.BusinessObjects
         public ServiceOption? ServiceOption { get; set; }
 
         [Required]
-        public Guid StatusId { get; set; }
-
-        [ForeignKey("StatusId")]
-        public Status? Status { get; set; }
+        public OrderStatus Status { get; set; } = OrderStatus.Pending;
 
         public DateTime BookingDate { get; set; }
 
         [Required]
-        [RegularExpression("Pending|Completed|Cancelled")]
-        public string? PaymentStatus { get; set; }
+        public PaymentStatus PaymentStatus { get; set; } = PaymentStatus.Pending;
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;

@@ -1,18 +1,18 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using MONKEY5.BusinessObjects.Helpers;
 
 namespace MONKEY5.BusinessObjects
 {
-    public class Employee : User
+    public class Employee: User
     {
+        [Key]
+        public Guid EmployeeId { get; set; } = Guid.NewGuid();
+
+        [Range(1, 5)]
+        public double AvgRating { get; set; } = 0;
+
         [Required]
-        public Guid StatusId { get; set; }
-
-        [ForeignKey("StatusId")]
-        public Status? Status { get; set; }
-
-        [Range(0, 5)]
-        public double? Rating { get; set; }
+        public AvailabilityStatus Status { get; set; } = AvailabilityStatus.Available;
     }
 }

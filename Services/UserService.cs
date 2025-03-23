@@ -30,12 +30,27 @@ namespace MONKEY5.Services
 
         public async Task RegisterUserAsync(User user)
         {
-            if (user.PasswordHash != null)
-            {
-                user.PasswordHash = PasswordHasher.HashPassword(user.PasswordHash);  // Hash Password
-            }
+            user.HashPassword(); // Hash password
+
+            // Gán role mặc định là Customer
+            user.Role = Role.Customer;
+
             await _userRepository.AddUserAsync(user);
+
+            // Nếu user là Customer, thêm vào bảng Customer
+            if (user.Role == Role.Customer)
+            {
+                var customer = new Customer
+                {
+                    UserId = user.UserId,
+                    RegistrationDate = DateTime.UtcNow
+                };
+
+                await _customerRepository.AddCustomerAsync(customer);
+            }
         }
+
+
 
         public async Task<bool> VerifyPasswordAsync(string enteredPassword, string storedHash)
         {

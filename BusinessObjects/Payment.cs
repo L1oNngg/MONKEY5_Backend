@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using MONKEY5.BusinessObjects.Helpers;
 
 namespace MONKEY5.BusinessObjects
 {
@@ -24,8 +25,7 @@ namespace MONKEY5.BusinessObjects
         public required string PaymentMethod { get; set; }
 
         [Required]
-        [RegularExpression("Pending|Completed|Cancelled")]
-        public required string PaymentStatus { get; set; }
+        public PaymentStatus PaymentStatus { get; set; } = PaymentStatus.Pending;
 
         [StringLength(100)]
         public string? TransactionId { get; set; }

@@ -22,10 +22,7 @@ namespace MONKEY5.BusinessObjects
         public Employee? Employee { get; set; }
 
         [Required]
-        public Guid StatusId { get; set; }
-
-        [ForeignKey("StatusId")]
-        public Status? Status { get; set; }
+        public Helpers.TaskStatus Status { get; set; } = Helpers.TaskStatus.Assigned;
 
         public string? ProgressReport { get; set; }
 
