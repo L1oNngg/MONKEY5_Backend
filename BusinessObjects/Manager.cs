@@ -6,10 +6,11 @@ namespace MONKEY5.BusinessObjects
 {
     public class Manager: User
     {
-        [Key]
-        public Guid ManagerId { get; set; } = Guid.NewGuid();
 
-        [ForeignKey("UserId")]
-        public User? UserId { get; set; }
+        // [Required]
+        // public string Department { get; set; } = string.Empty;
+
+        // [Required]
+        // public string Position { get; set; } = string.Empty;
     }
 }

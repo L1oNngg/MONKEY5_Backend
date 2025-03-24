@@ -4,11 +4,8 @@ using MONKEY5.BusinessObjects.Helpers;
 
 namespace MONKEY5.BusinessObjects
 {
-    public class Employee: User
+    public class Staff: User
     {
-        [Key]
-        public Guid EmployeeId { get; set; } = Guid.NewGuid();
-
         [Range(1, 5)]
         public double AvgRating { get; set; } = 0;
 

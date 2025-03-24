@@ -42,8 +42,7 @@ namespace MONKEY5.BusinessObjects
         [RegularExpression("Male|Female|Other")]
         public string? Gender { get; set; }
 
-        public string? Address { get; set; }
-        public string? IDNumber { get; set; }
+        public string? IdNumber { get; set; }
 
         [Required]
         public Role Role { get; set; } = Role.Customer;

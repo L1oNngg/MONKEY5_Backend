@@ -4,22 +4,22 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MONKEY5.BusinessObjects
 {
-    public class Feedback
+    public class Review
     {
         [Key]
-        public Guid FeedbackId { get; set; } = Guid.NewGuid();
+        public Guid ReviewId { get; set; } = Guid.NewGuid();
 
         [Required]
-        public Guid OrderId { get; set; }
+        public Guid BookingId { get; set; }
 
-        [ForeignKey("OrderId")]
-        public ServiceOrder? ServiceOrder { get; set; }
+        [ForeignKey("BookingId")]
+        public Booking? Booking { get; set; }
 
         [Range(1, 5)]
         public int Rating { get; set; }
 
         public string? Comment { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime ReviewCreatedAt { get; set; } = DateTime.UtcNow;
     }
 }

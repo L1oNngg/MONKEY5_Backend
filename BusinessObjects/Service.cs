@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MONKEY5.BusinessObjects
 {
@@ -9,12 +10,16 @@ namespace MONKEY5.BusinessObjects
         public Guid ServiceId { get; set; } = Guid.NewGuid();
 
         [Required]
-        public required string Name { get; set; }
+        public required string ServiceName { get; set; }
 
         [Required]
         public required string Description { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+        [Required]
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal UnitPrice { get; set; }
+
+        [Required]
+        public required string UnitType { get; set; }
     }
 }
