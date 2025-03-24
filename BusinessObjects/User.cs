@@ -11,7 +11,7 @@ namespace MONKEY5.BusinessObjects
         public Guid UserId { get; set; } = Guid.NewGuid();
 
         [Required(ErrorMessage = "Vui lòng nhập họ và tên.")]
-        public string? Name { get; set; }
+        public string? FullName { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập email.")]
         [EmailAddress(ErrorMessage = "Email không đúng định dạng. Vui lòng nhập lại!")]
@@ -43,12 +43,9 @@ namespace MONKEY5.BusinessObjects
         public string? Gender { get; set; }
 
         public string? Address { get; set; }
-        public string? IdNumber { get; set; }
+        public string? IDNumber { get; set; }
 
         [Required]
         public Role Role { get; set; } = Role.Customer;
-
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
     }
 }
