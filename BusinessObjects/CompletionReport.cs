@@ -16,8 +16,14 @@ namespace MONKEY5.BusinessObjects
         public Booking? Booking { get; set; }
 
         [Required]
-        public required string OptionName { get; set; }
+        public string ReportText { get; set; } = "";
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        [Required]
+        public List<string> ReportImageId { get; set; } = [];
+
+        [ForeignKey("ReportImageId")]
+        public ReportImage? ReportImage { get; set; }
+
+        public DateTime ReportDateTime { get; set; } = DateTime.UtcNow;
     }
 }

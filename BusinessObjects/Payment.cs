@@ -27,7 +27,7 @@ namespace MONKEY5.BusinessObjects
         [Required]
         public PaymentStatus PaymentStatus { get; set; } = PaymentStatus.Pending;
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public DateTime ConfirmedAt { get; set; }
+        public DateTime PaymentCreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime PaymentPaidAt { get; set; }
     }
 }

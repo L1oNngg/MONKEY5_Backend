@@ -22,6 +22,6 @@ namespace MONKEY5.BusinessObjects
         public string? RefundReason { get; set; }
 
         [Required]
-        public DateTime RefundDate { get; set; } = DateTime.UtcNow;
+        public DateTime RefundDateTime { get; set; } = DateTime.UtcNow;
     }
 }

@@ -16,10 +16,10 @@ namespace MONKEY5.BusinessObjects
         public Booking? Booking { get; set; }
 
         [Range(1, 5)]
-        public int Rating { get; set; }
+        public int RatingStar { get; set; }
 
         public string? Comment { get; set; }
 
-        public DateTime ReviewCreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime ReviewDateTime { get; set; } = DateTime.UtcNow;
     }
 }

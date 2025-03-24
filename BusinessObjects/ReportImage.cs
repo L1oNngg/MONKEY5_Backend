@@ -4,10 +4,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MONKEY5.BusinessObjects
 {
-    public class CompletionImage
+    public class ReportImage
     {
         [Key]
-        public Guid ImageId { get; set; } = Guid.NewGuid();
+        public Guid ReportImageId { get; set; } = Guid.NewGuid();
 
         [Required]
         public Guid ReportId { get; set; }
@@ -16,6 +16,6 @@ namespace MONKEY5.BusinessObjects
         public Report? Report { get; set; }
 
         [Required]
-        public string? ImageUrl { get; set; }
+        public string? ImagePath { get; set; }
     }
 }

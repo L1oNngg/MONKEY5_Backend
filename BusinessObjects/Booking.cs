@@ -31,7 +31,7 @@ namespace MONKEY5.BusinessObjects
         [Required]
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
 
-        public DateTime BookingDate { get; set; }
+        public DateTime BookingDateTime { get; set; } = DateTime.UtcNow;
 
         [Required]
         public DateTime ServiceStartTime { get; set; }
@@ -39,7 +39,7 @@ namespace MONKEY5.BusinessObjects
         [Required]
         public DateTime ServiceEndTime { get; set; }
 
-        public DateTime BookingDateTime { get; set; } = DateTime.UtcNow;
-        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+        [Required]
+        public float TotalPrice { get; set; }
     }
 }
