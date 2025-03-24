@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MONKEY5.BusinessObjects
 {
-    public class Report
+    public class CompletionReport
     {
         [Key]
         public Guid ReportId { get; set; } = Guid.NewGuid();

@@ -13,7 +13,7 @@ namespace MONKEY5.BusinessObjects
         public Guid ReportId { get; set; }
 
         [ForeignKey("ReportId")]
-        public Report? Report { get; set; }
+        public CompletionReport? CompletionReport { get; set; }
 
         [Required]
         public string? ImagePath { get; set; }
