@@ -22,7 +22,7 @@ namespace DataAccessObjects
                     .ThenInclude(b => b.Staff)
                     .Include(r => r.Booking)
                     .ThenInclude(b => b.Service)
-                    .Include(r => r.ReportImage)
+                    .Include(r => r.ReportImages)
                     .ToList();
             }
             catch (Exception e)
@@ -90,7 +90,7 @@ namespace DataAccessObjects
                     .ThenInclude(b => b.Staff)
                     .Include(r => r.Booking)
                     .ThenInclude(b => b.Service)
-                    .Include(r => r.ReportImage)
+                    .Include(r => r.ReportImages)
                     .FirstOrDefault(r => r.ReportId.Equals(id));
             }
             catch (Exception e)
@@ -111,7 +111,7 @@ namespace DataAccessObjects
                     .ThenInclude(b => b.Staff)
                     .Include(r => r.Booking)
                     .ThenInclude(b => b.Service)
-                    .Include(r => r.ReportImage)
+                    .Include(r => r.ReportImages)
                     .FirstOrDefault(r => r.BookingId.Equals(bookingId));
             }
             catch (Exception e)
@@ -132,7 +132,7 @@ namespace DataAccessObjects
                     .ThenInclude(b => b.Staff)
                     .Include(r => r.Booking)
                     .ThenInclude(b => b.Service)
-                    .Include(r => r.ReportImage)
+                    .Include(r => r.ReportImages)
                     .Where(r => r.Booking.StaffId == staffId)
                     .ToList();
             }
@@ -154,7 +154,7 @@ namespace DataAccessObjects
                     .ThenInclude(b => b.Staff)
                     .Include(r => r.Booking)
                     .ThenInclude(b => b.Service)
-                    .Include(r => r.ReportImage)
+                    .Include(r => r.ReportImages)
                     .Where(r => r.Booking.CustomerId == customerId)
                     .ToList();
             }
@@ -176,7 +176,7 @@ namespace DataAccessObjects
                     .ThenInclude(b => b.Staff)
                     .Include(r => r.Booking)
                     .ThenInclude(b => b.Service)
-                    .Include(r => r.ReportImage)
+                    .Include(r => r.ReportImages)
                     .Where(r => r.ReportDateTime >= startDate && r.ReportDateTime <= endDate)
                     .ToList();
             }

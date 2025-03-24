@@ -10,6 +10,8 @@ obj/
 out/
 **/bin/
 **/obj/
+**/appsettings.json
+MONKEY5_API/appsettings.json
 
 # Ignore Rider IDE files
 .idea/
@@ -60,3 +62,5 @@ TestResults/
 # Ignore JetBrains Rider & Code Analysis files
 .idea/
 *.sln.iml
+MONKEY5_API/appsettings.json
+MONKEY5_API/appsettings.json

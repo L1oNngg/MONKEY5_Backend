@@ -18,11 +18,9 @@ namespace MONKEY5.BusinessObjects
         [Required]
         public string ReportText { get; set; } = "";
 
-        [Required]
-        public List<string> ReportImageId { get; set; } = [];
-
-        [ForeignKey("ReportImageId")]
-        public ReportImage? ReportImage { get; set; }
+        // Remove the ReportImageId property and ForeignKey attribute
+        // Instead, use a navigation property for the collection
+        public virtual ICollection<ReportImage> ReportImages { get; set; } = new List<ReportImage>();
 
         public DateTime ReportDateTime { get; set; } = DateTime.UtcNow;
     }

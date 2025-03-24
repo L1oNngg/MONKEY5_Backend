@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MONKEY5.BusinessObjects;
+using MONKEY5.BusinessObjects.Helpers;
 using System.IO;
 
 namespace MONKEY5.DataAccessObjects
@@ -55,9 +56,119 @@ namespace MONKEY5.DataAccessObjects
 
         // To be improved
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            // ✅ Seed initial data
+        {   
+            // Store the enum as a string
+            modelBuilder.Entity<User>()
+                .Property(u => u.Role)
+                .HasConversion(
+                    v => v.ToString(),  // Enum -> String (Save to DB)
+                    v => (Role)Enum.Parse(typeof(Role), v) // String -> Enum (Read from DB)
+                );
+
+            // Configure inheritance relationships (TPH - Table Per Hierarchy by default)
+            // User is the base class for Customer, Staff, and Manager
+            modelBuilder.Entity<User>()
+                .HasDiscriminator<string>("UserRole") 
+                .HasValue<Customer>("Customer")
+                .HasValue<Staff>("Staff")
+                .HasValue<Manager>("Manager");
+
+            // Customer 1 has 1..N Location
+            modelBuilder.Entity<Customer>()
+                .HasOne(c => c.Location)
+                .WithMany()
+                .HasForeignKey(c => c.LocationId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Customer 1 places 0..N Booking
+            modelBuilder.Entity<Booking>()
+                .HasOne(b => b.Customer)
+                .WithMany()
+                .HasForeignKey(b => b.CustomerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Staff 1 performs 0..N Booking
+            modelBuilder.Entity<Booking>()
+                .HasOne(b => b.Staff)
+                .WithMany()
+                .HasForeignKey(b => b.StaffId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Booking 1 has 1 Service
+            modelBuilder.Entity<Booking>()
+                .HasOne(b => b.Service)
+                .WithMany()
+                .HasForeignKey(b => b.ServiceId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            // Booking 1 has 0..1 Review
+            modelBuilder.Entity<Review>()
+                .HasOne(r => r.Booking)
+                .WithOne()
+                .HasForeignKey<Review>(r => r.BookingId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Booking 1 has 0..1 Payment
+            modelBuilder.Entity<Payment>()
+                .HasOne(p => p.Booking)
+                .WithOne()
+                .HasForeignKey<Payment>(p => p.BookingId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Booking 1 has 0..1 CompletionReport
+            modelBuilder.Entity<CompletionReport>()
+                .HasOne(c => c.Booking)
+                .WithOne()
+                .HasForeignKey<CompletionReport>(c => c.BookingId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Payment 1 may have 0..1 Refund
+            modelBuilder.Entity<Refund>()
+                .HasOne(r => r.Payment)
+                .WithOne()
+                .HasForeignKey<Refund>(r => r.PaymentId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // CompletionReport 1 has 1..N ReportImage
+            modelBuilder.Entity<CompletionReport>()
+                .HasMany(c => c.ReportImages)
+                .WithOne(r => r.CompletionReport)
+                .HasForeignKey(r => r.ReportId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Configure required fields and other constraints
+            modelBuilder.Entity<User>()
+                .Property(u => u.Email)
+                .IsRequired();
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.PasswordHash)
+                .IsRequired();
+
+            modelBuilder.Entity<User>()
+                .Property(u => u.PhoneNumber)
+                .IsRequired();
+
+            // Configure decimal precision for money values
+            modelBuilder.Entity<Service>()
+                .Property(s => s.UnitPrice)
+                .HasColumnType("decimal(10,2)");
+
+            modelBuilder.Entity<Payment>()
+                .Property(p => p.Amount)
+                .HasColumnType("decimal(10,2)");
+
+            modelBuilder.Entity<Refund>()
+                .Property(r => r.RefundAmount)
+                .HasColumnType("decimal(10,2)");
+
+            // Ensure unique email addresses
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
+
             base.OnModelCreating(modelBuilder);
         }
+
     }
 }
