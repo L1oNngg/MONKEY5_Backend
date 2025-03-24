@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MONKEY5.BusinessObjects;
+using System.IO;
 
 namespace MONKEY5.DataAccessObjects
 {
@@ -8,21 +9,34 @@ namespace MONKEY5.DataAccessObjects
     {
         private readonly IConfiguration _configuration;
 
-        // ✅ Inject IConfiguration for connection string management
+        // Parameterless constructor for use in DAOs
+        public MyDbContext()
+        {
+        }
+
+        // Constructor for dependency injection
         public MyDbContext(DbContextOptions<MyDbContext> options, IConfiguration configuration) 
             : base(options)
         {
             _configuration = configuration;
         }
 
-        // ✅ Override OnConfiguring to set up the database connection
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                var connectionString = _configuration.GetConnectionString("MyDB");
-                optionsBuilder.UseSqlServer(connectionString);
+                // If options aren't configured (e.g., when using parameterless constructor),
+                // configure from appsettings.json
+                optionsBuilder.UseSqlServer(GetConnectionString());
             }
+        }
+
+        private string GetConnectionString()
+        {
+            IConfiguration configuration = new ConfigurationBuilder()
+                    .SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json", true, true).Build();
+            return configuration["ConnectionStrings:MyDB"];
         }
 
         // ✅ Define database tables
