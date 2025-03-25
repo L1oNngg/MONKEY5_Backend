@@ -79,6 +79,13 @@ namespace MONKEY5.DataAccessObjects
                     v => (Role)Enum.Parse(typeof(Role), v) // String -> Enum (Read from DB)
                 );
 
+            // Configure inheritance relationships using TPT (Table Per Type)
+            // This creates separate tables for User, Customer, Staff, and Manager
+            modelBuilder.Entity<User>().ToTable("Users");
+            modelBuilder.Entity<Customer>().ToTable("Customers");
+            modelBuilder.Entity<Staff>().ToTable("Staffs");
+            modelBuilder.Entity<Manager>().ToTable("Managers");
+
             // Customer 1 has 1..N Location
             modelBuilder.Entity<Customer>()
                 .HasOne(c => c.Location)
