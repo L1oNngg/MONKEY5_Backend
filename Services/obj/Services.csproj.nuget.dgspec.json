@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\Services\\Services.csproj": {}
+    "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\Services\\Services.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\BusinessObjects\\BusinessObjects.csproj": {
+    "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\BusinessObjects\\BusinessObjects.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\BusinessObjects\\BusinessObjects.csproj",
+        "projectUniqueName": "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\BusinessObjects\\BusinessObjects.csproj",
         "projectName": "BusinessObjects",
-        "projectPath": "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\BusinessObjects\\BusinessObjects.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\BusinessObjects\\obj\\",
+        "projectPath": "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\BusinessObjects\\BusinessObjects.csproj",
+        "packagesPath": "C:\\Users\\ngoct\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\BusinessObjects\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ngoct\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -89,20 +89,20 @@
         }
       }
     },
-    "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\DataAccessObjects\\DataAccessObjects.csproj": {
+    "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\DataAccessObjects\\DataAccessObjects.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\DataAccessObjects\\DataAccessObjects.csproj",
+        "projectUniqueName": "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\DataAccessObjects\\DataAccessObjects.csproj",
         "projectName": "DataAccessObjects",
-        "projectPath": "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\DataAccessObjects\\DataAccessObjects.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\DataAccessObjects\\obj\\",
+        "projectPath": "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\DataAccessObjects\\DataAccessObjects.csproj",
+        "packagesPath": "C:\\Users\\ngoct\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\DataAccessObjects\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ngoct\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -117,8 +117,8 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\BusinessObjects\\BusinessObjects.csproj": {
-                "projectPath": "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\BusinessObjects\\BusinessObjects.csproj"
+              "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\BusinessObjects\\BusinessObjects.csproj": {
+                "projectPath": "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\BusinessObjects\\BusinessObjects.csproj"
               }
             }
           }
@@ -180,20 +180,20 @@
         }
       }
     },
-    "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\Repositories\\Repositories.csproj": {
+    "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\Repositories\\Repositories.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\Repositories\\Repositories.csproj",
+        "projectUniqueName": "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\Repositories\\Repositories.csproj",
         "projectName": "Repositories",
-        "projectPath": "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\Repositories\\Repositories.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\Repositories\\obj\\",
+        "projectPath": "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\Repositories\\Repositories.csproj",
+        "packagesPath": "C:\\Users\\ngoct\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\Repositories\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ngoct\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -208,11 +208,11 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\BusinessObjects\\BusinessObjects.csproj": {
-                "projectPath": "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\BusinessObjects\\BusinessObjects.csproj"
+              "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\BusinessObjects\\BusinessObjects.csproj": {
+                "projectPath": "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\BusinessObjects\\BusinessObjects.csproj"
               },
-              "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\DataAccessObjects\\DataAccessObjects.csproj": {
-                "projectPath": "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\DataAccessObjects\\DataAccessObjects.csproj"
+              "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\DataAccessObjects\\DataAccessObjects.csproj": {
+                "projectPath": "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\DataAccessObjects\\DataAccessObjects.csproj"
               }
             }
           }
@@ -258,20 +258,20 @@
         }
       }
     },
-    "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\Services\\Services.csproj": {
+    "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\Services\\Services.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\Services\\Services.csproj",
+        "projectUniqueName": "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\Services\\Services.csproj",
         "projectName": "Services",
-        "projectPath": "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\Services\\Services.csproj",
-        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\Services\\obj\\",
+        "projectPath": "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\Services\\Services.csproj",
+        "packagesPath": "C:\\Users\\ngoct\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\Services\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ngoct\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -286,11 +286,11 @@
           "net9.0": {
             "targetAlias": "net9.0",
             "projectReferences": {
-              "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\BusinessObjects\\BusinessObjects.csproj": {
-                "projectPath": "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\BusinessObjects\\BusinessObjects.csproj"
+              "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\BusinessObjects\\BusinessObjects.csproj": {
+                "projectPath": "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\BusinessObjects\\BusinessObjects.csproj"
               },
-              "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\Repositories\\Repositories.csproj": {
-                "projectPath": "C:\\Users\\Admin\\Desktop\\umt\\C#\\MONKEY5\\MONKEY5_Backend\\Repositories\\Repositories.csproj"
+              "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\Repositories\\Repositories.csproj": {
+                "projectPath": "C:\\Users\\ngoct\\Kens_Coding_Stuffs\\UMT\\SPRING 2024\\Software Design\\MONKEY5_Backend\\Repositories\\Repositories.csproj"
               }
             }
           }
