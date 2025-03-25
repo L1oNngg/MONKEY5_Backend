@@ -1,8 +1,22 @@
+using MONKEY5.BusinessObjects;
+using DataAccessObjects;
 using System;
+using System.Collections.Generic;
 
-namespace Repositories;
-
-public class CustomerRepository
+namespace Repositories
 {
-
+    public class CustomerRepository : ICustomerRepository
+    {
+        public List<Customer> GetCustomers() => CustomerDAO.GetCustomers();
+        
+        public void SaveCustomer(Customer customer) => CustomerDAO.SaveCustomer(customer);
+        
+        public void UpdateCustomer(Customer customer) => CustomerDAO.UpdateCustomer(customer);
+        
+        public void DeleteCustomer(Customer customer) => CustomerDAO.DeleteCustomer(customer);
+        
+        public Customer GetCustomerById(Guid id) => CustomerDAO.GetCustomerById(id);
+        
+        public Customer GetCustomerByEmail(string email) => CustomerDAO.GetCustomerByEmail(email);
+    }
 }
