@@ -19,7 +19,7 @@ namespace DataAccessObjects
             }
             catch (Exception e)
             {
-                // Log exception if needed
+                throw new Exception(e.Message);
             }
             return listStaffs;
         }
@@ -79,7 +79,7 @@ namespace DataAccessObjects
             }
         }
 
-        public static Staff GetStaffById(Guid id)
+        public static Staff? GetStaffById(Guid id)
         {
             try
             {
@@ -92,12 +92,12 @@ namespace DataAccessObjects
             }
         }
 
-        public static Staff GetStaffByEmail(string email)
+        public static Staff? GetStaffByPhone(string phone)
         {
             try
             {
                 using var db = new MyDbContext();
-                return db.Staffs.FirstOrDefault(s => s.Email.Equals(email));
+                return db.Staffs.FirstOrDefault(s => s.PhoneNumber.Equals(phone));
             }
             catch (Exception e)
             {

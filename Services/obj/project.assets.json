@@ -1174,7 +1174,8 @@
         "framework": ".NETCoreApp,Version=v9.0",
         "dependencies": {
           "BusinessObjects": "1.0.0",
-          "DataAccessObjects": "1.0.0"
+          "DataAccessObjects": "1.0.0",
+          "Microsoft.Extensions.DependencyInjection": "9.0.3"
         },
         "compile": {
           "bin/placeholder/Repositories.dll": {}
@@ -3160,6 +3161,7 @@
   "projectFileDependencyGroups": {
     "net9.0": [
       "BusinessObjects >= 1.0.0",
+      "Microsoft.Extensions.DependencyInjection >= 9.0.3",
       "Repositories >= 1.0.0"
     ]
   },
@@ -3219,6 +3221,12 @@
     "frameworks": {
       "net9.0": {
         "targetAlias": "net9.0",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection": {
+            "target": "Package",
+            "version": "[9.0.3, )"
+          }
+        },
         "imports": [
           "net461",
           "net462",

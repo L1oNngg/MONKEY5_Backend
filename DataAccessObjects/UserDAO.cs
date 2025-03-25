@@ -19,7 +19,7 @@ namespace DataAccessObjects
             }
             catch (Exception e)
             {
-                // Log exception if needed
+                throw new Exception(e.Message);
             }
             return listUsers;
         }
@@ -77,7 +77,7 @@ namespace DataAccessObjects
             }
         }
 
-        public static User GetUserById(Guid id)
+        public static User? GetUserById(Guid id)
         {
             try
             {
@@ -90,12 +90,12 @@ namespace DataAccessObjects
             }
         }
 
-        public static User GetUserByEmail(string email)
+        public static User? GetUserByPhone(string PhoneNumber)
         {
             try
             {
                 using var db = new MyDbContext();
-                return db.Users.FirstOrDefault(u => u.Email.Equals(email));
+                return db.Users.FirstOrDefault(u => u.PhoneNumber.Equals(PhoneNumber));
             }
             catch (Exception e)
             {

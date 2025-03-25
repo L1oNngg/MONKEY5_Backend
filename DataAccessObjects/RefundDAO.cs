@@ -73,7 +73,7 @@ namespace DataAccessObjects
             }
         }
 
-        public static Refund GetRefundById(Guid id)
+        public static Refund? GetRefundById(Guid id)
         {
             try
             {
@@ -89,7 +89,7 @@ namespace DataAccessObjects
             }
         }
 
-        public static Refund GetRefundByPaymentId(Guid paymentId)
+        public static Refund? GetRefundByPaymentId(Guid paymentId)
         {
             try
             {
