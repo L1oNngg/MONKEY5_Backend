@@ -19,7 +19,7 @@ namespace DataAccessObjects
             }
             catch (Exception e)
             {
-                // Log exception if needed
+                throw new Exception(e.Message);
             }
             return listServices;
         }
@@ -70,7 +70,7 @@ namespace DataAccessObjects
             }
         }
 
-        public static Service GetServiceById(Guid id)
+        public static Service? GetServiceById(Guid id)
         {
             try
             {

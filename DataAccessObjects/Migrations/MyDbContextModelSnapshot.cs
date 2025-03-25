@@ -280,21 +280,14 @@ namespace DataAccessObjects.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserRole")
-                        .IsRequired()
-                        .HasMaxLength(8)
-                        .HasColumnType("nvarchar(8)");
-
                     b.HasKey("UserId");
 
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
 
-                    b.HasDiscriminator<string>("UserRole").HasValue("User");
-
-                    b.UseTphMappingStrategy();
+                    b.UseTptMappingStrategy();
                 });
 
             modelBuilder.Entity("MONKEY5.BusinessObjects.Customer", b =>
@@ -309,14 +302,14 @@ namespace DataAccessObjects.Migrations
 
                     b.HasIndex("LocationId");
 
-                    b.HasDiscriminator().HasValue("Customer");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("MONKEY5.BusinessObjects.Manager", b =>
                 {
                     b.HasBaseType("MONKEY5.BusinessObjects.User");
 
-                    b.HasDiscriminator().HasValue("Manager");
+                    b.ToTable("Managers", (string)null);
                 });
 
             modelBuilder.Entity("MONKEY5.BusinessObjects.Staff", b =>
@@ -329,7 +322,7 @@ namespace DataAccessObjects.Migrations
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.HasDiscriminator().HasValue("Staff");
+                    b.ToTable("Staffs", (string)null);
                 });
 
             modelBuilder.Entity("MONKEY5.BusinessObjects.Booking", b =>
@@ -422,7 +415,31 @@ namespace DataAccessObjects.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("MONKEY5.BusinessObjects.User", null)
+                        .WithOne()
+                        .HasForeignKey("MONKEY5.BusinessObjects.Customer", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Location");
+                });
+
+            modelBuilder.Entity("MONKEY5.BusinessObjects.Manager", b =>
+                {
+                    b.HasOne("MONKEY5.BusinessObjects.User", null)
+                        .WithOne()
+                        .HasForeignKey("MONKEY5.BusinessObjects.Manager", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MONKEY5.BusinessObjects.Staff", b =>
+                {
+                    b.HasOne("MONKEY5.BusinessObjects.User", null)
+                        .WithOne()
+                        .HasForeignKey("MONKEY5.BusinessObjects.Staff", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("MONKEY5.BusinessObjects.CompletionReport", b =>

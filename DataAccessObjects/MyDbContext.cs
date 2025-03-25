@@ -56,7 +56,21 @@ namespace MONKEY5.DataAccessObjects
 
         // To be improved
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {   
+        {
+            // Configure the base entity (User) to map to its own table
+            modelBuilder.Entity<User>()
+                .ToTable("Users");
+
+            // Configure derived entities to map to separate tables
+            modelBuilder.Entity<Customer>()
+                .ToTable("Customers");
+
+            modelBuilder.Entity<Staff>()
+                .ToTable("Staffs");
+
+            modelBuilder.Entity<Manager>()
+                .ToTable("Managers");
+
             // Store the enum as a string
             modelBuilder.Entity<User>()
                 .Property(u => u.Role)
@@ -64,14 +78,6 @@ namespace MONKEY5.DataAccessObjects
                     v => v.ToString(),  // Enum -> String (Save to DB)
                     v => (Role)Enum.Parse(typeof(Role), v) // String -> Enum (Read from DB)
                 );
-
-            // Configure inheritance relationships (TPH - Table Per Hierarchy by default)
-            // User is the base class for Customer, Staff, and Manager
-            modelBuilder.Entity<User>()
-                .HasDiscriminator<string>("UserRole") 
-                .HasValue<Customer>("Customer")
-                .HasValue<Staff>("Staff")
-                .HasValue<Manager>("Manager");
 
             // Customer 1 has 1..N Location
             modelBuilder.Entity<Customer>()
@@ -169,6 +175,7 @@ namespace MONKEY5.DataAccessObjects
 
             base.OnModelCreating(modelBuilder);
         }
+
 
     }
 }

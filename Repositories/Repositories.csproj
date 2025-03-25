@@ -11,4 +11,8 @@
     <ProjectReference Include="..\DataAccessObjects\DataAccessObjects.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.3" />
+  </ItemGroup>
+
 </Project>
