@@ -3,8 +3,6 @@
 ##
 ## Get latest from `dotnet new gitignore`
 
-appsettings.json
-
 # dotenv files
 .env
 
@@ -84,12 +82,6 @@ StyleCopReport.xml
 *.meta
 *.obj
 **/obj/
-*.suo
-*.user
-_ReSharper.*
-bin
-obj
-packages
 *.iobj
 *.pch
 *.pdb
