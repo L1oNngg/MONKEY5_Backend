@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using MONKEY5.BusinessObjects;
-using MONKEY5.DataAccessObjects;
+using Services;
+using System;
+using System.Collections.Generic;
 
 namespace MONKEY5_API.Controllers
 {
@@ -14,25 +10,53 @@ namespace MONKEY5_API.Controllers
     [ApiController]
     public class ReviewsController : ControllerBase
     {
-        private readonly MyDbContext _context;
+        private readonly IReviewService _reviewService;
 
-        public ReviewsController(MyDbContext context)
+        public ReviewsController()
         {
-            _context = context;
+            _reviewService = new ReviewService();
         }
 
         // GET: api/Reviews
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Review>>> GetReviews()
+        public ActionResult<IEnumerable<Review>> GetReviews()
         {
-            return await _context.Reviews.ToListAsync();
+            return _reviewService.GetReviews();
         }
 
         // GET: api/Reviews/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Review>> GetReview(Guid id)
+        public ActionResult<Review> GetReview(Guid id)
         {
-            var review = await _context.Reviews.FindAsync(id);
+            var review = _reviewService.GetReviewById(id);
+
+            if (review == null)
+            {
+                return NotFound();
+            }
+
+            return review;
+        }
+
+        // GET: api/Reviews/staff/{staffId}
+        [HttpGet("staff/{staffId}")]
+        public ActionResult<IEnumerable<Review>> GetReviewsByStaffId(Guid staffId)
+        {
+            return _reviewService.GetReviewsByStaffId(staffId);
+        }
+
+        // GET: api/Reviews/customer/{customerId}
+        [HttpGet("customer/{customerId}")]
+        public ActionResult<IEnumerable<Review>> GetReviewsByCustomerId(Guid customerId)
+        {
+            return _reviewService.GetReviewsByCustomerId(customerId);
+        }
+
+        // GET: api/Reviews/booking/{bookingId}
+        [HttpGet("booking/{bookingId}")]
+        public ActionResult<Review> GetReviewByBookingId(Guid bookingId)
+        {
+            var review = _reviewService.GetReviewByBookingId(bookingId);
 
             if (review == null)
             {
@@ -43,66 +67,41 @@ namespace MONKEY5_API.Controllers
         }
 
         // PUT: api/Reviews/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutReview(Guid id, Review review)
+        public IActionResult PutReview(Guid id, Review review)
         {
             if (id != review.ReviewId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(review).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ReviewExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            _reviewService.UpdateReview(review);
 
             return NoContent();
         }
 
         // POST: api/Reviews
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Review>> PostReview(Review review)
+        public ActionResult<Review> PostReview(Review review)
         {
-            _context.Reviews.Add(review);
-            await _context.SaveChangesAsync();
+            _reviewService.SaveReview(review);
 
             return CreatedAtAction("GetReview", new { id = review.ReviewId }, review);
         }
 
         // DELETE: api/Reviews/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteReview(Guid id)
+        public IActionResult DeleteReview(Guid id)
         {
-            var review = await _context.Reviews.FindAsync(id);
+            var review = _reviewService.GetReviewById(id);
             if (review == null)
             {
                 return NotFound();
             }
 
-            _context.Reviews.Remove(review);
-            await _context.SaveChangesAsync();
+            _reviewService.DeleteReview(review);
 
             return NoContent();
-        }
-
-        private bool ReviewExists(Guid id)
-        {
-            return _context.Reviews.Any(e => e.ReviewId == id);
         }
     }
 }

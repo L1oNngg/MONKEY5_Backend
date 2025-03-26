@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using MONKEY5.BusinessObjects;
-using MONKEY5.DataAccessObjects;
+using Services;
+using System;
+using System.Collections.Generic;
 
 namespace MONKEY5_API.Controllers
 {
@@ -14,25 +10,25 @@ namespace MONKEY5_API.Controllers
     [ApiController]
     public class ReportImagesController : ControllerBase
     {
-        private readonly MyDbContext _context;
+        private readonly IReportImageService _reportImageService;
 
-        public ReportImagesController(MyDbContext context)
+        public ReportImagesController()
         {
-            _context = context;
+            _reportImageService = new ReportImageService();
         }
 
         // GET: api/ReportImages
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ReportImage>>> GetReportImages()
+        public ActionResult<IEnumerable<ReportImage>> GetReportImages()
         {
-            return await _context.ReportImages.ToListAsync();
+            return _reportImageService.GetReportImages();
         }
 
         // GET: api/ReportImages/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<ReportImage>> GetReportImage(Guid id)
+        public ActionResult<ReportImage> GetReportImage(Guid id)
         {
-            var reportImage = await _context.ReportImages.FindAsync(id);
+            var reportImage = _reportImageService.GetReportImageById(id);
 
             if (reportImage == null)
             {
@@ -42,67 +38,64 @@ namespace MONKEY5_API.Controllers
             return reportImage;
         }
 
+        // GET: api/ReportImages/report/{reportId}
+        [HttpGet("report/{reportId}")]
+        public ActionResult<IEnumerable<ReportImage>> GetReportImagesByReportId(Guid reportId)
+        {
+            return _reportImageService.GetReportImagesByReportId(reportId);
+        }
+
+        // GET: api/ReportImages/exists/{imagePath}
+        [HttpGet("exists/{imagePath}")]
+        public ActionResult<bool> ImageExists(string imagePath)
+        {
+            return _reportImageService.ImageExists(imagePath);
+        }
+
         // PUT: api/ReportImages/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutReportImage(Guid id, ReportImage reportImage)
+        public IActionResult PutReportImage(Guid id, ReportImage reportImage)
         {
             if (id != reportImage.ReportImageId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(reportImage).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ReportImageExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            _reportImageService.UpdateReportImage(reportImage);
 
             return NoContent();
         }
 
         // POST: api/ReportImages
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<ReportImage>> PostReportImage(ReportImage reportImage)
+        public ActionResult<ReportImage> PostReportImage(ReportImage reportImage)
         {
-            _context.ReportImages.Add(reportImage);
-            await _context.SaveChangesAsync();
+            _reportImageService.SaveReportImage(reportImage);
 
             return CreatedAtAction("GetReportImage", new { id = reportImage.ReportImageId }, reportImage);
         }
 
         // DELETE: api/ReportImages/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteReportImage(Guid id)
+        public IActionResult DeleteReportImage(Guid id)
         {
-            var reportImage = await _context.ReportImages.FindAsync(id);
+            var reportImage = _reportImageService.GetReportImageById(id);
             if (reportImage == null)
             {
                 return NotFound();
             }
 
-            _context.ReportImages.Remove(reportImage);
-            await _context.SaveChangesAsync();
+            _reportImageService.DeleteReportImage(reportImage);
 
             return NoContent();
         }
 
-        private bool ReportImageExists(Guid id)
+        // DELETE: api/ReportImages/report/{reportId}
+        [HttpDelete("report/{reportId}")]
+        public IActionResult DeleteReportImagesByReportId(Guid reportId)
         {
-            return _context.ReportImages.Any(e => e.ReportImageId == id);
+            _reportImageService.DeleteReportImagesByReportId(reportId);
+            return NoContent();
         }
     }
 }

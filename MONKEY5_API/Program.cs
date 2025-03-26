@@ -1,41 +1,54 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using MONKEY5.DataAccessObjects;
-using MONKEY5.BusinessObjects;
-using MONKEY5.Repositories;
-using MONKEY5.Services;
-
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ✅ Register DbContext with SQL Server using Dependency Injection
-builder.Services.AddDbContext<MyDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MyDB"))
-);
-
-// ✅ Register Repositories
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
-builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
-
-// ✅ Register Services
-builder.Services.AddScoped<UserService>();
-builder.Services.AddScoped<ServiceService>();
-builder.Services.AddScoped<CustomerService>();
-
+// Add services to the container.
 builder.Services.AddControllers();
+
+// Add DbContext
+builder.Services.AddDbContext<MyDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MyDB")));
+
+// Configure Swagger
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { 
+        Title = "MONKEY5 API", 
+        Version = "v1",
+        Description = "API for MONKEY5 Home Service Booking System"
+    });
+});
+
+// Add CORS policy
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+});
 
 var app = builder.Build();
 
+// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MONKEY5 API v1"));
 }
 
 app.UseHttpsRedirection();
+
+// Use CORS
+app.UseCors("AllowAll");
+
 app.UseAuthorization();
+
 app.MapControllers();
+
 app.Run();

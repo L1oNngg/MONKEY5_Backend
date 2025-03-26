@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using MONKEY5.BusinessObjects;
-using MONKEY5.DataAccessObjects;
+using Services;
+using System;
+using System.Collections.Generic;
 
 namespace MONKEY5_API.Controllers
 {
@@ -14,25 +10,46 @@ namespace MONKEY5_API.Controllers
     [ApiController]
     public class StaffsController : ControllerBase
     {
-        private readonly MyDbContext _context;
+        private readonly IStaffService _staffService;
 
-        public StaffsController(MyDbContext context)
+        public StaffsController()
         {
-            _context = context;
+            _staffService = new StaffService();
         }
 
         // GET: api/Staffs
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Staff>>> GetStaffs()
+        public ActionResult<IEnumerable<Staff>> GetStaffs()
         {
-            return await _context.Staffs.ToListAsync();
+            return _staffService.GetStaffs();
+        }
+
+        // GET: api/Staffs/available
+        [HttpGet("available")]
+        public ActionResult<IEnumerable<Staff>> GetAvailableStaffs()
+        {
+            return _staffService.GetAvailableStaffs();
         }
 
         // GET: api/Staffs/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Staff>> GetStaff(Guid id)
+        public ActionResult<Staff> GetStaff(Guid id)
         {
-            var staff = await _context.Staffs.FindAsync(id);
+            var staff = _staffService.GetStaffById(id);
+
+            if (staff == null)
+            {
+                return NotFound();
+            }
+
+            return staff;
+        }
+
+        // GET: api/Staffs/phone/{phoneNumber}
+        [HttpGet("phone/{phoneNumber}")]
+        public ActionResult<Staff> GetStaffByPhone(string phoneNumber)
+        {
+            var staff = _staffService.GetStaffByPhone(phoneNumber);
 
             if (staff == null)
             {
@@ -43,66 +60,41 @@ namespace MONKEY5_API.Controllers
         }
 
         // PUT: api/Staffs/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutStaff(Guid id, Staff staff)
+        public IActionResult PutStaff(Guid id, Staff staff)
         {
             if (id != staff.UserId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(staff).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!StaffExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            _staffService.UpdateStaff(staff);
 
             return NoContent();
         }
 
         // POST: api/Staffs
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Staff>> PostStaff(Staff staff)
+        public ActionResult<Staff> PostStaff(Staff staff)
         {
-            _context.Staffs.Add(staff);
-            await _context.SaveChangesAsync();
+            _staffService.SaveStaff(staff);
 
             return CreatedAtAction("GetStaff", new { id = staff.UserId }, staff);
         }
 
         // DELETE: api/Staffs/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteStaff(Guid id)
+        public IActionResult DeleteStaff(Guid id)
         {
-            var staff = await _context.Staffs.FindAsync(id);
+            var staff = _staffService.GetStaffById(id);
             if (staff == null)
             {
                 return NotFound();
             }
 
-            _context.Staffs.Remove(staff);
-            await _context.SaveChangesAsync();
+            _staffService.DeleteStaff(staff);
 
             return NoContent();
-        }
-
-        private bool StaffExists(Guid id)
-        {
-            return _context.Staffs.Any(e => e.UserId == id);
         }
     }
 }

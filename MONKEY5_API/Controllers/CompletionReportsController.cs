@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using MONKEY5.BusinessObjects;
-using MONKEY5.DataAccessObjects;
+using Services;
+using System;
+using System.Collections.Generic;
 
 namespace MONKEY5_API.Controllers
 {
@@ -14,25 +10,25 @@ namespace MONKEY5_API.Controllers
     [ApiController]
     public class CompletionReportsController : ControllerBase
     {
-        private readonly MyDbContext _context;
+        private readonly ICompletionReportService _completionReportService;
 
-        public CompletionReportsController(MyDbContext context)
+        public CompletionReportsController()
         {
-            _context = context;
+            _completionReportService = new CompletionReportService();
         }
 
         // GET: api/CompletionReports
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CompletionReport>>> GetCompletionReports()
+        public ActionResult<IEnumerable<CompletionReport>> GetCompletionReports()
         {
-            return await _context.CompletionReports.ToListAsync();
+            return _completionReportService.GetCompletionReports();
         }
 
         // GET: api/CompletionReports/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<CompletionReport>> GetCompletionReport(Guid id)
+        public ActionResult<CompletionReport> GetCompletionReport(Guid id)
         {
-            var completionReport = await _context.CompletionReports.FindAsync(id);
+            var completionReport = _completionReportService.GetCompletionReportById(id);
 
             if (completionReport == null)
             {
@@ -42,67 +38,77 @@ namespace MONKEY5_API.Controllers
             return completionReport;
         }
 
+        // GET: api/CompletionReports/booking/{bookingId}
+        [HttpGet("booking/{bookingId}")]
+        public ActionResult<CompletionReport> GetCompletionReportByBookingId(Guid bookingId)
+        {
+            var completionReport = _completionReportService.GetCompletionReportByBookingId(bookingId);
+
+            if (completionReport == null)
+            {
+                return NotFound();
+            }
+
+            return completionReport;
+        }
+
+        // GET: api/CompletionReports/staff/{staffId}
+        [HttpGet("staff/{staffId}")]
+        public ActionResult<IEnumerable<CompletionReport>> GetCompletionReportsByStaffId(Guid staffId)
+        {
+            return _completionReportService.GetCompletionReportsByStaffId(staffId);
+        }
+
+        // GET: api/CompletionReports/customer/{customerId}
+        [HttpGet("customer/{customerId}")]
+        public ActionResult<IEnumerable<CompletionReport>> GetCompletionReportsByCustomerId(Guid customerId)
+        {
+            return _completionReportService.GetCompletionReportsByCustomerId(customerId);
+        }
+
+        // GET: api/CompletionReports/daterange
+        [HttpGet("daterange")]
+        public ActionResult<IEnumerable<CompletionReport>> GetCompletionReportsByDateRange([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
+        {
+            return _completionReportService.GetCompletionReportsByDateRange(startDate, endDate);
+        }
+
         // PUT: api/CompletionReports/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCompletionReport(Guid id, CompletionReport completionReport)
+        public IActionResult PutCompletionReport(Guid id, CompletionReport completionReport)
         {
             if (id != completionReport.ReportId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(completionReport).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CompletionReportExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            _completionReportService.UpdateCompletionReport(completionReport);
 
             return NoContent();
         }
 
         // POST: api/CompletionReports
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<CompletionReport>> PostCompletionReport(CompletionReport completionReport)
+        public ActionResult<CompletionReport> PostCompletionReport(CompletionReport completionReport)
         {
-            _context.CompletionReports.Add(completionReport);
-            await _context.SaveChangesAsync();
+            _completionReportService.SaveCompletionReport(completionReport);
 
             return CreatedAtAction("GetCompletionReport", new { id = completionReport.ReportId }, completionReport);
         }
 
         // DELETE: api/CompletionReports/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCompletionReport(Guid id)
+        public IActionResult DeleteCompletionReport(Guid id)
         {
-            var completionReport = await _context.CompletionReports.FindAsync(id);
+            var completionReport = _completionReportService.GetCompletionReportById(id);
             if (completionReport == null)
             {
                 return NotFound();
             }
 
-            _context.CompletionReports.Remove(completionReport);
-            await _context.SaveChangesAsync();
+            _completionReportService.DeleteCompletionReport(completionReport);
 
             return NoContent();
-        }
-
-        private bool CompletionReportExists(Guid id)
-        {
-            return _context.CompletionReports.Any(e => e.ReportId == id);
         }
     }
 }

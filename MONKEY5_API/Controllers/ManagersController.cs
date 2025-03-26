@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using MONKEY5.BusinessObjects;
-using MONKEY5.DataAccessObjects;
+using Services;
+using System;
+using System.Collections.Generic;
 
 namespace MONKEY5_API.Controllers
 {
@@ -14,25 +10,39 @@ namespace MONKEY5_API.Controllers
     [ApiController]
     public class ManagersController : ControllerBase
     {
-        private readonly MyDbContext _context;
+        private readonly IManagerService _managerService;
 
-        public ManagersController(MyDbContext context)
+        public ManagersController()
         {
-            _context = context;
+            _managerService = new ManagerService();
         }
 
         // GET: api/Managers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Manager>>> GetManagers()
+        public ActionResult<IEnumerable<Manager>> GetManagers()
         {
-            return await _context.Managers.ToListAsync();
+            return _managerService.GetManagers();
         }
 
         // GET: api/Managers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Manager>> GetManager(Guid id)
+        public ActionResult<Manager> GetManager(Guid id)
         {
-            var manager = await _context.Managers.FindAsync(id);
+            var manager = _managerService.GetManagerById(id);
+
+            if (manager == null)
+            {
+                return NotFound();
+            }
+
+            return manager;
+        }
+
+        // GET: api/Managers/email/{email}
+        [HttpGet("email/{email}")]
+        public ActionResult<Manager> GetManagerByEmail(string email)
+        {
+            var manager = _managerService.GetManagerByEmail(email);
 
             if (manager == null)
             {
@@ -43,66 +53,41 @@ namespace MONKEY5_API.Controllers
         }
 
         // PUT: api/Managers/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutManager(Guid id, Manager manager)
+        public IActionResult PutManager(Guid id, Manager manager)
         {
             if (id != manager.UserId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(manager).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ManagerExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            _managerService.UpdateManager(manager);
 
             return NoContent();
         }
 
         // POST: api/Managers
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Manager>> PostManager(Manager manager)
+        public ActionResult<Manager> PostManager(Manager manager)
         {
-            _context.Managers.Add(manager);
-            await _context.SaveChangesAsync();
+            _managerService.SaveManager(manager);
 
             return CreatedAtAction("GetManager", new { id = manager.UserId }, manager);
         }
 
         // DELETE: api/Managers/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteManager(Guid id)
+        public IActionResult DeleteManager(Guid id)
         {
-            var manager = await _context.Managers.FindAsync(id);
+            var manager = _managerService.GetManagerById(id);
             if (manager == null)
             {
                 return NotFound();
             }
 
-            _context.Managers.Remove(manager);
-            await _context.SaveChangesAsync();
+            _managerService.DeleteManager(manager);
 
             return NoContent();
-        }
-
-        private bool ManagerExists(Guid id)
-        {
-            return _context.Managers.Any(e => e.UserId == id);
         }
     }
 }

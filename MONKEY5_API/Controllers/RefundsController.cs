@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using MONKEY5.BusinessObjects;
-using MONKEY5.DataAccessObjects;
+using Services;
+using System;
+using System.Collections.Generic;
 
 namespace MONKEY5_API.Controllers
 {
@@ -14,25 +10,25 @@ namespace MONKEY5_API.Controllers
     [ApiController]
     public class RefundsController : ControllerBase
     {
-        private readonly MyDbContext _context;
+        private readonly IRefundService _refundService;
 
-        public RefundsController(MyDbContext context)
+        public RefundsController()
         {
-            _context = context;
+            _refundService = new RefundService();
         }
 
         // GET: api/Refunds
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Refund>>> GetRefunds()
+        public ActionResult<IEnumerable<Refund>> GetRefunds()
         {
-            return await _context.Refunds.ToListAsync();
+            return _refundService.GetRefunds();
         }
 
         // GET: api/Refunds/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Refund>> GetRefund(Guid id)
+        public ActionResult<Refund> GetRefund(Guid id)
         {
-            var refund = await _context.Refunds.FindAsync(id);
+            var refund = _refundService.GetRefundById(id);
 
             if (refund == null)
             {
@@ -42,67 +38,70 @@ namespace MONKEY5_API.Controllers
             return refund;
         }
 
+        // GET: api/Refunds/payment/{paymentId}
+        [HttpGet("payment/{paymentId}")]
+        public ActionResult<Refund> GetRefundByPaymentId(Guid paymentId)
+        {
+            var refund = _refundService.GetRefundByPaymentId(paymentId);
+
+            if (refund == null)
+            {
+                return NotFound();
+            }
+
+            return refund;
+        }
+
+        // GET: api/Refunds/customer/{customerId}
+        [HttpGet("customer/{customerId}")]
+        public ActionResult<IEnumerable<Refund>> GetRefundsByCustomerId(Guid customerId)
+        {
+            return _refundService.GetRefundsByCustomerId(customerId);
+        }
+
+        // GET: api/Refunds/daterange
+        [HttpGet("daterange")]
+        public ActionResult<IEnumerable<Refund>> GetRefundsByDateRange([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
+        {
+            return _refundService.GetRefundsByDateRange(startDate, endDate);
+        }
+
         // PUT: api/Refunds/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRefund(Guid id, Refund refund)
+        public IActionResult PutRefund(Guid id, Refund refund)
         {
             if (id != refund.RefundId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(refund).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!RefundExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            _refundService.UpdateRefund(refund);
 
             return NoContent();
         }
 
         // POST: api/Refunds
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Refund>> PostRefund(Refund refund)
+        public ActionResult<Refund> PostRefund(Refund refund)
         {
-            _context.Refunds.Add(refund);
-            await _context.SaveChangesAsync();
+            _refundService.SaveRefund(refund);
 
             return CreatedAtAction("GetRefund", new { id = refund.RefundId }, refund);
         }
 
         // DELETE: api/Refunds/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteRefund(Guid id)
+        public IActionResult DeleteRefund(Guid id)
         {
-            var refund = await _context.Refunds.FindAsync(id);
+            var refund = _refundService.GetRefundById(id);
             if (refund == null)
             {
                 return NotFound();
             }
 
-            _context.Refunds.Remove(refund);
-            await _context.SaveChangesAsync();
+            _refundService.DeleteRefund(refund);
 
             return NoContent();
-        }
-
-        private bool RefundExists(Guid id)
-        {
-            return _context.Refunds.Any(e => e.RefundId == id);
         }
     }
 }

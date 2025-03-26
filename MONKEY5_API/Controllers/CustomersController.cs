@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
 using MONKEY5.BusinessObjects;
-using MONKEY5.DataAccessObjects;
+using Services;
+using System;
+using System.Collections.Generic;
 
 namespace MONKEY5_API.Controllers
 {
@@ -14,25 +10,39 @@ namespace MONKEY5_API.Controllers
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        private readonly MyDbContext _context;
+        private readonly ICustomerService _customerService;
 
-        public CustomersController(MyDbContext context)
+        public CustomersController()
         {
-            _context = context;
+            _customerService = new CustomerService();
         }
 
         // GET: api/Customers
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
+        public ActionResult<IEnumerable<Customer>> GetCustomers()
         {
-            return await _context.Customers.ToListAsync();
+            return _customerService.GetCustomers();
         }
 
         // GET: api/Customers/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomer(Guid id)
+        public ActionResult<Customer> GetCustomer(Guid id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var customer = _customerService.GetCustomerById(id);
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            return customer;
+        }
+
+        // GET: api/Customers/email/{email}
+        [HttpGet("email/{email}")]
+        public ActionResult<Customer> GetCustomerByEmail(string email)
+        {
+            var customer = _customerService.GetCustomerByEmail(email);
 
             if (customer == null)
             {
@@ -43,66 +53,41 @@ namespace MONKEY5_API.Controllers
         }
 
         // PUT: api/Customers/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCustomer(Guid id, Customer customer)
+        public IActionResult PutCustomer(Guid id, Customer customer)
         {
             if (id != customer.UserId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(customer).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CustomerExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            _customerService.UpdateCustomer(customer);
 
             return NoContent();
         }
 
         // POST: api/Customers
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Customer>> PostCustomer(Customer customer)
+        public ActionResult<Customer> PostCustomer(Customer customer)
         {
-            _context.Customers.Add(customer);
-            await _context.SaveChangesAsync();
+            _customerService.SaveCustomer(customer);
 
             return CreatedAtAction("GetCustomer", new { id = customer.UserId }, customer);
         }
 
         // DELETE: api/Customers/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCustomer(Guid id)
+        public IActionResult DeleteCustomer(Guid id)
         {
-            var customer = await _context.Customers.FindAsync(id);
+            var customer = _customerService.GetCustomerById(id);
             if (customer == null)
             {
                 return NotFound();
             }
 
-            _context.Customers.Remove(customer);
-            await _context.SaveChangesAsync();
+            _customerService.DeleteCustomer(customer);
 
             return NoContent();
-        }
-
-        private bool CustomerExists(Guid id)
-        {
-            return _context.Customers.Any(e => e.UserId == id);
         }
     }
 }
