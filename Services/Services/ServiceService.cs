@@ -1,57 +1,33 @@
 using MONKEY5.BusinessObjects;
-using MONKEY5.Repositories;
+using Repositories;
+using System;
+using System.Collections.Generic;
 
-namespace MONKEY5.Services
+namespace Services
 {
-    public class ServiceService
+    public class ServiceService : IServiceService
     {
-        private readonly IServiceRepository _serviceRepository;
+        private readonly IServiceRepository serviceRepository;
 
-        public ServiceService(IServiceRepository serviceRepository)
+        public ServiceService()
         {
-            _serviceRepository = serviceRepository;
+            serviceRepository = new ServiceRepository();
         }
 
-        public async Task<IEnumerable<Service>> GetAllServicesAsync()
-        {
-            return await _serviceRepository.GetAllAsync();
-        }
-
-        public async Task<Service?> GetServiceByIdAsync(Guid id)
-        {
-            return await _serviceRepository.GetServiceByIdAsync(id);
-        }
-
-        public async Task<List<Service>> SearchServicesByNameAsync(string name)
-        {
-            return await _serviceRepository.SearchServicesByNameAsync(name);
-        }
-
-        public async Task<List<Service>> GetServicesByPriceRangeAsync(decimal minPrice, decimal maxPrice)
-        {
-            return await _serviceRepository.GetServicesByPriceRangeAsync(minPrice, maxPrice);
-        }
-
-        public async Task AddServiceAsync(Service service)
-        {
-            await _serviceRepository.AddAsync(service);
-            await _serviceRepository.SaveChangesAsync();
-        }
-
-        public async Task UpdateServiceAsync(Service service)
-        {
-            _serviceRepository.Update(service);
-            await _serviceRepository.SaveChangesAsync();
-        }
-
-        public async Task DeleteServiceAsync(Guid id)
-        {
-            var service = await _serviceRepository.GetServiceByIdAsync(id);
-            if (service != null)
-            {
-                _serviceRepository.Delete(service);
-                await _serviceRepository.SaveChangesAsync();
-            }
-        }
+        public List<Service> GetServices() => serviceRepository.GetServices();
+        
+        public void SaveService(Service service) => serviceRepository.SaveService(service);
+        
+        public void UpdateService(Service service) => serviceRepository.UpdateService(service);
+        
+        public void DeleteService(Service service) => serviceRepository.DeleteService(service);
+        
+        public Service? GetServiceById(Guid id) => serviceRepository.GetServiceById(id);
+        
+        public List<Service> SearchServicesByName(string name) => 
+            serviceRepository.SearchServicesByName(name);
+        
+        public List<Service> GetServicesByPriceRange(decimal minPrice, decimal maxPrice) => 
+            serviceRepository.GetServicesByPriceRange(minPrice, maxPrice);
     }
 }

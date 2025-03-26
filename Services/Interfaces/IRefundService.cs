@@ -1,8 +1,18 @@
+using MONKEY5.BusinessObjects;
 using System;
+using System.Collections.Generic;
 
-namespace Services;
-
-public class IRefundService
+namespace Services
 {
-
+    public interface IRefundService
+    {
+        List<Refund> GetRefunds();
+        void SaveRefund(Refund refund);
+        void UpdateRefund(Refund refund);
+        void DeleteRefund(Refund refund);
+        Refund? GetRefundById(Guid id);
+        Refund? GetRefundByPaymentId(Guid paymentId);
+        List<Refund> GetRefundsByCustomerId(Guid customerId);
+        List<Refund> GetRefundsByDateRange(DateTime startDate, DateTime endDate);
+    }
 }

@@ -1,62 +1,29 @@
 using MONKEY5.BusinessObjects;
-using MONKEY5.Repositories;
+using Repositories;
+using System;
+using System.Collections.Generic;
 
-namespace MONKEY5.Services
+namespace Services
 {
-    public class CustomerService
+    public class CustomerService : ICustomerService
     {
-        private readonly ICustomerRepository _customerRepository;
+        private readonly ICustomerRepository customerRepository;
 
-        public CustomerService(ICustomerRepository customerRepository)
+        public CustomerService()
         {
-            _customerRepository = customerRepository;
+            customerRepository = new CustomerRepository();
         }
 
-        public async Task<IEnumerable<Customer>> GetAllCustomersAsync()
-        {
-            return await _customerRepository.GetAllAsync();
-        }
-
-        public async Task<Customer?> GetCustomerByIdAsync(Guid id)
-        {
-            return await _customerRepository.GetCustomerByIdAsync(id);
-        }
-
-        public async Task<Customer?> GetCustomerByEmailAsync(string email)
-        {
-            return await _customerRepository.GetCustomerByEmailAsync(email);
-        }
-
-        public async Task AddCustomerAsync(Customer customer)
-        {
-            // Hash the password before saving
-            customer.HashPassword();
-            customer.Role = MONKEY5.BusinessObjects.Helpers.Role.Customer;
-
-            await _customerRepository.AddAsync(customer);
-            await _customerRepository.SaveChangesAsync();
-        }
-
-        public async Task UpdateCustomerAsync(Customer customer)
-        {
-            // Hash the password if it was changed
-            if (!string.IsNullOrEmpty(customer.Password))
-            {
-                customer.HashPassword();
-            }
-
-            _customerRepository.Update(customer);
-            await _customerRepository.SaveChangesAsync();
-        }
-
-        public async Task DeleteCustomerAsync(Guid id)
-        {
-            var customer = await _customerRepository.GetCustomerByIdAsync(id);
-            if (customer != null)
-            {
-                _customerRepository.Delete(customer);
-                await _customerRepository.SaveChangesAsync();
-            }
-        }
+        public List<Customer> GetCustomers() => customerRepository.GetCustomers();
+        
+        public void SaveCustomer(Customer customer) => customerRepository.SaveCustomer(customer);
+        
+        public void UpdateCustomer(Customer customer) => customerRepository.UpdateCustomer(customer);
+        
+        public void DeleteCustomer(Customer customer) => customerRepository.DeleteCustomer(customer);
+        
+        public Customer GetCustomerById(Guid id) => customerRepository.GetCustomerById(id);
+        
+        public Customer GetCustomerByEmail(string email) => customerRepository.GetCustomerByEmail(email);
     }
 }

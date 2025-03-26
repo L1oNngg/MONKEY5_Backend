@@ -1,52 +1,29 @@
 using MONKEY5.BusinessObjects;
-using MONKEY5.Repositories;
+using Repositories;
+using System;
+using System.Collections.Generic;
 
-namespace MONKEY5.Services
+namespace Services
 {
-    public class UserService
+    public class UserService : IUserService
     {
-        private readonly IUserRepository _userRepository;
+        private readonly IUserRepository userRepository;
 
-        public UserService(IUserRepository userRepository)
+        public UserService()
         {
-            _userRepository = userRepository;
+            userRepository = new UserRepository();
         }
 
-        public async Task<IEnumerable<User>> GetAllUsersAsync()
-        {
-            return await _userRepository.GetAllAsync();  // Fetch all users
-        }
-
-        public async Task<User?> GetUserByIdAsync(Guid id)
-        {
-            return await _userRepository.GetByIdAsync(id);  // Fetch user by ID
-        }
-
-        public async Task<User?> GetUserByPhoneAsync(string phoneNumber)
-        {
-            return await _userRepository.GetUserByPhoneAsync(phoneNumber);  // Fetch user by phone
-        }
-
-        public async Task AddUserAsync(User user)
-        {
-            await _userRepository.AddAsync(user);
-            await _userRepository.SaveChangesAsync();  // Save changes
-        }
-
-        public async Task UpdateUserAsync(User user)
-        {
-            _userRepository.Update(user);
-            await _userRepository.SaveChangesAsync();  // Save changes
-        }
-
-        public async Task DeleteUserAsync(Guid id)
-        {
-            var user = await _userRepository.GetByIdAsync(id);
-            if (user != null)
-            {
-                _userRepository.Delete(user);
-                await _userRepository.SaveChangesAsync();  // Save changes
-            }
-        }
+        public List<User> GetUsers() => userRepository.GetUsers();
+        
+        public void SaveUser(User user) => userRepository.SaveUser(user);
+        
+        public void UpdateUser(User user) => userRepository.UpdateUser(user);
+        
+        public void DeleteUser(User user) => userRepository.DeleteUser(user);
+        
+        public User? GetUserById(Guid id) => userRepository.GetUserById(id);
+        
+        public User? GetUserByPhone(string phoneNumber) => userRepository.GetUserByPhone(phoneNumber);
     }
 }

@@ -1,67 +1,31 @@
 using MONKEY5.BusinessObjects;
-using MONKEY5.Repositories;
+using Repositories;
+using System;
+using System.Collections.Generic;
 
-namespace MONKEY5.Services
+namespace Services
 {
-    public class StaffService
+    public class StaffService : IStaffService
     {
-        private readonly IStaffRepository _staffRepository;
+        private readonly IStaffRepository staffRepository;
 
-        public StaffService(IStaffRepository staffRepository)
+        public StaffService()
         {
-            _staffRepository = staffRepository;
+            staffRepository = new StaffRepository();
         }
 
-        public async Task<IEnumerable<Staff>> GetAllStaffsAsync()
-        {
-            return await _staffRepository.GetAllAsync();
-        }
-
-        public async Task<Staff?> GetStaffByIdAsync(Guid id)
-        {
-            return await _staffRepository.GetStaffByIdAsync(id);
-        }
-
-        public async Task<Staff?> GetStaffByPhoneAsync(string phone)
-        {
-            return await _staffRepository.GetStaffByPhoneAsync(phone);
-        }
-
-        public async Task<IEnumerable<Staff>> GetAvailableStaffsAsync()
-        {
-            return await _staffRepository.GetAvailableStaffsAsync();
-        }
-
-        public async Task AddStaffAsync(Staff staff)
-        {
-            // Hash the password before saving
-            staff.HashPassword();
-            staff.Role = MONKEY5.BusinessObjects.Helpers.Role.Staff;
-
-            await _staffRepository.AddAsync(staff);
-            await _staffRepository.SaveChangesAsync();
-        }
-
-        public async Task UpdateStaffAsync(Staff staff)
-        {
-            // Hash the password if it was changed
-            if (!string.IsNullOrEmpty(staff.Password))
-            {
-                staff.HashPassword();
-            }
-
-            _staffRepository.Update(staff);
-            await _staffRepository.SaveChangesAsync();
-        }
-
-        public async Task DeleteStaffAsync(Guid id)
-        {
-            var staff = await _staffRepository.GetStaffByIdAsync(id);
-            if (staff != null)
-            {
-                _staffRepository.Delete(staff);
-                await _staffRepository.SaveChangesAsync();
-            }
-        }
+        public List<Staff> GetStaffs() => staffRepository.GetStaffs();
+        
+        public void SaveStaff(Staff staff) => staffRepository.SaveStaff(staff);
+        
+        public void UpdateStaff(Staff staff) => staffRepository.UpdateStaff(staff);
+        
+        public void DeleteStaff(Staff staff) => staffRepository.DeleteStaff(staff);
+        
+        public Staff? GetStaffById(Guid id) => staffRepository.GetStaffById(id);
+        
+        public Staff? GetStaffByPhone(string phone) => staffRepository.GetStaffByPhone(phone);
+        
+        public List<Staff> GetAvailableStaffs() => staffRepository.GetAvailableStaffs();
     }
 }
