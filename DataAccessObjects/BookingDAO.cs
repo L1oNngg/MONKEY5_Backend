@@ -34,6 +34,15 @@ namespace DataAccessObjects
             try
             {
                 using var context = new MyDbContext();
+                
+                // Get the service to calculate the total price
+                var service = context.Services.FirstOrDefault(s => s.ServiceId == booking.ServiceId);
+                if (service != null)
+                {
+                    // Calculate total price based on service unit price and booking amount
+                    booking.TotalPrice = (float)(service.UnitPrice * booking.ServiceUnitAmount);
+                }
+                
                 context.Bookings.Add(booking);
                 context.SaveChanges();
             }
@@ -48,6 +57,15 @@ namespace DataAccessObjects
             try
             {
                 using var context = new MyDbContext();
+                
+                // Get the service to calculate the total price
+                var service = context.Services.FirstOrDefault(s => s.ServiceId == booking.ServiceId);
+                if (service != null)
+                {
+                    // Calculate total price based on service unit price and booking amount
+                    booking.TotalPrice = (float)(service.UnitPrice * booking.ServiceUnitAmount);
+                }
+                
                 context.Entry<Booking>(booking).State = EntityState.Modified;
                 context.SaveChanges();
             }

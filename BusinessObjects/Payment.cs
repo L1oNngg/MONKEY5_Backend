@@ -1,7 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using BusinessObjects.Helpers;
 using MONKEY5.BusinessObjects.Helpers;
 
 namespace MONKEY5.BusinessObjects

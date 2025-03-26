@@ -5,7 +5,10 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+});
 
 // Add DbContext
 builder.Services.AddDbContext<MyDbContext>(options =>
@@ -48,6 +51,8 @@ app.UseHttpsRedirection();
 app.UseCors("AllowAll");
 
 app.UseAuthorization();
+
+app.UseStaticFiles();
 
 app.MapControllers();
 

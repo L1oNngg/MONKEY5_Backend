@@ -40,6 +40,9 @@ namespace MONKEY5.BusinessObjects
         public DateTime ServiceEndTime { get; set; }
 
         [Required]
+        public int ServiceUnitAmount { get; set; }
+
+        [Required]
         public float TotalPrice { get; set; }
     }
 }
