@@ -28,7 +28,7 @@ namespace MONKEY5.DataAccessObjects
             {
                 // If options aren't configured (e.g., when using parameterless constructor),
                 // configure from appsettings.json
-                optionsBuilder.UseSqlServer(GetConnectionString());
+                optionsBuilder.UseNpgsql(GetConnectionString());
             }
 
             // Suppress the warning about model changes
