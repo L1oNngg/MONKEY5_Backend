@@ -12,7 +12,8 @@ RUN dotnet restore
 
 # Copy all files and build
 COPY . .
-RUN dotnet publish -c Release -o /app
+# Specify the startup project to publish
+RUN dotnet publish "MONKEY5_API/MONKEY5_API.csproj" -c Release -o /app
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:9.0
