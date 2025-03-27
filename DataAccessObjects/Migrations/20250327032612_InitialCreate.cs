@@ -17,11 +17,11 @@ namespace DataAccessObjects.Migrations
                 name: "Locations",
                 columns: table => new
                 {
-                    LocationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    City = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Country = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PostalCode = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    LocationId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Address = table.Column<string>(type: "text", nullable: false),
+                    City = table.Column<string>(type: "text", nullable: false),
+                    Country = table.Column<string>(type: "text", nullable: false),
+                    PostalCode = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,11 +32,11 @@ namespace DataAccessObjects.Migrations
                 name: "Services",
                 columns: table => new
                 {
-                    ServiceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ServiceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UnitPrice = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    UnitType = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ServiceId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ServiceName = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    UnitPrice = table.Column<decimal>(type: "numeric(10,2)", nullable: false),
+                    UnitType = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -47,15 +47,15 @@ namespace DataAccessObjects.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    IdNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    FullName = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    PasswordHash = table.Column<string>(type: "text", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "text", nullable: false),
+                    DateOfBirth = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Gender = table.Column<string>(type: "text", nullable: false),
+                    IdNumber = table.Column<string>(type: "text", nullable: true),
+                    Role = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -66,9 +66,9 @@ namespace DataAccessObjects.Migrations
                 name: "Customers",
                 columns: table => new
                 {
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    LocationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RegistrationDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    LocationId = table.Column<Guid>(type: "uuid", nullable: false),
+                    RegistrationDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -91,7 +91,7 @@ namespace DataAccessObjects.Migrations
                 name: "Managers",
                 columns: table => new
                 {
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -108,9 +108,9 @@ namespace DataAccessObjects.Migrations
                 name: "Staffs",
                 columns: table => new
                 {
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    AvgRating = table.Column<double>(type: "float", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false)
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false),
+                    AvgRating = table.Column<double>(type: "double precision", nullable: false),
+                    Status = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -127,15 +127,15 @@ namespace DataAccessObjects.Migrations
                 name: "Bookings",
                 columns: table => new
                 {
-                    BookingId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    StaffId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ServiceId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    BookingDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ServiceStartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ServiceEndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ServiceUnitAmount = table.Column<int>(type: "int", nullable: false),
+                    BookingId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CustomerId = table.Column<Guid>(type: "uuid", nullable: false),
+                    StaffId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ServiceId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Status = table.Column<int>(type: "integer", nullable: false),
+                    BookingDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ServiceStartTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ServiceEndTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ServiceUnitAmount = table.Column<int>(type: "integer", nullable: false),
                     TotalPrice = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
@@ -165,10 +165,10 @@ namespace DataAccessObjects.Migrations
                 name: "CompletionReports",
                 columns: table => new
                 {
-                    ReportId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    BookingId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ReportText = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ReportDateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ReportId = table.Column<Guid>(type: "uuid", nullable: false),
+                    BookingId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ReportText = table.Column<string>(type: "text", nullable: false),
+                    ReportDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -185,13 +185,13 @@ namespace DataAccessObjects.Migrations
                 name: "Payments",
                 columns: table => new
                 {
-                    PaymentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    BookingId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Amount = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    PaymentMethod = table.Column<int>(type: "int", nullable: false),
-                    PaymentStatus = table.Column<int>(type: "int", nullable: false),
-                    PaymentCreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    PaymentPaidAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    PaymentId = table.Column<Guid>(type: "uuid", nullable: false),
+                    BookingId = table.Column<Guid>(type: "uuid", nullable: false),
+                    Amount = table.Column<decimal>(type: "numeric(10,2)", nullable: false),
+                    PaymentMethod = table.Column<int>(type: "integer", nullable: false),
+                    PaymentStatus = table.Column<int>(type: "integer", nullable: false),
+                    PaymentCreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    PaymentPaidAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -208,11 +208,11 @@ namespace DataAccessObjects.Migrations
                 name: "Reviews",
                 columns: table => new
                 {
-                    ReviewId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    BookingId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RatingStar = table.Column<int>(type: "int", nullable: false),
-                    Comment = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ReviewDateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    ReviewId = table.Column<Guid>(type: "uuid", nullable: false),
+                    BookingId = table.Column<Guid>(type: "uuid", nullable: false),
+                    RatingStar = table.Column<int>(type: "integer", nullable: false),
+                    Comment = table.Column<string>(type: "text", nullable: true),
+                    ReviewDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -229,9 +229,9 @@ namespace DataAccessObjects.Migrations
                 name: "ReportImages",
                 columns: table => new
                 {
-                    ReportImageId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ReportId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ReportImageId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ReportId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ImagePath = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -248,11 +248,11 @@ namespace DataAccessObjects.Migrations
                 name: "Refunds",
                 columns: table => new
                 {
-                    RefundId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PaymentId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RefundAmount = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    RefundReason = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RefundDateTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    RefundId = table.Column<Guid>(type: "uuid", nullable: false),
+                    PaymentId = table.Column<Guid>(type: "uuid", nullable: false),
+                    RefundAmount = table.Column<decimal>(type: "numeric(10,2)", nullable: false),
+                    RefundReason = table.Column<string>(type: "text", nullable: true),
+                    RefundDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -291,16 +291,16 @@ namespace DataAccessObjects.Migrations
                 columns: new[] { "UserId", "DateOfBirth", "Email", "FullName", "Gender", "IdNumber", "PasswordHash", "PhoneNumber", "Role" },
                 values: new object[,]
                 {
-                    { new Guid("30000000-0000-0000-0000-000000000001"), new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "admin@monkey5.com", "Admin User", "Male", "123456789", "gOt77yMpA8P/1Jpyq6AiVQ==.so7j6ES/rMQDs9/eTPaJRp3u5owBEiFzIxWBQXcDDWI=", "0123456789", "Manager" },
-                    { new Guid("40000000-0000-0000-0000-000000000001"), new DateTime(1985, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "nguyenvana@example.com", "Nguyen Van A", "Male", "123456789012", "KVbfZ/XvEB5ZatOdzu0d5A==.MGZuYGwdFfAYBtS553aGBgcVBHOS9Ec4VSMIwWAvNkw=", "0123456781", "Customer" },
-                    { new Guid("40000000-0000-0000-0000-000000000002"), new DateTime(1990, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), "tranthib@example.com", "Tran Thi B", "Female", "234567890123", "yzJMGh0cPBWVj6Om1zFddQ==.qzaxvQMytQS/OCjRuFou6fwqymWOK+ZzZA4H+2sdm2s=", "0123456782", "Customer" },
-                    { new Guid("40000000-0000-0000-0000-000000000003"), new DateTime(1988, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "levanc@example.com", "Le Van C", "Male", "345678901234", "SFPd6oZP+TNlkth1KUyA9w==.k0RbpTR1fgpb90ZU7mcXgH+25rLTh/wAEigXY7ymnq8=", "0123456783", "Customer" },
-                    { new Guid("50000000-0000-0000-0000-000000000001"), new DateTime(1992, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "phamthid@example.com", "Pham Thi D", "Female", "456789012345", "W12KKBiq0WRW8khm+0frKw==.YRKi6vQ+r1lZpXpXxIgU5wa92lChBRJXG1hsFHN3nN4=", "0234567891", "Staff" },
-                    { new Guid("50000000-0000-0000-0000-000000000002"), new DateTime(1991, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "hoangvane@example.com", "Hoang Van E", "Male", "567890123456", "OCEnvfndsIm0T67TJlj9jw==.abeVgX0/+v9oo5hdiATzOUOUMcPLTrNEA//3iocKC80=", "0234567892", "Staff" },
-                    { new Guid("50000000-0000-0000-0000-000000000003"), new DateTime(1989, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "nguyenthif@example.com", "Nguyen Thi F", "Female", "678901234567", "TfjsN//OmUqN3+g8IXSDiw==.9m3a6STJ4tSBC3adHhzfQ1rEqd4tpbzCoby+6aUyDMY=", "0234567893", "Staff" },
-                    { new Guid("50000000-0000-0000-0000-000000000004"), new DateTime(1993, 2, 18, 0, 0, 0, 0, DateTimeKind.Unspecified), "tranvang@example.com", "Tran Van G", "Male", "789012345678", "8kWU7grc3tr8pp9fS2um3g==.hgaLxaOhcW76o6d4ixCJnF8MnY4g8jiAUtekUTITgpQ=", "0234567894", "Staff" },
-                    { new Guid("50000000-0000-0000-0000-000000000005"), new DateTime(1987, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "lethih@example.com", "Le Thi H", "Female", "890123456789", "vC3eO8x7B1vw0VxnT4AcZA==.9FzoJpeFflHS9/uHP2UJo2dACGOIE+a0BBSEb9OIl3o=", "0234567895", "Staff" },
-                    { new Guid("50000000-0000-0000-0000-000000000006"), new DateTime(1990, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "phamvani@example.com", "Pham Van I", "Male", "901234567890", "iWjGWUk3SEjow6oQF6pd0g==.hIGIyYXak9hnvgrT3ez3Gj3O9KRthzQBaJx53xUKTd8=", "0234567896", "Staff" }
+                    { new Guid("30000000-0000-0000-0000-000000000001"), new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "admin@monkey5.com", "Admin User", "Male", "123456789", "ByQNbNHHDEO0jexVtJNzwQ==.KuH78qozHFbIjFjBFzM6JB9SXXfxzQTA7shpz4pfVfI=", "0123456789", "Manager" },
+                    { new Guid("40000000-0000-0000-0000-000000000001"), new DateTime(1985, 5, 15, 0, 0, 0, 0, DateTimeKind.Utc), "nguyenvana@example.com", "Nguyen Van A", "Male", "123456789012", "bjqXHGFrX46TDxU92NYqQA==.8PjGrL3jyFm5NBPNylGr/ZKYFalPa9yu4neuwSa9dqM=", "0123456781", "Customer" },
+                    { new Guid("40000000-0000-0000-0000-000000000002"), new DateTime(1990, 8, 20, 0, 0, 0, 0, DateTimeKind.Utc), "tranthib@example.com", "Tran Thi B", "Female", "234567890123", "m4jtkuQZ2b3JUJPf9egG8A==.Z0vGMQGmKX/VmCkkLWejgvt2DgtFBVEDbFwOlTyizhE=", "0123456782", "Customer" },
+                    { new Guid("40000000-0000-0000-0000-000000000003"), new DateTime(1988, 3, 10, 0, 0, 0, 0, DateTimeKind.Utc), "levanc@example.com", "Le Van C", "Male", "345678901234", "Unx2T1WB/bIkzp5YfFfdVQ==.uSphPB8m3fPdohHlZtVDHCObdsbbb2U8fyL0R0Izx1I=", "0123456783", "Customer" },
+                    { new Guid("50000000-0000-0000-0000-000000000001"), new DateTime(1992, 4, 25, 0, 0, 0, 0, DateTimeKind.Utc), "phamthid@example.com", "Pham Thi D", "Female", "456789012345", "OvU8osbC2PvGvaiQB4z9Mg==.SBRxGFUXYocUWu3JATrLZ2yHw1dBgCGrdPRlSbB6yGY=", "0234567891", "Staff" },
+                    { new Guid("50000000-0000-0000-0000-000000000002"), new DateTime(1991, 7, 15, 0, 0, 0, 0, DateTimeKind.Utc), "hoangvane@example.com", "Hoang Van E", "Male", "567890123456", "Ddb7qKl65jEtD8UOnQhX9w==.PiGquC4UUTFF0A7ZA2Iq77pGy/uwUwTxH6cv1zxUmgM=", "0234567892", "Staff" },
+                    { new Guid("50000000-0000-0000-0000-000000000003"), new DateTime(1989, 9, 5, 0, 0, 0, 0, DateTimeKind.Utc), "nguyenthif@example.com", "Nguyen Thi F", "Female", "678901234567", "tvlsYXqpAy0LPhIvh7lycA==.5xZvKr/OV/3pvnX46FcOthjHmhCw1I2PJIJo29q8mNs=", "0234567893", "Staff" },
+                    { new Guid("50000000-0000-0000-0000-000000000004"), new DateTime(1993, 2, 18, 0, 0, 0, 0, DateTimeKind.Utc), "tranvang@example.com", "Tran Van G", "Male", "789012345678", "VZ84NW3jvtZrWEtF93mQbQ==.zeCThl4SRfDzmzZdmTMJ/M4CNtyjUI3k/A/NcWO2E64=", "0234567894", "Staff" },
+                    { new Guid("50000000-0000-0000-0000-000000000005"), new DateTime(1987, 11, 30, 0, 0, 0, 0, DateTimeKind.Utc), "lethih@example.com", "Le Thi H", "Female", "890123456789", "XCPPIgM5LEK3yP11LzNlJA==./lNEZuLLRz9V5Sf+LaP6CPF8t0yEZd76AxIX82A7SCE=", "0234567895", "Staff" },
+                    { new Guid("50000000-0000-0000-0000-000000000006"), new DateTime(1990, 6, 12, 0, 0, 0, 0, DateTimeKind.Utc), "phamvani@example.com", "Pham Van I", "Male", "901234567890", "zTNW+TxAEMwO/UFHHwuGXg==.8tGphtAqrxhPPVEJxL65iLWngeba6aSYbrlqJP4pt1I=", "0234567896", "Staff" }
                 });
 
             migrationBuilder.InsertData(
@@ -308,9 +308,9 @@ namespace DataAccessObjects.Migrations
                 columns: new[] { "UserId", "LocationId", "RegistrationDate" },
                 values: new object[,]
                 {
-                    { new Guid("40000000-0000-0000-0000-000000000001"), new Guid("10000000-0000-0000-0000-000000000001"), new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { new Guid("40000000-0000-0000-0000-000000000002"), new Guid("10000000-0000-0000-0000-000000000002"), new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { new Guid("40000000-0000-0000-0000-000000000003"), new Guid("10000000-0000-0000-0000-000000000003"), new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { new Guid("40000000-0000-0000-0000-000000000001"), new Guid("10000000-0000-0000-0000-000000000001"), new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Utc) },
+                    { new Guid("40000000-0000-0000-0000-000000000002"), new Guid("10000000-0000-0000-0000-000000000002"), new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Utc) },
+                    { new Guid("40000000-0000-0000-0000-000000000003"), new Guid("10000000-0000-0000-0000-000000000003"), new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Utc) }
                 });
 
             migrationBuilder.InsertData(
@@ -336,11 +336,11 @@ namespace DataAccessObjects.Migrations
                 columns: new[] { "BookingId", "BookingDateTime", "CustomerId", "ServiceEndTime", "ServiceId", "ServiceStartTime", "ServiceUnitAmount", "StaffId", "Status", "TotalPrice" },
                 values: new object[,]
                 {
-                    { new Guid("60000000-0000-0000-0000-000000000001"), new DateTime(2025, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("40000000-0000-0000-0000-000000000001"), new DateTime(2025, 3, 3, 13, 0, 0, 0, DateTimeKind.Unspecified), new Guid("20000000-0000-0000-0000-000000000001"), new DateTime(2025, 3, 3, 10, 0, 0, 0, DateTimeKind.Unspecified), 3, new Guid("50000000-0000-0000-0000-000000000001"), 3, 270000f },
-                    { new Guid("60000000-0000-0000-0000-000000000002"), new DateTime(2025, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("40000000-0000-0000-0000-000000000002"), new DateTime(2025, 3, 4, 18, 0, 0, 0, DateTimeKind.Unspecified), new Guid("20000000-0000-0000-0000-000000000002"), new DateTime(2025, 3, 4, 14, 0, 0, 0, DateTimeKind.Unspecified), 4, new Guid("50000000-0000-0000-0000-000000000003"), 3, 600000f },
-                    { new Guid("60000000-0000-0000-0000-000000000003"), new DateTime(2025, 3, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("40000000-0000-0000-0000-000000000003"), new DateTime(2025, 3, 5, 18, 0, 0, 0, DateTimeKind.Unspecified), new Guid("20000000-0000-0000-0000-000000000004"), new DateTime(2025, 3, 5, 15, 0, 0, 0, DateTimeKind.Unspecified), 5, new Guid("50000000-0000-0000-0000-000000000005"), 3, 400000f },
-                    { new Guid("60000000-0000-0000-0000-000000000004"), new DateTime(2025, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("40000000-0000-0000-0000-000000000001"), new DateTime(2025, 3, 6, 11, 0, 0, 0, DateTimeKind.Unspecified), new Guid("20000000-0000-0000-0000-000000000001"), new DateTime(2025, 3, 6, 7, 0, 0, 0, DateTimeKind.Unspecified), 4, new Guid("50000000-0000-0000-0000-000000000002"), 1, 360000f },
-                    { new Guid("60000000-0000-0000-0000-000000000005"), new DateTime(2025, 3, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("40000000-0000-0000-0000-000000000002"), new DateTime(2025, 3, 7, 13, 0, 0, 0, DateTimeKind.Unspecified), new Guid("20000000-0000-0000-0000-000000000003"), new DateTime(2025, 3, 7, 8, 0, 0, 0, DateTimeKind.Unspecified), 5, new Guid("50000000-0000-0000-0000-000000000004"), 1, 1000000f }
+                    { new Guid("60000000-0000-0000-0000-000000000001"), new DateTime(2025, 3, 2, 0, 0, 0, 0, DateTimeKind.Utc), new Guid("40000000-0000-0000-0000-000000000001"), new DateTime(2025, 3, 3, 13, 0, 0, 0, DateTimeKind.Utc), new Guid("20000000-0000-0000-0000-000000000001"), new DateTime(2025, 3, 3, 10, 0, 0, 0, DateTimeKind.Utc), 3, new Guid("50000000-0000-0000-0000-000000000001"), 3, 270000f },
+                    { new Guid("60000000-0000-0000-0000-000000000002"), new DateTime(2025, 3, 3, 0, 0, 0, 0, DateTimeKind.Utc), new Guid("40000000-0000-0000-0000-000000000002"), new DateTime(2025, 3, 4, 18, 0, 0, 0, DateTimeKind.Utc), new Guid("20000000-0000-0000-0000-000000000002"), new DateTime(2025, 3, 4, 14, 0, 0, 0, DateTimeKind.Utc), 4, new Guid("50000000-0000-0000-0000-000000000003"), 3, 600000f },
+                    { new Guid("60000000-0000-0000-0000-000000000003"), new DateTime(2025, 3, 4, 0, 0, 0, 0, DateTimeKind.Utc), new Guid("40000000-0000-0000-0000-000000000003"), new DateTime(2025, 3, 5, 18, 0, 0, 0, DateTimeKind.Utc), new Guid("20000000-0000-0000-0000-000000000004"), new DateTime(2025, 3, 5, 15, 0, 0, 0, DateTimeKind.Utc), 5, new Guid("50000000-0000-0000-0000-000000000005"), 3, 400000f },
+                    { new Guid("60000000-0000-0000-0000-000000000004"), new DateTime(2025, 3, 5, 0, 0, 0, 0, DateTimeKind.Utc), new Guid("40000000-0000-0000-0000-000000000001"), new DateTime(2025, 3, 6, 11, 0, 0, 0, DateTimeKind.Utc), new Guid("20000000-0000-0000-0000-000000000001"), new DateTime(2025, 3, 6, 7, 0, 0, 0, DateTimeKind.Utc), 4, new Guid("50000000-0000-0000-0000-000000000002"), 1, 360000f },
+                    { new Guid("60000000-0000-0000-0000-000000000005"), new DateTime(2025, 3, 6, 0, 0, 0, 0, DateTimeKind.Utc), new Guid("40000000-0000-0000-0000-000000000002"), new DateTime(2025, 3, 7, 13, 0, 0, 0, DateTimeKind.Utc), new Guid("20000000-0000-0000-0000-000000000003"), new DateTime(2025, 3, 7, 8, 0, 0, 0, DateTimeKind.Utc), 5, new Guid("50000000-0000-0000-0000-000000000004"), 1, 1000000f }
                 });
 
             migrationBuilder.InsertData(
@@ -348,9 +348,9 @@ namespace DataAccessObjects.Migrations
                 columns: new[] { "ReportId", "BookingId", "ReportDateTime", "ReportText" },
                 values: new object[,]
                 {
-                    { new Guid("a0000000-0000-0000-0000-000000000001"), new Guid("60000000-0000-0000-0000-000000000001"), new DateTime(2025, 3, 3, 13, 15, 0, 0, DateTimeKind.Unspecified), "Cleaned living room, kitchen, 2 bathrooms, and 3 bedrooms. All surfaces dusted and floors mopped." },
-                    { new Guid("a0000000-0000-0000-0000-000000000002"), new Guid("60000000-0000-0000-0000-000000000002"), new DateTime(2025, 3, 4, 18, 20, 0, 0, DateTimeKind.Unspecified), "Took care of the child, prepared lunch, helped with homework, and played educational games." },
-                    { new Guid("a0000000-0000-0000-0000-000000000003"), new Guid("60000000-0000-0000-0000-000000000003"), new DateTime(2025, 3, 5, 18, 10, 0, 0, DateTimeKind.Unspecified), "Prepared 5 dishes: spring rolls, pho, grilled chicken, stir-fried vegetables, and mango sticky rice for dessert." }
+                    { new Guid("a0000000-0000-0000-0000-000000000001"), new Guid("60000000-0000-0000-0000-000000000001"), new DateTime(2025, 3, 3, 13, 15, 0, 0, DateTimeKind.Utc), "Cleaned living room, kitchen, 2 bathrooms, and 3 bedrooms. All surfaces dusted and floors mopped." },
+                    { new Guid("a0000000-0000-0000-0000-000000000002"), new Guid("60000000-0000-0000-0000-000000000002"), new DateTime(2025, 3, 4, 18, 20, 0, 0, DateTimeKind.Utc), "Took care of the child, prepared lunch, helped with homework, and played educational games." },
+                    { new Guid("a0000000-0000-0000-0000-000000000003"), new Guid("60000000-0000-0000-0000-000000000003"), new DateTime(2025, 3, 5, 18, 10, 0, 0, DateTimeKind.Utc), "Prepared 5 dishes: spring rolls, pho, grilled chicken, stir-fried vegetables, and mango sticky rice for dessert." }
                 });
 
             migrationBuilder.InsertData(
@@ -358,11 +358,11 @@ namespace DataAccessObjects.Migrations
                 columns: new[] { "PaymentId", "Amount", "BookingId", "PaymentCreatedAt", "PaymentMethod", "PaymentPaidAt", "PaymentStatus" },
                 values: new object[,]
                 {
-                    { new Guid("70000000-0000-0000-0000-000000000001"), 270000m, new Guid("60000000-0000-0000-0000-000000000001"), new DateTime(2025, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, new DateTime(2025, 3, 2, 1, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { new Guid("70000000-0000-0000-0000-000000000002"), 600000m, new Guid("60000000-0000-0000-0000-000000000002"), new DateTime(2025, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, new DateTime(2025, 3, 4, 18, 30, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { new Guid("70000000-0000-0000-0000-000000000003"), 400000m, new Guid("60000000-0000-0000-0000-000000000003"), new DateTime(2025, 3, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, new DateTime(2025, 3, 4, 2, 0, 0, 0, DateTimeKind.Unspecified), 1 },
-                    { new Guid("70000000-0000-0000-0000-000000000004"), 360000m, new Guid("60000000-0000-0000-0000-000000000004"), new DateTime(2025, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0 },
-                    { new Guid("70000000-0000-0000-0000-000000000005"), 1000000m, new Guid("60000000-0000-0000-0000-000000000005"), new DateTime(2025, 3, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0 }
+                    { new Guid("70000000-0000-0000-0000-000000000001"), 270000m, new Guid("60000000-0000-0000-0000-000000000001"), new DateTime(2025, 3, 2, 0, 0, 0, 0, DateTimeKind.Utc), 2, new DateTime(2025, 3, 2, 1, 0, 0, 0, DateTimeKind.Utc), 1 },
+                    { new Guid("70000000-0000-0000-0000-000000000002"), 600000m, new Guid("60000000-0000-0000-0000-000000000002"), new DateTime(2025, 3, 3, 0, 0, 0, 0, DateTimeKind.Utc), 3, new DateTime(2025, 3, 4, 18, 30, 0, 0, DateTimeKind.Utc), 1 },
+                    { new Guid("70000000-0000-0000-0000-000000000003"), 400000m, new Guid("60000000-0000-0000-0000-000000000003"), new DateTime(2025, 3, 4, 0, 0, 0, 0, DateTimeKind.Utc), 1, new DateTime(2025, 3, 4, 2, 0, 0, 0, DateTimeKind.Utc), 1 },
+                    { new Guid("70000000-0000-0000-0000-000000000004"), 360000m, new Guid("60000000-0000-0000-0000-000000000004"), new DateTime(2025, 3, 5, 0, 0, 0, 0, DateTimeKind.Utc), 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0 },
+                    { new Guid("70000000-0000-0000-0000-000000000005"), 1000000m, new Guid("60000000-0000-0000-0000-000000000005"), new DateTime(2025, 3, 6, 0, 0, 0, 0, DateTimeKind.Utc), 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -370,15 +370,15 @@ namespace DataAccessObjects.Migrations
                 columns: new[] { "ReviewId", "BookingId", "Comment", "RatingStar", "ReviewDateTime" },
                 values: new object[,]
                 {
-                    { new Guid("80000000-0000-0000-0000-000000000001"), new Guid("60000000-0000-0000-0000-000000000001"), "Excellent cleaning service, very thorough and professional!", 5, new DateTime(2025, 3, 3, 15, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { new Guid("80000000-0000-0000-0000-000000000002"), new Guid("60000000-0000-0000-0000-000000000002"), "Great childcare service, my child was very happy.", 4, new DateTime(2025, 3, 4, 21, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { new Guid("80000000-0000-0000-0000-000000000003"), new Guid("60000000-0000-0000-0000-000000000003"), "Amazing cooking! The dishes were delicious and beautifully presented.", 5, new DateTime(2025, 3, 5, 19, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { new Guid("80000000-0000-0000-0000-000000000001"), new Guid("60000000-0000-0000-0000-000000000001"), "Excellent cleaning service, very thorough and professional!", 5, new DateTime(2025, 3, 3, 15, 0, 0, 0, DateTimeKind.Utc) },
+                    { new Guid("80000000-0000-0000-0000-000000000002"), new Guid("60000000-0000-0000-0000-000000000002"), "Great childcare service, my child was very happy.", 4, new DateTime(2025, 3, 4, 21, 0, 0, 0, DateTimeKind.Utc) },
+                    { new Guid("80000000-0000-0000-0000-000000000003"), new Guid("60000000-0000-0000-0000-000000000003"), "Amazing cooking! The dishes were delicious and beautifully presented.", 5, new DateTime(2025, 3, 5, 19, 0, 0, 0, DateTimeKind.Utc) }
                 });
 
             migrationBuilder.InsertData(
                 table: "Refunds",
                 columns: new[] { "RefundId", "PaymentId", "RefundAmount", "RefundDateTime", "RefundReason" },
-                values: new object[] { new Guid("90000000-0000-0000-0000-000000000001"), new Guid("70000000-0000-0000-0000-000000000003"), 100000m, new DateTime(2025, 3, 5, 2, 0, 0, 0, DateTimeKind.Unspecified), "One dish was not prepared as requested" });
+                values: new object[] { new Guid("90000000-0000-0000-0000-000000000001"), new Guid("70000000-0000-0000-0000-000000000003"), 100000m, new DateTime(2025, 3, 5, 2, 0, 0, 0, DateTimeKind.Utc), "One dish was not prepared as requested" });
 
             migrationBuilder.InsertData(
                 table: "ReportImages",

@@ -3,8 +3,8 @@ using System;
 using MONKEY5.DataAccessObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -18,39 +18,39 @@ namespace DataAccessObjects.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "9.0.3")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("MONKEY5.BusinessObjects.Booking", b =>
                 {
                     b.Property<Guid>("BookingId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("BookingDateTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("CustomerId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("ServiceEndTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("ServiceId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("ServiceStartTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("ServiceUnitAmount")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<Guid>("StaffId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<int>("Status")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<float>("TotalPrice")
                         .HasColumnType("real");
@@ -69,11 +69,11 @@ namespace DataAccessObjects.Migrations
                         new
                         {
                             BookingId = new Guid("60000000-0000-0000-0000-000000000001"),
-                            BookingDateTime = new DateTime(2025, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BookingDateTime = new DateTime(2025, 3, 2, 0, 0, 0, 0, DateTimeKind.Utc),
                             CustomerId = new Guid("40000000-0000-0000-0000-000000000001"),
-                            ServiceEndTime = new DateTime(2025, 3, 3, 13, 0, 0, 0, DateTimeKind.Unspecified),
+                            ServiceEndTime = new DateTime(2025, 3, 3, 13, 0, 0, 0, DateTimeKind.Utc),
                             ServiceId = new Guid("20000000-0000-0000-0000-000000000001"),
-                            ServiceStartTime = new DateTime(2025, 3, 3, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            ServiceStartTime = new DateTime(2025, 3, 3, 10, 0, 0, 0, DateTimeKind.Utc),
                             ServiceUnitAmount = 3,
                             StaffId = new Guid("50000000-0000-0000-0000-000000000001"),
                             Status = 3,
@@ -82,11 +82,11 @@ namespace DataAccessObjects.Migrations
                         new
                         {
                             BookingId = new Guid("60000000-0000-0000-0000-000000000002"),
-                            BookingDateTime = new DateTime(2025, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BookingDateTime = new DateTime(2025, 3, 3, 0, 0, 0, 0, DateTimeKind.Utc),
                             CustomerId = new Guid("40000000-0000-0000-0000-000000000002"),
-                            ServiceEndTime = new DateTime(2025, 3, 4, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            ServiceEndTime = new DateTime(2025, 3, 4, 18, 0, 0, 0, DateTimeKind.Utc),
                             ServiceId = new Guid("20000000-0000-0000-0000-000000000002"),
-                            ServiceStartTime = new DateTime(2025, 3, 4, 14, 0, 0, 0, DateTimeKind.Unspecified),
+                            ServiceStartTime = new DateTime(2025, 3, 4, 14, 0, 0, 0, DateTimeKind.Utc),
                             ServiceUnitAmount = 4,
                             StaffId = new Guid("50000000-0000-0000-0000-000000000003"),
                             Status = 3,
@@ -95,11 +95,11 @@ namespace DataAccessObjects.Migrations
                         new
                         {
                             BookingId = new Guid("60000000-0000-0000-0000-000000000003"),
-                            BookingDateTime = new DateTime(2025, 3, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BookingDateTime = new DateTime(2025, 3, 4, 0, 0, 0, 0, DateTimeKind.Utc),
                             CustomerId = new Guid("40000000-0000-0000-0000-000000000003"),
-                            ServiceEndTime = new DateTime(2025, 3, 5, 18, 0, 0, 0, DateTimeKind.Unspecified),
+                            ServiceEndTime = new DateTime(2025, 3, 5, 18, 0, 0, 0, DateTimeKind.Utc),
                             ServiceId = new Guid("20000000-0000-0000-0000-000000000004"),
-                            ServiceStartTime = new DateTime(2025, 3, 5, 15, 0, 0, 0, DateTimeKind.Unspecified),
+                            ServiceStartTime = new DateTime(2025, 3, 5, 15, 0, 0, 0, DateTimeKind.Utc),
                             ServiceUnitAmount = 5,
                             StaffId = new Guid("50000000-0000-0000-0000-000000000005"),
                             Status = 3,
@@ -108,11 +108,11 @@ namespace DataAccessObjects.Migrations
                         new
                         {
                             BookingId = new Guid("60000000-0000-0000-0000-000000000004"),
-                            BookingDateTime = new DateTime(2025, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BookingDateTime = new DateTime(2025, 3, 5, 0, 0, 0, 0, DateTimeKind.Utc),
                             CustomerId = new Guid("40000000-0000-0000-0000-000000000001"),
-                            ServiceEndTime = new DateTime(2025, 3, 6, 11, 0, 0, 0, DateTimeKind.Unspecified),
+                            ServiceEndTime = new DateTime(2025, 3, 6, 11, 0, 0, 0, DateTimeKind.Utc),
                             ServiceId = new Guid("20000000-0000-0000-0000-000000000001"),
-                            ServiceStartTime = new DateTime(2025, 3, 6, 7, 0, 0, 0, DateTimeKind.Unspecified),
+                            ServiceStartTime = new DateTime(2025, 3, 6, 7, 0, 0, 0, DateTimeKind.Utc),
                             ServiceUnitAmount = 4,
                             StaffId = new Guid("50000000-0000-0000-0000-000000000002"),
                             Status = 1,
@@ -121,11 +121,11 @@ namespace DataAccessObjects.Migrations
                         new
                         {
                             BookingId = new Guid("60000000-0000-0000-0000-000000000005"),
-                            BookingDateTime = new DateTime(2025, 3, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            BookingDateTime = new DateTime(2025, 3, 6, 0, 0, 0, 0, DateTimeKind.Utc),
                             CustomerId = new Guid("40000000-0000-0000-0000-000000000002"),
-                            ServiceEndTime = new DateTime(2025, 3, 7, 13, 0, 0, 0, DateTimeKind.Unspecified),
+                            ServiceEndTime = new DateTime(2025, 3, 7, 13, 0, 0, 0, DateTimeKind.Utc),
                             ServiceId = new Guid("20000000-0000-0000-0000-000000000003"),
-                            ServiceStartTime = new DateTime(2025, 3, 7, 8, 0, 0, 0, DateTimeKind.Unspecified),
+                            ServiceStartTime = new DateTime(2025, 3, 7, 8, 0, 0, 0, DateTimeKind.Utc),
                             ServiceUnitAmount = 5,
                             StaffId = new Guid("50000000-0000-0000-0000-000000000004"),
                             Status = 1,
@@ -137,17 +137,17 @@ namespace DataAccessObjects.Migrations
                 {
                     b.Property<Guid>("ReportId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("BookingId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("ReportDateTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ReportText")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("ReportId");
 
@@ -161,21 +161,21 @@ namespace DataAccessObjects.Migrations
                         {
                             ReportId = new Guid("a0000000-0000-0000-0000-000000000001"),
                             BookingId = new Guid("60000000-0000-0000-0000-000000000001"),
-                            ReportDateTime = new DateTime(2025, 3, 3, 13, 15, 0, 0, DateTimeKind.Unspecified),
+                            ReportDateTime = new DateTime(2025, 3, 3, 13, 15, 0, 0, DateTimeKind.Utc),
                             ReportText = "Cleaned living room, kitchen, 2 bathrooms, and 3 bedrooms. All surfaces dusted and floors mopped."
                         },
                         new
                         {
                             ReportId = new Guid("a0000000-0000-0000-0000-000000000002"),
                             BookingId = new Guid("60000000-0000-0000-0000-000000000002"),
-                            ReportDateTime = new DateTime(2025, 3, 4, 18, 20, 0, 0, DateTimeKind.Unspecified),
+                            ReportDateTime = new DateTime(2025, 3, 4, 18, 20, 0, 0, DateTimeKind.Utc),
                             ReportText = "Took care of the child, prepared lunch, helped with homework, and played educational games."
                         },
                         new
                         {
                             ReportId = new Guid("a0000000-0000-0000-0000-000000000003"),
                             BookingId = new Guid("60000000-0000-0000-0000-000000000003"),
-                            ReportDateTime = new DateTime(2025, 3, 5, 18, 10, 0, 0, DateTimeKind.Unspecified),
+                            ReportDateTime = new DateTime(2025, 3, 5, 18, 10, 0, 0, DateTimeKind.Utc),
                             ReportText = "Prepared 5 dishes: spring rolls, pho, grilled chicken, stir-fried vegetables, and mango sticky rice for dessert."
                         });
                 });
@@ -184,23 +184,23 @@ namespace DataAccessObjects.Migrations
                 {
                     b.Property<Guid>("LocationId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PostalCode")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("LocationId");
 
@@ -237,25 +237,25 @@ namespace DataAccessObjects.Migrations
                 {
                     b.Property<Guid>("PaymentId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(10,2)");
 
                     b.Property<Guid>("BookingId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("PaymentCreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("PaymentMethod")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("PaymentPaidAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("PaymentStatus")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasKey("PaymentId");
 
@@ -270,9 +270,9 @@ namespace DataAccessObjects.Migrations
                             PaymentId = new Guid("70000000-0000-0000-0000-000000000001"),
                             Amount = 270000m,
                             BookingId = new Guid("60000000-0000-0000-0000-000000000001"),
-                            PaymentCreatedAt = new DateTime(2025, 3, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentCreatedAt = new DateTime(2025, 3, 2, 0, 0, 0, 0, DateTimeKind.Utc),
                             PaymentMethod = 2,
-                            PaymentPaidAt = new DateTime(2025, 3, 2, 1, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentPaidAt = new DateTime(2025, 3, 2, 1, 0, 0, 0, DateTimeKind.Utc),
                             PaymentStatus = 1
                         },
                         new
@@ -280,9 +280,9 @@ namespace DataAccessObjects.Migrations
                             PaymentId = new Guid("70000000-0000-0000-0000-000000000002"),
                             Amount = 600000m,
                             BookingId = new Guid("60000000-0000-0000-0000-000000000002"),
-                            PaymentCreatedAt = new DateTime(2025, 3, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentCreatedAt = new DateTime(2025, 3, 3, 0, 0, 0, 0, DateTimeKind.Utc),
                             PaymentMethod = 3,
-                            PaymentPaidAt = new DateTime(2025, 3, 4, 18, 30, 0, 0, DateTimeKind.Unspecified),
+                            PaymentPaidAt = new DateTime(2025, 3, 4, 18, 30, 0, 0, DateTimeKind.Utc),
                             PaymentStatus = 1
                         },
                         new
@@ -290,9 +290,9 @@ namespace DataAccessObjects.Migrations
                             PaymentId = new Guid("70000000-0000-0000-0000-000000000003"),
                             Amount = 400000m,
                             BookingId = new Guid("60000000-0000-0000-0000-000000000003"),
-                            PaymentCreatedAt = new DateTime(2025, 3, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentCreatedAt = new DateTime(2025, 3, 4, 0, 0, 0, 0, DateTimeKind.Utc),
                             PaymentMethod = 1,
-                            PaymentPaidAt = new DateTime(2025, 3, 4, 2, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentPaidAt = new DateTime(2025, 3, 4, 2, 0, 0, 0, DateTimeKind.Utc),
                             PaymentStatus = 1
                         },
                         new
@@ -300,7 +300,7 @@ namespace DataAccessObjects.Migrations
                             PaymentId = new Guid("70000000-0000-0000-0000-000000000004"),
                             Amount = 360000m,
                             BookingId = new Guid("60000000-0000-0000-0000-000000000004"),
-                            PaymentCreatedAt = new DateTime(2025, 3, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentCreatedAt = new DateTime(2025, 3, 5, 0, 0, 0, 0, DateTimeKind.Utc),
                             PaymentMethod = 2,
                             PaymentPaidAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PaymentStatus = 0
@@ -310,7 +310,7 @@ namespace DataAccessObjects.Migrations
                             PaymentId = new Guid("70000000-0000-0000-0000-000000000005"),
                             Amount = 1000000m,
                             BookingId = new Guid("60000000-0000-0000-0000-000000000005"),
-                            PaymentCreatedAt = new DateTime(2025, 3, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            PaymentCreatedAt = new DateTime(2025, 3, 6, 0, 0, 0, 0, DateTimeKind.Utc),
                             PaymentMethod = 1,
                             PaymentPaidAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             PaymentStatus = 0
@@ -321,19 +321,19 @@ namespace DataAccessObjects.Migrations
                 {
                     b.Property<Guid>("RefundId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("PaymentId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<decimal>("RefundAmount")
                         .HasColumnType("decimal(10,2)");
 
                     b.Property<DateTime>("RefundDateTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("RefundReason")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("RefundId");
 
@@ -348,7 +348,7 @@ namespace DataAccessObjects.Migrations
                             RefundId = new Guid("90000000-0000-0000-0000-000000000001"),
                             PaymentId = new Guid("70000000-0000-0000-0000-000000000003"),
                             RefundAmount = 100000m,
-                            RefundDateTime = new DateTime(2025, 3, 5, 2, 0, 0, 0, DateTimeKind.Unspecified),
+                            RefundDateTime = new DateTime(2025, 3, 5, 2, 0, 0, 0, DateTimeKind.Utc),
                             RefundReason = "One dish was not prepared as requested"
                         });
                 });
@@ -357,14 +357,14 @@ namespace DataAccessObjects.Migrations
                 {
                     b.Property<Guid>("ReportImageId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("ImagePath")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<Guid>("ReportId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("ReportImageId");
 
@@ -415,19 +415,19 @@ namespace DataAccessObjects.Migrations
                 {
                     b.Property<Guid>("ReviewId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("BookingId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Comment")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("RatingStar")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("ReviewDateTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("ReviewId");
 
@@ -443,7 +443,7 @@ namespace DataAccessObjects.Migrations
                             BookingId = new Guid("60000000-0000-0000-0000-000000000001"),
                             Comment = "Excellent cleaning service, very thorough and professional!",
                             RatingStar = 5,
-                            ReviewDateTime = new DateTime(2025, 3, 3, 15, 0, 0, 0, DateTimeKind.Unspecified)
+                            ReviewDateTime = new DateTime(2025, 3, 3, 15, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -451,7 +451,7 @@ namespace DataAccessObjects.Migrations
                             BookingId = new Guid("60000000-0000-0000-0000-000000000002"),
                             Comment = "Great childcare service, my child was very happy.",
                             RatingStar = 4,
-                            ReviewDateTime = new DateTime(2025, 3, 4, 21, 0, 0, 0, DateTimeKind.Unspecified)
+                            ReviewDateTime = new DateTime(2025, 3, 4, 21, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
@@ -459,7 +459,7 @@ namespace DataAccessObjects.Migrations
                             BookingId = new Guid("60000000-0000-0000-0000-000000000003"),
                             Comment = "Amazing cooking! The dishes were delicious and beautifully presented.",
                             RatingStar = 5,
-                            ReviewDateTime = new DateTime(2025, 3, 5, 19, 0, 0, 0, DateTimeKind.Unspecified)
+                            ReviewDateTime = new DateTime(2025, 3, 5, 19, 0, 0, 0, DateTimeKind.Utc)
                         });
                 });
 
@@ -467,22 +467,22 @@ namespace DataAccessObjects.Migrations
                 {
                     b.Property<Guid>("ServiceId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("ServiceName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<decimal>("UnitPrice")
                         .HasColumnType("decimal(10,2)");
 
                     b.Property<string>("UnitType")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("ServiceId");
 
@@ -527,37 +527,37 @@ namespace DataAccessObjects.Migrations
                 {
                     b.Property<Guid>("UserId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime?>("DateOfBirth")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("text");
 
                     b.Property<string>("FullName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Gender")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("IdNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Role")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("UserId");
 
@@ -574,10 +574,10 @@ namespace DataAccessObjects.Migrations
                     b.HasBaseType("MONKEY5.BusinessObjects.User");
 
                     b.Property<Guid>("LocationId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("RegistrationDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasIndex("LocationId");
 
@@ -587,44 +587,44 @@ namespace DataAccessObjects.Migrations
                         new
                         {
                             UserId = new Guid("40000000-0000-0000-0000-000000000001"),
-                            DateOfBirth = new DateTime(1985, 5, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateTime(1985, 5, 15, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "nguyenvana@example.com",
                             FullName = "Nguyen Van A",
                             Gender = "Male",
                             IdNumber = "123456789012",
-                            PasswordHash = "KVbfZ/XvEB5ZatOdzu0d5A==.MGZuYGwdFfAYBtS553aGBgcVBHOS9Ec4VSMIwWAvNkw=",
+                            PasswordHash = "bjqXHGFrX46TDxU92NYqQA==.8PjGrL3jyFm5NBPNylGr/ZKYFalPa9yu4neuwSa9dqM=",
                             PhoneNumber = "0123456781",
                             Role = "Customer",
                             LocationId = new Guid("10000000-0000-0000-0000-000000000001"),
-                            RegistrationDate = new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            RegistrationDate = new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             UserId = new Guid("40000000-0000-0000-0000-000000000002"),
-                            DateOfBirth = new DateTime(1990, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateTime(1990, 8, 20, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "tranthib@example.com",
                             FullName = "Tran Thi B",
                             Gender = "Female",
                             IdNumber = "234567890123",
-                            PasswordHash = "yzJMGh0cPBWVj6Om1zFddQ==.qzaxvQMytQS/OCjRuFou6fwqymWOK+ZzZA4H+2sdm2s=",
+                            PasswordHash = "m4jtkuQZ2b3JUJPf9egG8A==.Z0vGMQGmKX/VmCkkLWejgvt2DgtFBVEDbFwOlTyizhE=",
                             PhoneNumber = "0123456782",
                             Role = "Customer",
                             LocationId = new Guid("10000000-0000-0000-0000-000000000002"),
-                            RegistrationDate = new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            RegistrationDate = new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
                         {
                             UserId = new Guid("40000000-0000-0000-0000-000000000003"),
-                            DateOfBirth = new DateTime(1988, 3, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateTime(1988, 3, 10, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "levanc@example.com",
                             FullName = "Le Van C",
                             Gender = "Male",
                             IdNumber = "345678901234",
-                            PasswordHash = "SFPd6oZP+TNlkth1KUyA9w==.k0RbpTR1fgpb90ZU7mcXgH+25rLTh/wAEigXY7ymnq8=",
+                            PasswordHash = "Unx2T1WB/bIkzp5YfFfdVQ==.uSphPB8m3fPdohHlZtVDHCObdsbbb2U8fyL0R0Izx1I=",
                             PhoneNumber = "0123456783",
                             Role = "Customer",
                             LocationId = new Guid("10000000-0000-0000-0000-000000000003"),
-                            RegistrationDate = new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            RegistrationDate = new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         });
                 });
 
@@ -638,12 +638,12 @@ namespace DataAccessObjects.Migrations
                         new
                         {
                             UserId = new Guid("30000000-0000-0000-0000-000000000001"),
-                            DateOfBirth = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "admin@monkey5.com",
                             FullName = "Admin User",
                             Gender = "Male",
                             IdNumber = "123456789",
-                            PasswordHash = "gOt77yMpA8P/1Jpyq6AiVQ==.so7j6ES/rMQDs9/eTPaJRp3u5owBEiFzIxWBQXcDDWI=",
+                            PasswordHash = "ByQNbNHHDEO0jexVtJNzwQ==.KuH78qozHFbIjFjBFzM6JB9SXXfxzQTA7shpz4pfVfI=",
                             PhoneNumber = "0123456789",
                             Role = "Manager"
                         });
@@ -654,10 +654,10 @@ namespace DataAccessObjects.Migrations
                     b.HasBaseType("MONKEY5.BusinessObjects.User");
 
                     b.Property<double>("AvgRating")
-                        .HasColumnType("float");
+                        .HasColumnType("double precision");
 
                     b.Property<int>("Status")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.ToTable("Staffs", (string)null);
 
@@ -665,12 +665,12 @@ namespace DataAccessObjects.Migrations
                         new
                         {
                             UserId = new Guid("50000000-0000-0000-0000-000000000001"),
-                            DateOfBirth = new DateTime(1992, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateTime(1992, 4, 25, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "phamthid@example.com",
                             FullName = "Pham Thi D",
                             Gender = "Female",
                             IdNumber = "456789012345",
-                            PasswordHash = "W12KKBiq0WRW8khm+0frKw==.YRKi6vQ+r1lZpXpXxIgU5wa92lChBRJXG1hsFHN3nN4=",
+                            PasswordHash = "OvU8osbC2PvGvaiQB4z9Mg==.SBRxGFUXYocUWu3JATrLZ2yHw1dBgCGrdPRlSbB6yGY=",
                             PhoneNumber = "0234567891",
                             Role = "Staff",
                             AvgRating = 4.5,
@@ -679,12 +679,12 @@ namespace DataAccessObjects.Migrations
                         new
                         {
                             UserId = new Guid("50000000-0000-0000-0000-000000000002"),
-                            DateOfBirth = new DateTime(1991, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateTime(1991, 7, 15, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "hoangvane@example.com",
                             FullName = "Hoang Van E",
                             Gender = "Male",
                             IdNumber = "567890123456",
-                            PasswordHash = "OCEnvfndsIm0T67TJlj9jw==.abeVgX0/+v9oo5hdiATzOUOUMcPLTrNEA//3iocKC80=",
+                            PasswordHash = "Ddb7qKl65jEtD8UOnQhX9w==.PiGquC4UUTFF0A7ZA2Iq77pGy/uwUwTxH6cv1zxUmgM=",
                             PhoneNumber = "0234567892",
                             Role = "Staff",
                             AvgRating = 4.2000000000000002,
@@ -693,12 +693,12 @@ namespace DataAccessObjects.Migrations
                         new
                         {
                             UserId = new Guid("50000000-0000-0000-0000-000000000003"),
-                            DateOfBirth = new DateTime(1989, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateTime(1989, 9, 5, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "nguyenthif@example.com",
                             FullName = "Nguyen Thi F",
                             Gender = "Female",
                             IdNumber = "678901234567",
-                            PasswordHash = "TfjsN//OmUqN3+g8IXSDiw==.9m3a6STJ4tSBC3adHhzfQ1rEqd4tpbzCoby+6aUyDMY=",
+                            PasswordHash = "tvlsYXqpAy0LPhIvh7lycA==.5xZvKr/OV/3pvnX46FcOthjHmhCw1I2PJIJo29q8mNs=",
                             PhoneNumber = "0234567893",
                             Role = "Staff",
                             AvgRating = 4.7999999999999998,
@@ -707,12 +707,12 @@ namespace DataAccessObjects.Migrations
                         new
                         {
                             UserId = new Guid("50000000-0000-0000-0000-000000000004"),
-                            DateOfBirth = new DateTime(1993, 2, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateTime(1993, 2, 18, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "tranvang@example.com",
                             FullName = "Tran Van G",
                             Gender = "Male",
                             IdNumber = "789012345678",
-                            PasswordHash = "8kWU7grc3tr8pp9fS2um3g==.hgaLxaOhcW76o6d4ixCJnF8MnY4g8jiAUtekUTITgpQ=",
+                            PasswordHash = "VZ84NW3jvtZrWEtF93mQbQ==.zeCThl4SRfDzmzZdmTMJ/M4CNtyjUI3k/A/NcWO2E64=",
                             PhoneNumber = "0234567894",
                             Role = "Staff",
                             AvgRating = 4.2999999999999998,
@@ -721,12 +721,12 @@ namespace DataAccessObjects.Migrations
                         new
                         {
                             UserId = new Guid("50000000-0000-0000-0000-000000000005"),
-                            DateOfBirth = new DateTime(1987, 11, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateTime(1987, 11, 30, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "lethih@example.com",
                             FullName = "Le Thi H",
                             Gender = "Female",
                             IdNumber = "890123456789",
-                            PasswordHash = "vC3eO8x7B1vw0VxnT4AcZA==.9FzoJpeFflHS9/uHP2UJo2dACGOIE+a0BBSEb9OIl3o=",
+                            PasswordHash = "XCPPIgM5LEK3yP11LzNlJA==./lNEZuLLRz9V5Sf+LaP6CPF8t0yEZd76AxIX82A7SCE=",
                             PhoneNumber = "0234567895",
                             Role = "Staff",
                             AvgRating = 4.9000000000000004,
@@ -735,12 +735,12 @@ namespace DataAccessObjects.Migrations
                         new
                         {
                             UserId = new Guid("50000000-0000-0000-0000-000000000006"),
-                            DateOfBirth = new DateTime(1990, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateOfBirth = new DateTime(1990, 6, 12, 0, 0, 0, 0, DateTimeKind.Utc),
                             Email = "phamvani@example.com",
                             FullName = "Pham Van I",
                             Gender = "Male",
                             IdNumber = "901234567890",
-                            PasswordHash = "iWjGWUk3SEjow6oQF6pd0g==.hIGIyYXak9hnvgrT3ez3Gj3O9KRthzQBaJx53xUKTd8=",
+                            PasswordHash = "zTNW+TxAEMwO/UFHHwuGXg==.8tGphtAqrxhPPVEJxL65iLWngeba6aSYbrlqJP4pt1I=",
                             PhoneNumber = "0234567896",
                             Role = "Staff",
                             AvgRating = 4.5999999999999996,

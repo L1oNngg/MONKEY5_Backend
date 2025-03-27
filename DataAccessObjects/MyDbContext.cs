@@ -255,7 +255,7 @@ namespace MONKEY5.DataAccessObjects
                 Email = "admin@monkey5.com",
                 PasswordHash = PasswordHasher.HashPassword("admin"), // Hash the password
                 PhoneNumber = "0123456789",
-                DateOfBirth = new DateTime(1990, 1, 1),
+                DateOfBirth = new DateTime(1990, 1, 1, 0, 0, 0, DateTimeKind.Utc),
                 Gender = "Male",
                 IdNumber = "123456789",
                 Role = MONKEY5.BusinessObjects.Helpers.Role.Manager
@@ -273,12 +273,12 @@ namespace MONKEY5.DataAccessObjects
                     Email = "nguyenvana@example.com",
                     PasswordHash = PasswordHasher.HashPassword("customer"),
                     PhoneNumber = "0123456781",
-                    DateOfBirth = new DateTime(1985, 5, 15),
+                    DateOfBirth = new DateTime(1985, 5, 15, 0, 0, 0, DateTimeKind.Utc),
                     Gender = "Male",
                     IdNumber = "123456789012",
                     Role = MONKEY5.BusinessObjects.Helpers.Role.Customer,
                     LocationId = locations[0].LocationId,
-                    RegistrationDate = new DateTime(2025, 3, 1)
+                    RegistrationDate = new DateTime(2025, 3, 1, 0, 0, 0, DateTimeKind.Utc)
                 },
                 new Customer
                 {
@@ -287,12 +287,12 @@ namespace MONKEY5.DataAccessObjects
                     Email = "tranthib@example.com",
                     PasswordHash = PasswordHasher.HashPassword("customer"),
                     PhoneNumber = "0123456782",
-                    DateOfBirth = new DateTime(1990, 8, 20),
+                    DateOfBirth = new DateTime(1990, 8, 20, 0, 0, 0, DateTimeKind.Utc),
                     Gender = "Female",
                     IdNumber = "234567890123",
                     Role = MONKEY5.BusinessObjects.Helpers.Role.Customer,
                     LocationId = locations[1].LocationId,
-                    RegistrationDate = new DateTime(2025, 3, 1)
+                    RegistrationDate = new DateTime(2025, 3, 1, 0, 0, 0, DateTimeKind.Utc)
                 },
                 new Customer
                 {
@@ -301,12 +301,12 @@ namespace MONKEY5.DataAccessObjects
                     Email = "levanc@example.com",
                     PasswordHash = PasswordHasher.HashPassword("customer"),
                     PhoneNumber = "0123456783",
-                    DateOfBirth = new DateTime(1988, 3, 10),
+                    DateOfBirth = new DateTime(1988, 3, 10, 0, 0, 0, DateTimeKind.Utc),
                     Gender = "Male",
                     IdNumber = "345678901234",
                     Role = MONKEY5.BusinessObjects.Helpers.Role.Customer,
                     LocationId = locations[2].LocationId,
-                    RegistrationDate = new DateTime(2025, 3, 1)
+                    RegistrationDate = new DateTime(2025, 3, 1, 0, 0, 0, DateTimeKind.Utc)
                 }
             };
 
@@ -323,7 +323,7 @@ namespace MONKEY5.DataAccessObjects
                     Email = "phamthid@example.com",
                     PasswordHash = PasswordHasher.HashPassword("staff"),
                     PhoneNumber = "0234567891",
-                    DateOfBirth = new DateTime(1992, 4, 25),
+                    DateOfBirth = new DateTime(1992, 4, 25, 0, 0, 0, DateTimeKind.Utc),
                     Gender = "Female",
                     IdNumber = "456789012345",
                     Role = MONKEY5.BusinessObjects.Helpers.Role.Staff,
@@ -337,7 +337,7 @@ namespace MONKEY5.DataAccessObjects
                     Email = "hoangvane@example.com",
                     PasswordHash = PasswordHasher.HashPassword("staff"),
                     PhoneNumber = "0234567892",
-                    DateOfBirth = new DateTime(1991, 7, 15),
+                    DateOfBirth = new DateTime(1991, 7, 15, 0, 0, 0, DateTimeKind.Utc),
                     Gender = "Male",
                     IdNumber = "567890123456",
                     Role = MONKEY5.BusinessObjects.Helpers.Role.Staff,
@@ -352,7 +352,7 @@ namespace MONKEY5.DataAccessObjects
                     Email = "nguyenthif@example.com",
                     PasswordHash = PasswordHasher.HashPassword("staff"),
                     PhoneNumber = "0234567893",
-                    DateOfBirth = new DateTime(1989, 9, 5),
+                    DateOfBirth = new DateTime(1989, 9, 5, 0, 0, 0, DateTimeKind.Utc),
                     Gender = "Female",
                     IdNumber = "678901234567",
                     Role = MONKEY5.BusinessObjects.Helpers.Role.Staff,
@@ -366,7 +366,7 @@ namespace MONKEY5.DataAccessObjects
                     Email = "tranvang@example.com",
                     PasswordHash = PasswordHasher.HashPassword("staff"),
                     PhoneNumber = "0234567894",
-                    DateOfBirth = new DateTime(1993, 2, 18),
+                    DateOfBirth = new DateTime(1993, 2, 18, 0, 0, 0, DateTimeKind.Utc),
                     Gender = "Male",
                     IdNumber = "789012345678",
                     Role = MONKEY5.BusinessObjects.Helpers.Role.Staff,
@@ -381,7 +381,7 @@ namespace MONKEY5.DataAccessObjects
                     Email = "lethih@example.com",
                     PasswordHash = PasswordHasher.HashPassword("staff"),
                     PhoneNumber = "0234567895",
-                    DateOfBirth = new DateTime(1987, 11, 30),
+                    DateOfBirth = new DateTime(1987, 11, 30, 0, 0, 0, DateTimeKind.Utc),
                     Gender = "Female",
                     IdNumber = "890123456789",
                     Role = MONKEY5.BusinessObjects.Helpers.Role.Staff,
@@ -395,7 +395,7 @@ namespace MONKEY5.DataAccessObjects
                     Email = "phamvani@example.com",
                     PasswordHash = PasswordHasher.HashPassword("staff"),
                     PhoneNumber = "0234567896",
-                    DateOfBirth = new DateTime(1990, 6, 12),
+                    DateOfBirth = new DateTime(1990, 6, 12, 0, 0, 0, DateTimeKind.Utc),
                     Gender = "Male",
                     IdNumber = "901234567890",
                     Role = MONKEY5.BusinessObjects.Helpers.Role.Staff,
@@ -416,9 +416,9 @@ namespace MONKEY5.DataAccessObjects
                     StaffId = staffs[0].UserId, // Cleaning staff
                     ServiceId = services[0].ServiceId, // Cleaning service
                     Status = MONKEY5.BusinessObjects.Helpers.OrderStatus.Completed,
-                    BookingDateTime = new DateTime(2025, 3, 2),
-                    ServiceStartTime = new DateTime(2025, 3, 3, 10, 0, 0),
-                    ServiceEndTime = new DateTime(2025, 3, 3, 13, 0, 0),
+                    BookingDateTime = new DateTime(2025, 3, 2, 0, 0, 0, DateTimeKind.Utc),
+                    ServiceStartTime = new DateTime(2025, 3, 3, 10, 0, 0, DateTimeKind.Utc),
+                    ServiceEndTime = new DateTime(2025, 3, 3, 13, 0, 0, DateTimeKind.Utc),
                     ServiceUnitAmount = 3, // 3 hours
                     TotalPrice = 270000f // 90,000 x 3
                 },
@@ -429,9 +429,9 @@ namespace MONKEY5.DataAccessObjects
                     StaffId = staffs[2].UserId, // Childcare staff
                     ServiceId = services[1].ServiceId, // Childcare (1 child)
                     Status = MONKEY5.BusinessObjects.Helpers.OrderStatus.Completed,
-                    BookingDateTime = new DateTime(2025, 3, 3),
-                    ServiceStartTime = new DateTime(2025, 3, 4, 14, 0, 0),
-                    ServiceEndTime = new DateTime(2025, 3, 4, 18, 0, 0),
+                    BookingDateTime = new DateTime(2025, 3, 3, 0, 0, 0, DateTimeKind.Utc),
+                    ServiceStartTime = new DateTime(2025, 3, 4, 14, 0, 0, DateTimeKind.Utc),
+                    ServiceEndTime = new DateTime(2025, 3, 4, 18, 0, 0, DateTimeKind.Utc),
                     ServiceUnitAmount = 4, // 4 hours
                     TotalPrice = 600000f // 150,000 x 4
                 },
@@ -442,9 +442,9 @@ namespace MONKEY5.DataAccessObjects
                     StaffId = staffs[4].UserId, // Cooking staff
                     ServiceId = services[3].ServiceId, // Cooking service
                     Status = MONKEY5.BusinessObjects.Helpers.OrderStatus.Completed,
-                    BookingDateTime = new DateTime(2025, 3, 4),
-                    ServiceStartTime = new DateTime(2025, 3, 5, 15, 0, 0),
-                    ServiceEndTime = new DateTime(2025, 3, 5, 18, 0, 0),
+                    BookingDateTime = new DateTime(2025, 3, 4, 0, 0, 0, DateTimeKind.Utc),
+                    ServiceStartTime = new DateTime(2025, 3, 5, 15, 0, 0, DateTimeKind.Utc),
+                    ServiceEndTime = new DateTime(2025, 3, 5, 18, 0, 0, DateTimeKind.Utc),
                     ServiceUnitAmount = 5, // 5 dishes
                     TotalPrice = 400000f // 80,000 x 5
                 },
@@ -455,9 +455,9 @@ namespace MONKEY5.DataAccessObjects
                     StaffId = staffs[1].UserId, // Cleaning staff
                     ServiceId = services[0].ServiceId, // Cleaning service
                     Status = MONKEY5.BusinessObjects.Helpers.OrderStatus.Confirmed,
-                    BookingDateTime = new DateTime(2025, 3, 5),
-                    ServiceStartTime = new DateTime(2025, 3, 6, 7, 0, 0),
-                    ServiceEndTime = new DateTime(2025, 3, 6, 11, 0, 0),
+                    BookingDateTime = new DateTime(2025, 3, 5, 0, 0, 0, DateTimeKind.Utc),
+                    ServiceStartTime = new DateTime(2025, 3, 6, 7, 0, 0, DateTimeKind.Utc),
+                    ServiceEndTime = new DateTime(2025, 3, 6, 11, 0, 0, DateTimeKind.Utc),
                     ServiceUnitAmount = 4, // 4 hours
                     TotalPrice = 360000f // 90,000 x 4
                 },
@@ -468,9 +468,9 @@ namespace MONKEY5.DataAccessObjects
                     StaffId = staffs[3].UserId, // Childcare staff
                     ServiceId = services[2].ServiceId, // Childcare (2 children)
                     Status = MONKEY5.BusinessObjects.Helpers.OrderStatus.Confirmed,
-                    BookingDateTime = new DateTime(2025, 3, 6),
-                    ServiceStartTime = new DateTime(2025, 3, 7, 8, 0, 0),
-                    ServiceEndTime = new DateTime(2025, 3, 7, 13, 0, 0),
+                    BookingDateTime = new DateTime(2025, 3, 6, 0, 0, 0, DateTimeKind.Utc),
+                    ServiceStartTime = new DateTime(2025, 3, 7, 8, 0, 0, DateTimeKind.Utc),
+                    ServiceEndTime = new DateTime(2025, 3, 7, 13, 0, 0, DateTimeKind.Utc),
                     ServiceUnitAmount = 5, // 5 hours
                     TotalPrice = 1000000f // 200,000 x 5
                 }
