@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MONKEY5.DataAccessObjects;
 using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +13,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 // Add DbContext
 builder.Services.AddDbContext<MyDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MyDB")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("MyDB")));
 
 // Configure Swagger
 builder.Services.AddEndpointsApiExplorer();
@@ -37,6 +38,26 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+// Apply migrations automatically at startup
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<MyDbContext>();
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        
+        logger.LogInformation("Applying database migrations...");
+        context.Database.Migrate();
+        logger.LogInformation("Database migrations applied successfully.");
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred while migrating or seeding the database.");
+    }
+}
 
 // Enable Swagger in all environments
 app.UseSwagger();
