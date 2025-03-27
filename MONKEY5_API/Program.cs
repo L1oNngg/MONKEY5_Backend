@@ -38,12 +38,14 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+// Enable Swagger in all environments
+app.UseSwagger();
+app.UseSwaggerUI(c =>
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MONKEY5 API v1"));
-}
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "MONKEY5 API v1");
+    // Set Swagger UI at the app's root
+    c.RoutePrefix = "swagger";
+});
 
 app.UseHttpsRedirection();
 
