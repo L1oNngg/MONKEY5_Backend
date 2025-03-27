@@ -8,18 +8,12 @@ namespace MONKEY5.BusinessObjects
     {
         [Key]
         public Guid ServiceId { get; set; } = Guid.NewGuid();
+        public string? ServiceName { get; set; }
+        public string? Description { get; set; }
 
-        [Required]
-        public required string ServiceName { get; set; }
-
-        [Required]
-        public required string Description { get; set; }
-
-        [Required]
         [Column(TypeName = "decimal(10,2)")]
-        public decimal UnitPrice { get; set; }
+        public decimal? UnitPrice { get; set; }
 
-        [Required]
-        public required string UnitType { get; set; }
+        public string? UnitType { get; set; }
     }
 }

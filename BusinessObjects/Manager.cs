@@ -6,11 +6,6 @@ namespace MONKEY5.BusinessObjects
 {
     public class Manager: User
     {
-
-        // [Required]
-        // public string Department { get; set; } = string.Empty;
-
-        // [Required]
-        // public string Position { get; set; } = string.Empty;
+        
     }
 }

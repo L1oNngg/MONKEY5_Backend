@@ -8,15 +8,13 @@ namespace MONKEY5.BusinessObjects
     {
         [Key]
         public Guid ReviewId { get; set; } = Guid.NewGuid();
-
-        [Required]
-        public Guid BookingId { get; set; }
+        public Guid? BookingId { get; set; }
 
         [ForeignKey("BookingId")]
         public Booking? Booking { get; set; }
 
         [Range(1, 5)]
-        public int RatingStar { get; set; }
+        public int? RatingStar { get; set; }
 
         public string? Comment { get; set; }
 

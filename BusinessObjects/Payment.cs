@@ -9,21 +9,14 @@ namespace MONKEY5.BusinessObjects
     {
         [Key]
         public Guid PaymentId { get; set; } = Guid.NewGuid();
-
-        [Required]
         public Guid? BookingId { get; set; }
 
         [ForeignKey("BookingId")]
         public Booking? Booking { get; set; }
 
-        [Required]
         [Column(TypeName = "decimal(10,2)")]
-        public required decimal Amount { get; set; }
-
-        [Required]
-        public required PaymentMethod PaymentMethod { get; set; } = PaymentMethod.Cash;
-
-        [Required]
+        public decimal? Amount { get; set; }
+        public PaymentMethod PaymentMethod { get; set; } = PaymentMethod.Cash;
         public PaymentStatus PaymentStatus { get; set; } = PaymentStatus.Pending;
 
         public DateTime PaymentCreatedAt { get; set; } = DateTime.UtcNow;

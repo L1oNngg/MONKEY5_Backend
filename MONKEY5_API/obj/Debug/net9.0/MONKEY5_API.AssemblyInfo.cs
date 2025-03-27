@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MONKEY5_API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+47fd87f3b6c8503abc862179303c6a648db1e833")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+62de0ca9f82ece787ac852b8195471489d489721")]
 [assembly: System.Reflection.AssemblyProductAttribute("MONKEY5_API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MONKEY5_API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

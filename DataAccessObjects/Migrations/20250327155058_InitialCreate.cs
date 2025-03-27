@@ -18,10 +18,10 @@ namespace DataAccessObjects.Migrations
                 columns: table => new
                 {
                     LocationId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Address = table.Column<string>(type: "text", nullable: false),
-                    City = table.Column<string>(type: "text", nullable: false),
-                    Country = table.Column<string>(type: "text", nullable: false),
-                    PostalCode = table.Column<string>(type: "text", nullable: false)
+                    Address = table.Column<string>(type: "text", nullable: true),
+                    City = table.Column<string>(type: "text", nullable: true),
+                    Country = table.Column<string>(type: "text", nullable: true),
+                    PostalCode = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -33,10 +33,10 @@ namespace DataAccessObjects.Migrations
                 columns: table => new
                 {
                     ServiceId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ServiceName = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    UnitPrice = table.Column<decimal>(type: "numeric(10,2)", nullable: false),
-                    UnitType = table.Column<string>(type: "text", nullable: false)
+                    ServiceName = table.Column<string>(type: "text", nullable: true),
+                    Description = table.Column<string>(type: "text", nullable: true),
+                    UnitPrice = table.Column<decimal>(type: "numeric(10,2)", nullable: true),
+                    UnitType = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -48,12 +48,12 @@ namespace DataAccessObjects.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<Guid>(type: "uuid", nullable: false),
-                    FullName = table.Column<string>(type: "text", nullable: false),
+                    FullName = table.Column<string>(type: "text", nullable: true),
                     Email = table.Column<string>(type: "text", nullable: false),
                     PasswordHash = table.Column<string>(type: "text", nullable: false),
                     PhoneNumber = table.Column<string>(type: "text", nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    Gender = table.Column<string>(type: "text", nullable: false),
+                    Gender = table.Column<string>(type: "text", nullable: true),
                     IdNumber = table.Column<string>(type: "text", nullable: true),
                     Role = table.Column<string>(type: "text", nullable: false)
                 },
@@ -128,15 +128,15 @@ namespace DataAccessObjects.Migrations
                 columns: table => new
                 {
                     BookingId = table.Column<Guid>(type: "uuid", nullable: false),
-                    CustomerId = table.Column<Guid>(type: "uuid", nullable: false),
-                    StaffId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ServiceId = table.Column<Guid>(type: "uuid", nullable: false),
+                    CustomerId = table.Column<Guid>(type: "uuid", nullable: true),
+                    StaffId = table.Column<Guid>(type: "uuid", nullable: true),
+                    ServiceId = table.Column<Guid>(type: "uuid", nullable: true),
                     Status = table.Column<int>(type: "integer", nullable: false),
                     BookingDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ServiceStartTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ServiceEndTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ServiceUnitAmount = table.Column<int>(type: "integer", nullable: false),
-                    TotalPrice = table.Column<float>(type: "real", nullable: false)
+                    ServiceUnitAmount = table.Column<int>(type: "integer", nullable: true),
+                    TotalPrice = table.Column<float>(type: "real", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -166,8 +166,8 @@ namespace DataAccessObjects.Migrations
                 columns: table => new
                 {
                     ReportId = table.Column<Guid>(type: "uuid", nullable: false),
-                    BookingId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ReportText = table.Column<string>(type: "text", nullable: false),
+                    BookingId = table.Column<Guid>(type: "uuid", nullable: true),
+                    ReportText = table.Column<string>(type: "text", nullable: true),
                     ReportDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
@@ -186,8 +186,8 @@ namespace DataAccessObjects.Migrations
                 columns: table => new
                 {
                     PaymentId = table.Column<Guid>(type: "uuid", nullable: false),
-                    BookingId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Amount = table.Column<decimal>(type: "numeric(10,2)", nullable: false),
+                    BookingId = table.Column<Guid>(type: "uuid", nullable: true),
+                    Amount = table.Column<decimal>(type: "numeric(10,2)", nullable: true),
                     PaymentMethod = table.Column<int>(type: "integer", nullable: false),
                     PaymentStatus = table.Column<int>(type: "integer", nullable: false),
                     PaymentCreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
@@ -209,8 +209,8 @@ namespace DataAccessObjects.Migrations
                 columns: table => new
                 {
                     ReviewId = table.Column<Guid>(type: "uuid", nullable: false),
-                    BookingId = table.Column<Guid>(type: "uuid", nullable: false),
-                    RatingStar = table.Column<int>(type: "integer", nullable: false),
+                    BookingId = table.Column<Guid>(type: "uuid", nullable: true),
+                    RatingStar = table.Column<int>(type: "integer", nullable: true),
                     Comment = table.Column<string>(type: "text", nullable: true),
                     ReviewDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -230,8 +230,8 @@ namespace DataAccessObjects.Migrations
                 columns: table => new
                 {
                     ReportImageId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ReportId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ImagePath = table.Column<string>(type: "text", nullable: false)
+                    ReportId = table.Column<Guid>(type: "uuid", nullable: true),
+                    ImagePath = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -249,8 +249,8 @@ namespace DataAccessObjects.Migrations
                 columns: table => new
                 {
                     RefundId = table.Column<Guid>(type: "uuid", nullable: false),
-                    PaymentId = table.Column<Guid>(type: "uuid", nullable: false),
-                    RefundAmount = table.Column<decimal>(type: "numeric(10,2)", nullable: false),
+                    PaymentId = table.Column<Guid>(type: "uuid", nullable: true),
+                    RefundAmount = table.Column<decimal>(type: "numeric(10,2)", nullable: true),
                     RefundReason = table.Column<string>(type: "text", nullable: true),
                     RefundDateTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -291,16 +291,16 @@ namespace DataAccessObjects.Migrations
                 columns: new[] { "UserId", "DateOfBirth", "Email", "FullName", "Gender", "IdNumber", "PasswordHash", "PhoneNumber", "Role" },
                 values: new object[,]
                 {
-                    { new Guid("30000000-0000-0000-0000-000000000001"), new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "admin@monkey5.com", "Admin User", "Male", "123456789", "uIz9hS0S5YbsTUE86NIagw==./TsxxcDEbaoZv5XJFejT6PhQdghhKcgoi+H4BJ0suKU=", "0123456789", "Manager" },
-                    { new Guid("40000000-0000-0000-0000-000000000001"), new DateTime(1985, 5, 15, 0, 0, 0, 0, DateTimeKind.Utc), "nguyenvana@example.com", "Nguyen Van A", "Male", "123456789012", "QJUdXGWGqL745eQah1oXFw==.x35RaFU6wYXLRO5cPMWv8Ro7cOl7zIrvTpDPU9myc/w=", "0123456781", "Customer" },
-                    { new Guid("40000000-0000-0000-0000-000000000002"), new DateTime(1990, 8, 20, 0, 0, 0, 0, DateTimeKind.Utc), "tranthib@example.com", "Tran Thi B", "Female", "234567890123", "w+7nQm4FEqHnUnofDaAaBQ==.dD3ZpO3H2Ohz8qJRkfgn2pzfhX6QoiJrhiFqxtjw7us=", "0123456782", "Customer" },
-                    { new Guid("40000000-0000-0000-0000-000000000003"), new DateTime(1988, 3, 10, 0, 0, 0, 0, DateTimeKind.Utc), "levanc@example.com", "Le Van C", "Male", "345678901234", "fT+fXrlmIyKPw2u9AagFsA==.6c9zvlTjK9jKGDVLYaSAObALGvprHeLXizegDfiE+YU=", "0123456783", "Customer" },
-                    { new Guid("50000000-0000-0000-0000-000000000001"), new DateTime(1992, 4, 25, 0, 0, 0, 0, DateTimeKind.Utc), "phamthid@example.com", "Pham Thi D", "Female", "456789012345", "16UD1i9Rh11G0OJu7PL2dA==.IHVT6hcCcmbmr196HT/wvjqvLDIM3cMQM8VwXMblQIk=", "0234567891", "Staff" },
-                    { new Guid("50000000-0000-0000-0000-000000000002"), new DateTime(1991, 7, 15, 0, 0, 0, 0, DateTimeKind.Utc), "hoangvane@example.com", "Hoang Van E", "Male", "567890123456", "5lXE97q0epkOSHpVg1mtAw==.B+UdVsiN5iT6Nby6h9NKDfFhlqloMUiEp8zoMlApXBI=", "0234567892", "Staff" },
-                    { new Guid("50000000-0000-0000-0000-000000000003"), new DateTime(1989, 9, 5, 0, 0, 0, 0, DateTimeKind.Utc), "nguyenthif@example.com", "Nguyen Thi F", "Female", "678901234567", "iwcAH5ylpYipCc0cPHWUoA==.y5uSPQDBxfCv0x6f6aH85LoAWlbid8G9Jy7OPRZ4+ys=", "0234567893", "Staff" },
-                    { new Guid("50000000-0000-0000-0000-000000000004"), new DateTime(1993, 2, 18, 0, 0, 0, 0, DateTimeKind.Utc), "tranvang@example.com", "Tran Van G", "Male", "789012345678", "r4LchCTWV/ZxnaNQPpn9Aw==.XgEbTdFOGCGFEbNwAjEXIjbj08HbygUaQD9X/nPfDv0=", "0234567894", "Staff" },
-                    { new Guid("50000000-0000-0000-0000-000000000005"), new DateTime(1987, 11, 30, 0, 0, 0, 0, DateTimeKind.Utc), "lethih@example.com", "Le Thi H", "Female", "890123456789", "v3zYHV1W1tLvrqyQ5EbwWA==.h6/huqrlChQGDdfj9xycnWNLFCp63OGq4VDRpdWRocw=", "0234567895", "Staff" },
-                    { new Guid("50000000-0000-0000-0000-000000000006"), new DateTime(1990, 6, 12, 0, 0, 0, 0, DateTimeKind.Utc), "phamvani@example.com", "Pham Van I", "Male", "901234567890", "2cEBWwd/47Q88jnqouE4tw==.aHaCWRIjl6g3WZbWozxbDetJcc+e+7GJJgpTKKS/FWw=", "0234567896", "Staff" }
+                    { new Guid("30000000-0000-0000-0000-000000000001"), new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "admin@monkey5.com", "Admin User", "Male", "123456789", "w9IYif8rZON1cqX/4ELaAw==.lduut/l9MYOrweTbIhBdz1SSbFR/uD/cqeJ7pgjeRg8=", "0123456789", "Manager" },
+                    { new Guid("40000000-0000-0000-0000-000000000001"), new DateTime(1985, 5, 15, 0, 0, 0, 0, DateTimeKind.Utc), "nguyenvana@example.com", "Nguyen Van A", "Male", "123456789012", "L112DS9lSVouR1KeMHAnlA==.WEyqaMLGszpicBqTQhH/GwcWcUwDuzv5jUUoupRnkZw=", "0123456781", "Customer" },
+                    { new Guid("40000000-0000-0000-0000-000000000002"), new DateTime(1990, 8, 20, 0, 0, 0, 0, DateTimeKind.Utc), "tranthib@example.com", "Tran Thi B", "Female", "234567890123", "H2TJa0V1o7SaKWT7NZakSQ==.kXgqH5RAp8v7y+aVYwul6rJTO7ZLH8vd8S/O6B5Q+bk=", "0123456782", "Customer" },
+                    { new Guid("40000000-0000-0000-0000-000000000003"), new DateTime(1988, 3, 10, 0, 0, 0, 0, DateTimeKind.Utc), "levanc@example.com", "Le Van C", "Male", "345678901234", "jVHx2ndFeHquHKM9Z7Xb0w==.epZqLsCyTO/OZnFhG63Izo25xYLXUq2y8msp9AUU6Y4=", "0123456783", "Customer" },
+                    { new Guid("50000000-0000-0000-0000-000000000001"), new DateTime(1992, 4, 25, 0, 0, 0, 0, DateTimeKind.Utc), "phamthid@example.com", "Pham Thi D", "Female", "456789012345", "JlSvv6TGRBbQdDZNE1MXFA==.5VWhtovZ120kEesxAfTuOsoJJAR3JvUg+/lPDALS6Fs=", "0234567891", "Staff" },
+                    { new Guid("50000000-0000-0000-0000-000000000002"), new DateTime(1991, 7, 15, 0, 0, 0, 0, DateTimeKind.Utc), "hoangvane@example.com", "Hoang Van E", "Male", "567890123456", "tsC57+nJHx4cpUI1cWFiFw==.AqI+nTNiCrww3Z+HmCgFGymHzQcdxhWG9+rMDYyRaNQ=", "0234567892", "Staff" },
+                    { new Guid("50000000-0000-0000-0000-000000000003"), new DateTime(1989, 9, 5, 0, 0, 0, 0, DateTimeKind.Utc), "nguyenthif@example.com", "Nguyen Thi F", "Female", "678901234567", "3lijgw7qE+YELI9st5KWHA==.4wrOZtjXAHLRNhLMj25ddyJiuzBBrUZy5dlvkUCk5F0=", "0234567893", "Staff" },
+                    { new Guid("50000000-0000-0000-0000-000000000004"), new DateTime(1993, 2, 18, 0, 0, 0, 0, DateTimeKind.Utc), "tranvang@example.com", "Tran Van G", "Male", "789012345678", "Tl22xQcK/bcPsiRoOfJJqA==.RJZ1E4FTRJSm/kiMLhqPj0NBVj+Q7AGWNT8kbuWBkW0=", "0234567894", "Staff" },
+                    { new Guid("50000000-0000-0000-0000-000000000005"), new DateTime(1987, 11, 30, 0, 0, 0, 0, DateTimeKind.Utc), "lethih@example.com", "Le Thi H", "Female", "890123456789", "cTxhbwcA6bpNcvKitO3BGQ==.NuuquPq9xWIf6T6M3PmGQYwyNRQCPt6c+Pj6j1LAWe4=", "0234567895", "Staff" },
+                    { new Guid("50000000-0000-0000-0000-000000000006"), new DateTime(1990, 6, 12, 0, 0, 0, 0, DateTimeKind.Utc), "phamvani@example.com", "Pham Van I", "Male", "901234567890", "B2rWv3l1hvfXdQ3ZI6LRQw==.FwINJ0AdezF/d3iXn0CupetoaFdEiclXlDC8kpt09Lk=", "0234567896", "Staff" }
                 });
 
             migrationBuilder.InsertData(

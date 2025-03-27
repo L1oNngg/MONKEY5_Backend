@@ -9,15 +9,11 @@ namespace MONKEY5.BusinessObjects
     {
         [Key]
         public Guid ReportImageId { get; set; } = Guid.NewGuid();
-
-        [Required]
-        public Guid ReportId { get; set; }
+        public Guid? ReportId { get; set; }
 
         [ForeignKey("ReportId")]
         [JsonIgnore]
         public CompletionReport? CompletionReport { get; set; }
-
-        [Required]
         public string? ImagePath { get; set; }
     }
 }

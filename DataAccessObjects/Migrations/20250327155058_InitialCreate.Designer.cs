@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccessObjects.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20250327092958_InitialCreate")]
+    [Migration("20250327155058_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -34,28 +34,28 @@ namespace DataAccessObjects.Migrations
                     b.Property<DateTime>("BookingDateTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("CustomerId")
+                    b.Property<Guid?>("CustomerId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("ServiceEndTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<Guid>("ServiceId")
+                    b.Property<Guid?>("ServiceId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("ServiceStartTime")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("ServiceUnitAmount")
+                    b.Property<int?>("ServiceUnitAmount")
                         .HasColumnType("integer");
 
-                    b.Property<Guid>("StaffId")
+                    b.Property<Guid?>("StaffId")
                         .HasColumnType("uuid");
 
                     b.Property<int>("Status")
                         .HasColumnType("integer");
 
-                    b.Property<float>("TotalPrice")
+                    b.Property<float?>("TotalPrice")
                         .HasColumnType("real");
 
                     b.HasKey("BookingId");
@@ -142,14 +142,13 @@ namespace DataAccessObjects.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("BookingId")
+                    b.Property<Guid?>("BookingId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("ReportDateTime")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ReportText")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("ReportId");
@@ -190,19 +189,15 @@ namespace DataAccessObjects.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Country")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("PostalCode")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("LocationId");
@@ -242,10 +237,10 @@ namespace DataAccessObjects.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<decimal>("Amount")
+                    b.Property<decimal?>("Amount")
                         .HasColumnType("decimal(10,2)");
 
-                    b.Property<Guid>("BookingId")
+                    b.Property<Guid?>("BookingId")
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("PaymentCreatedAt")
@@ -324,10 +319,10 @@ namespace DataAccessObjects.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("PaymentId")
+                    b.Property<Guid?>("PaymentId")
                         .HasColumnType("uuid");
 
-                    b.Property<decimal>("RefundAmount")
+                    b.Property<decimal?>("RefundAmount")
                         .HasColumnType("decimal(10,2)");
 
                     b.Property<DateTime>("RefundDateTime")
@@ -361,10 +356,9 @@ namespace DataAccessObjects.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("ImagePath")
-                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<Guid>("ReportId")
+                    b.Property<Guid?>("ReportId")
                         .HasColumnType("uuid");
 
                     b.HasKey("ReportImageId");
@@ -418,13 +412,13 @@ namespace DataAccessObjects.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("BookingId")
+                    b.Property<Guid?>("BookingId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Comment")
                         .HasColumnType("text");
 
-                    b.Property<int>("RatingStar")
+                    b.Property<int?>("RatingStar")
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("ReviewDateTime")
@@ -471,18 +465,15 @@ namespace DataAccessObjects.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("ServiceName")
-                        .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<decimal>("UnitPrice")
+                    b.Property<decimal?>("UnitPrice")
                         .HasColumnType("decimal(10,2)");
 
                     b.Property<string>("UnitType")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("ServiceId");
@@ -538,11 +529,9 @@ namespace DataAccessObjects.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("FullName")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Gender")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("IdNumber")
@@ -593,7 +582,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Nguyen Van A",
                             Gender = "Male",
                             IdNumber = "123456789012",
-                            PasswordHash = "QJUdXGWGqL745eQah1oXFw==.x35RaFU6wYXLRO5cPMWv8Ro7cOl7zIrvTpDPU9myc/w=",
+                            PasswordHash = "L112DS9lSVouR1KeMHAnlA==.WEyqaMLGszpicBqTQhH/GwcWcUwDuzv5jUUoupRnkZw=",
                             PhoneNumber = "0123456781",
                             Role = "Customer",
                             LocationId = new Guid("10000000-0000-0000-0000-000000000001"),
@@ -607,7 +596,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Tran Thi B",
                             Gender = "Female",
                             IdNumber = "234567890123",
-                            PasswordHash = "w+7nQm4FEqHnUnofDaAaBQ==.dD3ZpO3H2Ohz8qJRkfgn2pzfhX6QoiJrhiFqxtjw7us=",
+                            PasswordHash = "H2TJa0V1o7SaKWT7NZakSQ==.kXgqH5RAp8v7y+aVYwul6rJTO7ZLH8vd8S/O6B5Q+bk=",
                             PhoneNumber = "0123456782",
                             Role = "Customer",
                             LocationId = new Guid("10000000-0000-0000-0000-000000000002"),
@@ -621,7 +610,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Le Van C",
                             Gender = "Male",
                             IdNumber = "345678901234",
-                            PasswordHash = "fT+fXrlmIyKPw2u9AagFsA==.6c9zvlTjK9jKGDVLYaSAObALGvprHeLXizegDfiE+YU=",
+                            PasswordHash = "jVHx2ndFeHquHKM9Z7Xb0w==.epZqLsCyTO/OZnFhG63Izo25xYLXUq2y8msp9AUU6Y4=",
                             PhoneNumber = "0123456783",
                             Role = "Customer",
                             LocationId = new Guid("10000000-0000-0000-0000-000000000003"),
@@ -644,7 +633,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Admin User",
                             Gender = "Male",
                             IdNumber = "123456789",
-                            PasswordHash = "uIz9hS0S5YbsTUE86NIagw==./TsxxcDEbaoZv5XJFejT6PhQdghhKcgoi+H4BJ0suKU=",
+                            PasswordHash = "w9IYif8rZON1cqX/4ELaAw==.lduut/l9MYOrweTbIhBdz1SSbFR/uD/cqeJ7pgjeRg8=",
                             PhoneNumber = "0123456789",
                             Role = "Manager"
                         });
@@ -671,7 +660,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Pham Thi D",
                             Gender = "Female",
                             IdNumber = "456789012345",
-                            PasswordHash = "16UD1i9Rh11G0OJu7PL2dA==.IHVT6hcCcmbmr196HT/wvjqvLDIM3cMQM8VwXMblQIk=",
+                            PasswordHash = "JlSvv6TGRBbQdDZNE1MXFA==.5VWhtovZ120kEesxAfTuOsoJJAR3JvUg+/lPDALS6Fs=",
                             PhoneNumber = "0234567891",
                             Role = "Staff",
                             AvgRating = 4.5,
@@ -685,7 +674,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Hoang Van E",
                             Gender = "Male",
                             IdNumber = "567890123456",
-                            PasswordHash = "5lXE97q0epkOSHpVg1mtAw==.B+UdVsiN5iT6Nby6h9NKDfFhlqloMUiEp8zoMlApXBI=",
+                            PasswordHash = "tsC57+nJHx4cpUI1cWFiFw==.AqI+nTNiCrww3Z+HmCgFGymHzQcdxhWG9+rMDYyRaNQ=",
                             PhoneNumber = "0234567892",
                             Role = "Staff",
                             AvgRating = 4.2000000000000002,
@@ -699,7 +688,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Nguyen Thi F",
                             Gender = "Female",
                             IdNumber = "678901234567",
-                            PasswordHash = "iwcAH5ylpYipCc0cPHWUoA==.y5uSPQDBxfCv0x6f6aH85LoAWlbid8G9Jy7OPRZ4+ys=",
+                            PasswordHash = "3lijgw7qE+YELI9st5KWHA==.4wrOZtjXAHLRNhLMj25ddyJiuzBBrUZy5dlvkUCk5F0=",
                             PhoneNumber = "0234567893",
                             Role = "Staff",
                             AvgRating = 4.7999999999999998,
@@ -713,7 +702,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Tran Van G",
                             Gender = "Male",
                             IdNumber = "789012345678",
-                            PasswordHash = "r4LchCTWV/ZxnaNQPpn9Aw==.XgEbTdFOGCGFEbNwAjEXIjbj08HbygUaQD9X/nPfDv0=",
+                            PasswordHash = "Tl22xQcK/bcPsiRoOfJJqA==.RJZ1E4FTRJSm/kiMLhqPj0NBVj+Q7AGWNT8kbuWBkW0=",
                             PhoneNumber = "0234567894",
                             Role = "Staff",
                             AvgRating = 4.2999999999999998,
@@ -727,7 +716,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Le Thi H",
                             Gender = "Female",
                             IdNumber = "890123456789",
-                            PasswordHash = "v3zYHV1W1tLvrqyQ5EbwWA==.h6/huqrlChQGDdfj9xycnWNLFCp63OGq4VDRpdWRocw=",
+                            PasswordHash = "cTxhbwcA6bpNcvKitO3BGQ==.NuuquPq9xWIf6T6M3PmGQYwyNRQCPt6c+Pj6j1LAWe4=",
                             PhoneNumber = "0234567895",
                             Role = "Staff",
                             AvgRating = 4.9000000000000004,
@@ -741,7 +730,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Pham Van I",
                             Gender = "Male",
                             IdNumber = "901234567890",
-                            PasswordHash = "2cEBWwd/47Q88jnqouE4tw==.aHaCWRIjl6g3WZbWozxbDetJcc+e+7GJJgpTKKS/FWw=",
+                            PasswordHash = "B2rWv3l1hvfXdQ3ZI6LRQw==.FwINJ0AdezF/d3iXn0CupetoaFdEiclXlDC8kpt09Lk=",
                             PhoneNumber = "0234567896",
                             Role = "Staff",
                             AvgRating = 4.5999999999999996,
@@ -754,20 +743,17 @@ namespace DataAccessObjects.Migrations
                     b.HasOne("MONKEY5.BusinessObjects.Customer", "Customer")
                         .WithMany()
                         .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("MONKEY5.BusinessObjects.Service", "Service")
                         .WithMany()
                         .HasForeignKey("ServiceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("MONKEY5.BusinessObjects.Staff", "Staff")
                         .WithMany()
                         .HasForeignKey("StaffId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Customer");
 
@@ -781,8 +767,7 @@ namespace DataAccessObjects.Migrations
                     b.HasOne("MONKEY5.BusinessObjects.Booking", "Booking")
                         .WithOne()
                         .HasForeignKey("MONKEY5.BusinessObjects.CompletionReport", "BookingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Booking");
                 });
@@ -792,8 +777,7 @@ namespace DataAccessObjects.Migrations
                     b.HasOne("MONKEY5.BusinessObjects.Booking", "Booking")
                         .WithOne()
                         .HasForeignKey("MONKEY5.BusinessObjects.Payment", "BookingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Booking");
                 });
@@ -803,8 +787,7 @@ namespace DataAccessObjects.Migrations
                     b.HasOne("MONKEY5.BusinessObjects.Payment", "Payment")
                         .WithOne()
                         .HasForeignKey("MONKEY5.BusinessObjects.Refund", "PaymentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Payment");
                 });
@@ -814,8 +797,7 @@ namespace DataAccessObjects.Migrations
                     b.HasOne("MONKEY5.BusinessObjects.CompletionReport", "CompletionReport")
                         .WithMany("ReportImages")
                         .HasForeignKey("ReportId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("CompletionReport");
                 });
@@ -825,8 +807,7 @@ namespace DataAccessObjects.Migrations
                     b.HasOne("MONKEY5.BusinessObjects.Booking", "Booking")
                         .WithOne()
                         .HasForeignKey("MONKEY5.BusinessObjects.Review", "BookingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Booking");
                 });

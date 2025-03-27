@@ -38,7 +38,10 @@ namespace DataAccessObjects
                 context.SaveChanges();
                 
                 // Update staff average rating
-                UpdateStaffAverageRating(review.Booking.StaffId);
+                if (review.Booking != null)
+                {
+                    UpdateStaffAverageRating((Guid)review.Booking.StaffId);
+                }
             }
             catch (Exception e)
             {
@@ -55,7 +58,10 @@ namespace DataAccessObjects
                 context.SaveChanges();
                 
                 // Update staff average rating
-                UpdateStaffAverageRating(review.Booking.StaffId);
+                if (review.Booking != null)
+                {
+                    UpdateStaffAverageRating((Guid)review.Booking.StaffId);
+                }
             }
             catch (Exception e)
             {
@@ -83,7 +89,10 @@ namespace DataAccessObjects
                     // Update staff average rating
                     if (staffId != Guid.Empty)
                     {
-                        UpdateStaffAverageRating(staffId);
+                        if (review.Booking != null)
+                        {
+                            UpdateStaffAverageRating((Guid)review.Booking.StaffId);
+                        }
                     }
                 }
             }
@@ -121,7 +130,7 @@ namespace DataAccessObjects
                     .ThenInclude(b => b.Staff)
                     .Include(r => r.Booking)
                     .ThenInclude(b => b.Customer)
-                    .Where(r => r.Booking.StaffId == staffId)
+                    .Where(r => r.Booking != null && r.Booking.StaffId == staffId)
                     .ToList();
             }
             catch (Exception e)
@@ -159,7 +168,7 @@ namespace DataAccessObjects
                     .ThenInclude(b => b.Staff)
                     .Include(r => r.Booking)
                     .ThenInclude(b => b.Customer)
-                    .FirstOrDefault(r => r.BookingId == bookingId);
+                    .FirstOrDefault(r => r.BookingId.HasValue && r.BookingId.Value == bookingId);
             }
             catch (Exception e)
             {
@@ -174,12 +183,14 @@ namespace DataAccessObjects
                 using var context = new MyDbContext();
                 var reviews = context.Reviews
                     .Include(r => r.Booking)
-                    .Where(r => r.Booking.StaffId == staffId)
+                    .Where(r => r.Booking != null && r.Booking.StaffId == staffId)
                     .ToList();
 
                 if (reviews.Any())
                 {
-                    double avgRating = reviews.Average(r => r.RatingStar);
+                    double avgRating = reviews
+                                        .Where(r => r.RatingStar.HasValue)
+                                        .Average(r => r.RatingStar.Value);
                     
                     var staff = context.Staffs.FirstOrDefault(s => s.UserId == staffId);
                     if (staff != null)
