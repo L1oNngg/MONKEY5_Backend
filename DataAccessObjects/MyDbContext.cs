@@ -519,7 +519,7 @@ namespace MONKEY5.DataAccessObjects
                     PaymentMethod = MONKEY5.BusinessObjects.Helpers.PaymentMethod.CreditCard,
                     PaymentStatus = MONKEY5.BusinessObjects.Helpers.PaymentStatus.Pending,
                     PaymentCreatedAt = bookings[3].BookingDateTime,
-                    PaymentPaidAt = DateTime.MinValue
+                    PaymentPaidAt = null
                 },
                 new Payment
                 {
@@ -529,7 +529,7 @@ namespace MONKEY5.DataAccessObjects
                     PaymentMethod = MONKEY5.BusinessObjects.Helpers.PaymentMethod.BankTransfer,
                     PaymentStatus = MONKEY5.BusinessObjects.Helpers.PaymentStatus.Pending,
                     PaymentCreatedAt = bookings[4].BookingDateTime,
-                    PaymentPaidAt = DateTime.MinValue
+                    PaymentPaidAt = null
                 }
             };
 
@@ -575,7 +575,9 @@ namespace MONKEY5.DataAccessObjects
                     PaymentId = payments[2].PaymentId,
                     RefundAmount = 100000M, // Partial refund
                     RefundReason = "One dish was not prepared as requested",
-                    RefundDateTime = payments[2].PaymentPaidAt.AddDays(1)
+                    RefundDateTime = payments[2].PaymentPaidAt.HasValue 
+                                    ? payments[2].PaymentPaidAt.Value.AddDays(1)
+                                    : DateTime.UtcNow // Provide a fallback value
                 }
             };
 
