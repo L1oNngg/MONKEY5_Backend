@@ -2,12 +2,14 @@ using Microsoft.EntityFrameworkCore;
 using MONKEY5.DataAccessObjects;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.Logging;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
 });
 
