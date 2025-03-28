@@ -25,5 +25,7 @@ namespace Services
         public Customer GetCustomerById(Guid id) => customerRepository.GetCustomerById(id);
         
         public Customer GetCustomerByEmail(string email) => customerRepository.GetCustomerByEmail(email);
+
+        public Customer? Login(string email, string password) => customerRepository.Login(email, password);
     }
 }

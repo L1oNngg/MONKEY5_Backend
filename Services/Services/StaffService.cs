@@ -27,5 +27,7 @@ namespace Services
         public Staff? GetStaffByPhone(string phone) => staffRepository.GetStaffByPhone(phone);
         
         public List<Staff> GetAvailableStaffs() => staffRepository.GetAvailableStaffs();
+
+        public Staff? Login(string email, string password) => staffRepository.Login(email, password);
     }
 }

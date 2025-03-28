@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using MONKEY5.BusinessObjects;
+using MONKEY5.BusinessObjects.Helpers;
 using MONKEY5.DataAccessObjects;
 
 namespace DataAccessObjects
@@ -42,24 +43,44 @@ namespace DataAccessObjects
             }
         }
 
-        public static void UpdateManager(Manager manager)
+    public static void UpdateManager(Manager manager)
+    {
+        try
         {
-            try
+            using var context = new MyDbContext();
+            
+            // Get the existing manager from the database
+            var existingManager = context.Managers.FirstOrDefault(m => m.UserId == manager.UserId);
+            if (existingManager == null)
             {
-                using var context = new MyDbContext();
-                // Check if password needs to be hashed (if it was changed)
-                if (!string.IsNullOrEmpty(manager.Password))
-                {
-                    manager.HashPassword();
-                }
-                context.Entry<Manager>(manager).State = EntityState.Modified;
-                context.SaveChanges();
+                throw new Exception("Manager not found");
             }
-            catch (Exception e)
+            
+            // Update properties
+            existingManager.FullName = manager.FullName;
+            existingManager.Email = manager.Email;
+            existingManager.PhoneNumber = manager.PhoneNumber;
+            existingManager.DateOfBirth = manager.DateOfBirth;
+            existingManager.Gender = manager.Gender;
+            existingManager.IdNumber = manager.IdNumber;
+            
+            // Always ensure the role is Manager
+            existingManager.Role = MONKEY5.BusinessObjects.Helpers.Role.Manager;
+            
+            // Check if password needs to be hashed (if it was changed)
+            if (!string.IsNullOrEmpty(manager.Password))
             {
-                throw new Exception(e.Message);
+                existingManager.Password = manager.Password;
+                existingManager.HashPassword();
             }
+            
+            context.SaveChanges();
         }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
+    }
 
         public static void DeleteManager(Manager manager)
         {
@@ -104,5 +125,30 @@ namespace DataAccessObjects
                 throw new Exception(e.Message);
             }
         }
+
+        public static Manager? Login(string email, string password)
+        {
+            try
+            {
+                using var db = new MyDbContext();
+                var manager = db.Managers.FirstOrDefault(m => m.Email.Equals(email));
+                
+                if (manager != null && !string.IsNullOrEmpty(manager.PasswordHash))
+                {
+                    bool isPasswordValid = PasswordHasher.VerifyPassword(password, manager.PasswordHash);
+                    if (isPasswordValid)
+                    {
+                        return manager;
+                    }
+                }
+                
+                return null;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
     }
 }

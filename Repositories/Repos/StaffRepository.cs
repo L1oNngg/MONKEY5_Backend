@@ -20,5 +20,7 @@ namespace Repositories
         public Staff? GetStaffByPhone(string phone) => StaffDAO.GetStaffByPhone(phone);
         
         public List<Staff> GetAvailableStaffs() => StaffDAO.GetAvailableStaffs();
+
+        public Staff? Login(string email, string password) => StaffDAO.Login(email, password);
     }
 }

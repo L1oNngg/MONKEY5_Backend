@@ -13,5 +13,6 @@ namespace Services
         Staff? GetStaffById(Guid id);
         Staff? GetStaffByPhone(string phone);
         List<Staff> GetAvailableStaffs();
+        Staff? Login(string email, string password); 
     }
 }

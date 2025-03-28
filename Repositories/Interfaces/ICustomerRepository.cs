@@ -12,5 +12,6 @@ namespace Repositories
         void DeleteCustomer(Customer customer);
         Customer GetCustomerById(Guid id);
         Customer GetCustomerByEmail(string email);
+        Customer? Login(string email, string password);
     }
 }

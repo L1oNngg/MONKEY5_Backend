@@ -25,5 +25,7 @@ namespace Services
         public Manager GetManagerById(Guid id) => managerRepository.GetManagerById(id);
         
         public Manager GetManagerByEmail(string email) => managerRepository.GetManagerByEmail(email);
+
+        public Manager? Login(string email, string password) => managerRepository.Login(email, password);
     }
 }

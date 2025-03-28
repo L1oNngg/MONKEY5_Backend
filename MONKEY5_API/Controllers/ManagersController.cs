@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BusinessObjects.DTOs;
+using Microsoft.AspNetCore.Mvc;
 using MONKEY5.BusinessObjects;
 using Services;
 using System;
@@ -88,6 +89,25 @@ namespace MONKEY5_API.Controllers
             _managerService.DeleteManager(manager);
 
             return NoContent();
+        }
+
+        // POST: api/Managers/login
+        [HttpPost("login")]
+        public ActionResult<Manager> Login(LoginDTO loginDTO)
+        {
+            if (string.IsNullOrEmpty(loginDTO.Email) || string.IsNullOrEmpty(loginDTO.Password))
+            {
+                return BadRequest("Email and password are required");
+            }
+
+            var manager = _managerService.Login(loginDTO.Email, loginDTO.Password);
+            
+            if (manager == null)
+            {
+                return Unauthorized("Invalid email or password");
+            }
+
+            return manager;
         }
     }
 }

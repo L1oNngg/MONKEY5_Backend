@@ -18,5 +18,7 @@ namespace Repositories
         public Customer GetCustomerById(Guid id) => CustomerDAO.GetCustomerById(id);
         
         public Customer GetCustomerByEmail(string email) => CustomerDAO.GetCustomerByEmail(email);
+
+        public Customer? Login(string email, string password) => CustomerDAO.Login(email, password);
     }
 }

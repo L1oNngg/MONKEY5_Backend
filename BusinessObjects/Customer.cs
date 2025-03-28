@@ -6,7 +6,7 @@ namespace MONKEY5.BusinessObjects
 {
     public class Customer: User
     {
-        public Guid LocationId { get; set; }
+        public Guid? LocationId { get; set; }
 
         [ForeignKey("LocationId")]
         public Location? Location { get; set; }

@@ -25,7 +25,7 @@ namespace MONKEY5.BusinessObjects
 
         public DateTime BookingDateTime { get; set; } = DateTime.UtcNow;
         public DateTime ServiceStartTime { get; set; }
-        public DateTime ServiceEndTime { get; set; } = new DateTime(2025, 3, 1, 0, 0, 0, DateTimeKind.Utc);
+        public DateTime ServiceEndTime { get; set; }
         public int? ServiceUnitAmount { get; set; }
         public float? TotalPrice { get; set; }
     }

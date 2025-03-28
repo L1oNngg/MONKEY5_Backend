@@ -12,5 +12,7 @@ namespace Services
         void DeleteManager(Manager manager);
         Manager GetManagerById(Guid id);
         Manager GetManagerByEmail(string email);
+
+        Manager? Login(string email, string password);
     }
 }

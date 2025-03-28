@@ -47,12 +47,34 @@ namespace DataAccessObjects
             try
             {
                 using var context = new MyDbContext();
+                
+                // Get the existing staff from the database
+                var existingStaff = context.Staffs.FirstOrDefault(s => s.UserId == staff.UserId);
+                if (existingStaff == null)
+                {
+                    throw new Exception("Staff not found");
+                }
+                
+                // Update properties
+                existingStaff.FullName = staff.FullName;
+                existingStaff.Email = staff.Email;
+                existingStaff.PhoneNumber = staff.PhoneNumber;
+                existingStaff.DateOfBirth = staff.DateOfBirth;
+                existingStaff.Gender = staff.Gender;
+                existingStaff.IdNumber = staff.IdNumber;
+                existingStaff.Status = staff.Status;
+                existingStaff.AvgRating = staff.AvgRating;
+                
+                // Always ensure the role is Staff
+                existingStaff.Role = MONKEY5.BusinessObjects.Helpers.Role.Staff;
+                
                 // Check if password needs to be hashed (if it was changed)
                 if (!string.IsNullOrEmpty(staff.Password))
                 {
-                    staff.HashPassword();
+                    existingStaff.Password = staff.Password;
+                    existingStaff.HashPassword();
                 }
-                context.Entry<Staff>(staff).State = EntityState.Modified;
+                
                 context.SaveChanges();
             }
             catch (Exception e)
@@ -113,6 +135,30 @@ namespace DataAccessObjects
                 return db.Staffs
                     .Where(s => s.Status == MONKEY5.BusinessObjects.Helpers.AvailabilityStatus.Available)
                     .ToList();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        public static Staff? Login(string email, string password)
+        {
+            try
+            {
+                using var db = new MyDbContext();
+                var staff = db.Staffs.FirstOrDefault(s => s.Email.Equals(email));
+                
+                if (staff != null && !string.IsNullOrEmpty(staff.PasswordHash))
+                {
+                    bool isPasswordValid = MONKEY5.BusinessObjects.Helpers.PasswordHasher.VerifyPassword(password, staff.PasswordHash);
+                    if (isPasswordValid)
+                    {
+                        return staff;
+                    }
+                }
+                
+                return null;
             }
             catch (Exception e)
             {

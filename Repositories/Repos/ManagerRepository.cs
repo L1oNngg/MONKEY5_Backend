@@ -18,5 +18,7 @@ namespace Repositories
         public Manager GetManagerById(Guid id) => ManagerDAO.GetManagerById(id);
         
         public Manager GetManagerByEmail(string email) => ManagerDAO.GetManagerByEmail(email);
+
+        public Manager? Login(string email, string password) => ManagerDAO.Login(email, password);
     }
 }

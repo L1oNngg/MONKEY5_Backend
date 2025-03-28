@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BusinessObjects.DTOs;
+using Microsoft.AspNetCore.Mvc;
 using MONKEY5.BusinessObjects;
 using Services;
 using System;
@@ -95,6 +96,25 @@ namespace MONKEY5_API.Controllers
             _staffService.DeleteStaff(staff);
 
             return NoContent();
+        }
+
+        // POST: api/Staffs/login
+        [HttpPost("login")]
+        public ActionResult<Staff> Login(LoginDTO loginDTO)
+        {
+            if (string.IsNullOrEmpty(loginDTO.Email) || string.IsNullOrEmpty(loginDTO.Password))
+            {
+                return BadRequest("Email and password are required");
+            }
+
+            var staff = _staffService.Login(loginDTO.Email, loginDTO.Password);
+            
+            if (staff == null)
+            {
+                return Unauthorized("Invalid email or password");
+            }
+
+            return staff;
         }
     }
 }

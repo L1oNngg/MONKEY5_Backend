@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using MONKEY5.BusinessObjects;
+using MONKEY5.BusinessObjects.Helpers;
 using MONKEY5.DataAccessObjects;
 
 namespace DataAccessObjects
@@ -104,5 +105,30 @@ namespace DataAccessObjects
                 throw new Exception(e.Message);
             }
         }
+
+        public static Customer? Login(string email, string password)
+        {
+            try
+            {
+                using var db = new MyDbContext();
+                var customer = db.Customers.Include(c => c.Location).FirstOrDefault(c => c.Email.Equals(email));
+                
+                if (customer != null && !string.IsNullOrEmpty(customer.PasswordHash))
+                {
+                    bool isPasswordValid = PasswordHasher.VerifyPassword(password, customer.PasswordHash);
+                    if (isPasswordValid)
+                    {
+                        return customer;
+                    }
+                }
+                
+                return null;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
     }
 }
