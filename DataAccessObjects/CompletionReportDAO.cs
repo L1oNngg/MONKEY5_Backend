@@ -37,14 +37,45 @@ namespace DataAccessObjects
             try
             {
                 using var context = new MyDbContext();
+                
+                // Handle the case where report images are included
+                var reportImages = report.ReportImages?.ToList();
+                report.ReportImages = null; // Temporarily remove to avoid relationship conflicts
+                
+                // Add and save the report first
                 context.CompletionReports.Add(report);
                 context.SaveChanges();
+                
+                // Now handle the images if any
+                if (reportImages != null && reportImages.Any())
+                {
+                    foreach (var image in reportImages)
+                    {
+                        // Set the correct ReportId
+                        image.ReportId = report.ReportId;
+                        
+                        // If it's a new image (no ID or default ID), add it
+                        if (image.ReportImageId == Guid.Empty || image.ReportImageId == default)
+                        {
+                            image.ReportImageId = Guid.NewGuid();
+                            context.ReportImages.Add(image);
+                        }
+                        // If it's an existing image, attach and update it
+                        else
+                        {
+                            context.Entry(image).State = EntityState.Modified;
+                        }
+                    }
+                    
+                    context.SaveChanges();
+                }
             }
             catch (Exception e)
             {
                 throw new Exception(e.Message);
             }
         }
+
 
         public static void UpdateCompletionReport(CompletionReport report)
         {

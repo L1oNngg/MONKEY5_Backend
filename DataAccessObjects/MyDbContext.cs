@@ -618,37 +618,37 @@ namespace MONKEY5.DataAccessObjects
                 {
                     ReportImageId = Guid.Parse("B0000000-0000-0000-0000-000000000001"),
                     ReportId = completionReports[0].ReportId,
-                    ImagePath = "/images/reports/cleaning_living_room.jpg"
+                    ImagePath = "cleaning_living_room.jpg"
                 },
                 new ReportImage
                 {
                     ReportImageId = Guid.Parse("B0000000-0000-0000-0000-000000000002"),
                     ReportId = completionReports[0].ReportId,
-                    ImagePath = "/images/reports/cleaning_kitchen.jpg"
+                    ImagePath = "cleaning_kitchen.jpg"
                 },
                 new ReportImage
                 {
                     ReportImageId = Guid.Parse("B0000000-0000-0000-0000-000000000003"),
                     ReportId = completionReports[1].ReportId,
-                    ImagePath = "/images/reports/childcare_lunch.jpg"
+                    ImagePath = "childcare_lunch.jpg"
                 },
                 new ReportImage
                 {
                     ReportImageId = Guid.Parse("B0000000-0000-0000-0000-000000000004"),
                     ReportId = completionReports[2].ReportId,
-                    ImagePath = "/images/reports/cooking_spring_rolls.jpg"
+                    ImagePath = "cooking_spring_rolls.jpg"
                 },
                 new ReportImage
                 {
                     ReportImageId = Guid.Parse("B0000000-0000-0000-0000-000000000005"),
                     ReportId = completionReports[2].ReportId,
-                    ImagePath = "/images/reports/cooking_pho.jpg"
+                    ImagePath = "cooking_pho.jpg"
                 },
                 new ReportImage
                 {
                     ReportImageId = Guid.Parse("B0000000-0000-0000-0000-000000000006"),
                     ReportId = completionReports[2].ReportId,
-                    ImagePath = "/images/reports/cooking_dessert.jpg"
+                    ImagePath = "cooking_dessert.jpg"
                 }
             };
 

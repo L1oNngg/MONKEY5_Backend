@@ -291,16 +291,16 @@ namespace DataAccessObjects.Migrations
                 columns: new[] { "UserId", "DateOfBirth", "Email", "FullName", "Gender", "IdNumber", "PasswordHash", "PhoneNumber", "Role" },
                 values: new object[,]
                 {
-                    { new Guid("30000000-0000-0000-0000-000000000001"), new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "admin@monkey5.com", "Admin User", "Male", "123456789", "lbGCcY1VO2u3WqSN5iOaqw==.Ns18JufbLflNar4jEZf1pSUWmy7DhBY7sEF0Uh8cdkA=", "0123456789", "Manager" },
-                    { new Guid("40000000-0000-0000-0000-000000000001"), new DateTime(1985, 5, 15, 0, 0, 0, 0, DateTimeKind.Utc), "nguyenvana@example.com", "Nguyen Van A", "Male", "123456789012", "sDOP7t+XOga121NybSKQ3g==.JqmPD+GrU9jRTHrUW6twmyg5FUWTurTejE1HwBC4FKo=", "0123456781", "Customer" },
-                    { new Guid("40000000-0000-0000-0000-000000000002"), new DateTime(1990, 8, 20, 0, 0, 0, 0, DateTimeKind.Utc), "tranthib@example.com", "Tran Thi B", "Female", "234567890123", "CTuw28XvyKM8aHUd1LCo3A==.KwDF/C/rNMt0h3iDLNYm+WMigRJjxnoXgOPzQs+DX1o=", "0123456782", "Customer" },
-                    { new Guid("40000000-0000-0000-0000-000000000003"), new DateTime(1988, 3, 10, 0, 0, 0, 0, DateTimeKind.Utc), "levanc@example.com", "Le Van C", "Male", "345678901234", "dXqK14GJlwSzyFLbbb13ag==.r4qxa2hOQo4PKU5DkJgwjzB8Nt7d21oWBZxMk714bXo=", "0123456783", "Customer" },
-                    { new Guid("50000000-0000-0000-0000-000000000001"), new DateTime(1992, 4, 25, 0, 0, 0, 0, DateTimeKind.Utc), "phamthid@example.com", "Pham Thi D", "Female", "456789012345", "ZC/Z4/jocTdTECH/zFzF8w==.udw0YLH9GmO5XLUL6nXwz5POuHufaEQ8/GnF51324qY=", "0234567891", "Staff" },
-                    { new Guid("50000000-0000-0000-0000-000000000002"), new DateTime(1991, 7, 15, 0, 0, 0, 0, DateTimeKind.Utc), "hoangvane@example.com", "Hoang Van E", "Male", "567890123456", "u+w8Nhh5y+AySlyQWeU01g==.XsodlfRckmj1na/7R1J4UVHzVPSyYHF3ZsAiEedNOLM=", "0234567892", "Staff" },
-                    { new Guid("50000000-0000-0000-0000-000000000003"), new DateTime(1989, 9, 5, 0, 0, 0, 0, DateTimeKind.Utc), "nguyenthif@example.com", "Nguyen Thi F", "Female", "678901234567", "GaPjuX3ZQWErPZ+LWy3cQQ==.ekNhh/QU0DElHAyHvDtNzQGqlgoiNiMz5+QIT7EdmEQ=", "0234567893", "Staff" },
-                    { new Guid("50000000-0000-0000-0000-000000000004"), new DateTime(1993, 2, 18, 0, 0, 0, 0, DateTimeKind.Utc), "tranvang@example.com", "Tran Van G", "Male", "789012345678", "CIdfmkKw/aVa2QaJk+fHKw==.bUsYI4rixyqwcDMY1jcj8qUJUyxhBgKsqeO14zqWe8E=", "0234567894", "Staff" },
-                    { new Guid("50000000-0000-0000-0000-000000000005"), new DateTime(1987, 11, 30, 0, 0, 0, 0, DateTimeKind.Utc), "lethih@example.com", "Le Thi H", "Female", "890123456789", "+0qS3zt9fahLtddWG7t7VQ==.V79msLN/aePYDcil1uP9NYMW2bMysKZf8T5b2O897o8=", "0234567895", "Staff" },
-                    { new Guid("50000000-0000-0000-0000-000000000006"), new DateTime(1990, 6, 12, 0, 0, 0, 0, DateTimeKind.Utc), "phamvani@example.com", "Pham Van I", "Male", "901234567890", "2aldARbSM5jEGA+fNx2g2g==.92/OwWFeKqrpwUc07cl8lqgkHCatBT6US2wdeKLDNm8=", "0234567896", "Staff" }
+                    { new Guid("30000000-0000-0000-0000-000000000001"), new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "admin@monkey5.com", "Admin User", "Male", "123456789", "fiJ1VrQhH+gs2c8WKPAZMg==.MY4ErrEQtrow3OQHg9IOliTYOioepK5x29KdOVB4MZ4=", "0123456789", "Manager" },
+                    { new Guid("40000000-0000-0000-0000-000000000001"), new DateTime(1985, 5, 15, 0, 0, 0, 0, DateTimeKind.Utc), "nguyenvana@example.com", "Nguyen Van A", "Male", "123456789012", "IHRwTi8VhdnTb0d/nMOUmg==.Z2DSlhOZKC3gZPOtnZ/bGWhmZxRWt0aI4ymfFFDV7cM=", "0123456781", "Customer" },
+                    { new Guid("40000000-0000-0000-0000-000000000002"), new DateTime(1990, 8, 20, 0, 0, 0, 0, DateTimeKind.Utc), "tranthib@example.com", "Tran Thi B", "Female", "234567890123", "KedxBHujsDV81XLotZWiNQ==.veAQgYpWRYzlUxA2fffjPFodMQb8G+6Xrd3IsY1S+88=", "0123456782", "Customer" },
+                    { new Guid("40000000-0000-0000-0000-000000000003"), new DateTime(1988, 3, 10, 0, 0, 0, 0, DateTimeKind.Utc), "levanc@example.com", "Le Van C", "Male", "345678901234", "2sr0bmZ9+0J3AFXOqNEzvA==.1Bx2DxtklMYx+SFr+CYa2evAiNk9WOkbq3PFwGk6qzk=", "0123456783", "Customer" },
+                    { new Guid("50000000-0000-0000-0000-000000000001"), new DateTime(1992, 4, 25, 0, 0, 0, 0, DateTimeKind.Utc), "phamthid@example.com", "Pham Thi D", "Female", "456789012345", "cIWHlSA4e5VStTY/MNvepQ==.kU92yv936ZtTC+97C/5NS9nnhSXtv4G5AE7OTQv3n5c=", "0234567891", "Staff" },
+                    { new Guid("50000000-0000-0000-0000-000000000002"), new DateTime(1991, 7, 15, 0, 0, 0, 0, DateTimeKind.Utc), "hoangvane@example.com", "Hoang Van E", "Male", "567890123456", "z+UV2jVRe8vAoFGqCKAQeQ==.P1faYWi0jSXTDQMQrjhSI85y25z3G1OPdRD86DFDoyc=", "0234567892", "Staff" },
+                    { new Guid("50000000-0000-0000-0000-000000000003"), new DateTime(1989, 9, 5, 0, 0, 0, 0, DateTimeKind.Utc), "nguyenthif@example.com", "Nguyen Thi F", "Female", "678901234567", "+WbVMvxtsitpl7Rr/6s9EQ==.MGMlMmiji5IB6+DLGDgo4iU/iyMEVwEjzo3tHkzC98c=", "0234567893", "Staff" },
+                    { new Guid("50000000-0000-0000-0000-000000000004"), new DateTime(1993, 2, 18, 0, 0, 0, 0, DateTimeKind.Utc), "tranvang@example.com", "Tran Van G", "Male", "789012345678", "6F5/mWyFdtVxhfGUt6iI8g==.d1VOvy8Y8Vd+B5sbkzheqKFXgUcBxFTTPJzHqnfma2o=", "0234567894", "Staff" },
+                    { new Guid("50000000-0000-0000-0000-000000000005"), new DateTime(1987, 11, 30, 0, 0, 0, 0, DateTimeKind.Utc), "lethih@example.com", "Le Thi H", "Female", "890123456789", "9EpOeGt4UoNaYqsKGpeOTQ==.l/9NohuEZ4CLGEzx7Nl7LI54RMoUk6jgIwwEJmFiF5I=", "0234567895", "Staff" },
+                    { new Guid("50000000-0000-0000-0000-000000000006"), new DateTime(1990, 6, 12, 0, 0, 0, 0, DateTimeKind.Utc), "phamvani@example.com", "Pham Van I", "Male", "901234567890", "qX96XUwOm6ozseyaiPuGPw==.86Qn8RSajtYgnjwunnNHgqkPYT9FmsFV0qFSqv/o9g0=", "0234567896", "Staff" }
                 });
 
             migrationBuilder.InsertData(
@@ -385,12 +385,12 @@ namespace DataAccessObjects.Migrations
                 columns: new[] { "ReportImageId", "ImagePath", "ReportId" },
                 values: new object[,]
                 {
-                    { new Guid("b0000000-0000-0000-0000-000000000001"), "/images/reports/cleaning_living_room.jpg", new Guid("a0000000-0000-0000-0000-000000000001") },
-                    { new Guid("b0000000-0000-0000-0000-000000000002"), "/images/reports/cleaning_kitchen.jpg", new Guid("a0000000-0000-0000-0000-000000000001") },
-                    { new Guid("b0000000-0000-0000-0000-000000000003"), "/images/reports/childcare_lunch.jpg", new Guid("a0000000-0000-0000-0000-000000000002") },
-                    { new Guid("b0000000-0000-0000-0000-000000000004"), "/images/reports/cooking_spring_rolls.jpg", new Guid("a0000000-0000-0000-0000-000000000003") },
-                    { new Guid("b0000000-0000-0000-0000-000000000005"), "/images/reports/cooking_pho.jpg", new Guid("a0000000-0000-0000-0000-000000000003") },
-                    { new Guid("b0000000-0000-0000-0000-000000000006"), "/images/reports/cooking_dessert.jpg", new Guid("a0000000-0000-0000-0000-000000000003") }
+                    { new Guid("b0000000-0000-0000-0000-000000000001"), "cleaning_living_room.jpg", new Guid("a0000000-0000-0000-0000-000000000001") },
+                    { new Guid("b0000000-0000-0000-0000-000000000002"), "cleaning_kitchen.jpg", new Guid("a0000000-0000-0000-0000-000000000001") },
+                    { new Guid("b0000000-0000-0000-0000-000000000003"), "childcare_lunch.jpg", new Guid("a0000000-0000-0000-0000-000000000002") },
+                    { new Guid("b0000000-0000-0000-0000-000000000004"), "cooking_spring_rolls.jpg", new Guid("a0000000-0000-0000-0000-000000000003") },
+                    { new Guid("b0000000-0000-0000-0000-000000000005"), "cooking_pho.jpg", new Guid("a0000000-0000-0000-0000-000000000003") },
+                    { new Guid("b0000000-0000-0000-0000-000000000006"), "cooking_dessert.jpg", new Guid("a0000000-0000-0000-0000-000000000003") }
                 });
 
             migrationBuilder.CreateIndex(
