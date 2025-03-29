@@ -5,5 +5,7 @@ public enum PaymentMethod
     PayPal,
     BankTransfer,
     CreditCard,
-    Cash
+    Cash,
+    Momo,
+    ZaloPay
 }
