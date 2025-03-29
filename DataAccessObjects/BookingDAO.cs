@@ -52,28 +52,68 @@ namespace DataAccessObjects
             }
         }
 
-        public static void UpdateBooking(Booking booking)
+    public static void UpdateBooking(Booking booking)
+    {
+        try
         {
-            try
+            using var context = new MyDbContext();
+            
+            // Get the existing booking from the database
+            var existingBooking = context.Bookings.FirstOrDefault(b => b.BookingId == booking.BookingId);
+            if (existingBooking == null)
             {
-                using var context = new MyDbContext();
+                throw new Exception("Booking not found");
+            }
+            
+            // Only update fields that are provided (not null or default)
+            if (booking.CustomerId != Guid.Empty)
+                existingBooking.CustomerId = booking.CustomerId;
                 
-                // Get the service to calculate the total price
-                var service = context.Services.FirstOrDefault(s => s.ServiceId == booking.ServiceId);
+            if (booking.StaffId != Guid.Empty)
+                existingBooking.StaffId = booking.StaffId;
+                
+            if (booking.ServiceId != Guid.Empty)
+                existingBooking.ServiceId = booking.ServiceId;
+                
+            // Enum values can be explicitly checked
+            if (booking.Status != default)
+                existingBooking.Status = booking.Status;
+                
+            // Never update BookingDateTime
+            // existingBooking.BookingDateTime = booking.BookingDateTime;
+                
+            if (booking.ServiceStartTime != default)
+                existingBooking.ServiceStartTime = booking.ServiceStartTime;
+                
+            if (booking.ServiceEndTime != default)
+                existingBooking.ServiceEndTime = booking.ServiceEndTime;
+                
+            // For numeric values, you might need to check if they're provided
+            // This depends on your business logic
+            if (booking.ServiceUnitAmount > 0)
+                existingBooking.ServiceUnitAmount = booking.ServiceUnitAmount;
+                
+            // Recalculate total price if needed
+            if (booking.ServiceId != Guid.Empty || booking.ServiceUnitAmount > 0)
+            {
+                var service = context.Services.FirstOrDefault(s => s.ServiceId == existingBooking.ServiceId);
                 if (service != null)
                 {
-                    // Calculate total price based on service unit price and booking amount
-                    booking.TotalPrice = (float)(service.UnitPrice * booking.ServiceUnitAmount);
+                    existingBooking.TotalPrice = (float)(service.UnitPrice * existingBooking.ServiceUnitAmount);
                 }
-                
-                context.Entry<Booking>(booking).State = EntityState.Modified;
-                context.SaveChanges();
             }
-            catch (Exception e)
+            else if (booking.TotalPrice > 0)
             {
-                throw new Exception(e.Message);
+                existingBooking.TotalPrice = booking.TotalPrice;
             }
+            
+            context.SaveChanges();
         }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
+    }
 
         public static void DeleteBooking(Booking booking)
         {

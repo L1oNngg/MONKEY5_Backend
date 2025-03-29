@@ -34,13 +34,20 @@ namespace DataAccessObjects
             try
             {
                 using var context = new MyDbContext();
+                
+                // Save the review
                 context.Reviews.Add(review);
                 context.SaveChanges();
                 
-                // Update staff average rating
-                if (review.Booking != null)
+                // Get the booking to access StaffId
+                if (review.BookingId.HasValue)
                 {
-                    UpdateStaffAverageRating((Guid)review.Booking.StaffId);
+                    var booking = context.Bookings.FirstOrDefault(b => b.BookingId == review.BookingId);
+                    if (booking != null)
+                    {
+                        // Update staff average rating
+                        UpdateStaffAverageRating((Guid)booking.StaffId);
+                    }
                 }
             }
             catch (Exception e)
@@ -57,10 +64,15 @@ namespace DataAccessObjects
                 context.Entry<Review>(review).State = EntityState.Modified;
                 context.SaveChanges();
                 
-                // Update staff average rating
-                if (review.Booking != null)
+                // Get the booking to access StaffId
+                if (review.BookingId.HasValue)
                 {
-                    UpdateStaffAverageRating((Guid)review.Booking.StaffId);
+                    var booking = context.Bookings.FirstOrDefault(b => b.BookingId == review.BookingId);
+                    if (booking != null)
+                    {
+                        // Update staff average rating
+                        UpdateStaffAverageRating((Guid)booking.StaffId);
+                    }
                 }
             }
             catch (Exception e)
@@ -77,11 +89,18 @@ namespace DataAccessObjects
                 var reviewToDelete = context.Reviews.SingleOrDefault(r => r.ReviewId == review.ReviewId);
                 if (reviewToDelete != null)
                 {
-                    // Store staff ID before deleting for rating update
-                    var staffId = context.Bookings
-                        .Where(b => b.BookingId == reviewToDelete.BookingId)
-                        .Select(b => b.StaffId)
-                        .FirstOrDefault();
+                    // Store booking ID before deleting for rating update
+                    Guid? bookingId = reviewToDelete.BookingId;
+                    Guid staffId = Guid.Empty;
+                    
+                    if (bookingId.HasValue)
+                    {
+                        var booking = context.Bookings.FirstOrDefault(b => b.BookingId == bookingId);
+                        if (booking != null)
+                        {
+                            staffId = (Guid)booking.StaffId;
+                        }
+                    }
                     
                     context.Reviews.Remove(reviewToDelete);
                     context.SaveChanges();
@@ -89,10 +108,7 @@ namespace DataAccessObjects
                     // Update staff average rating
                     if (staffId != Guid.Empty)
                     {
-                        if (review.Booking != null)
-                        {
-                            UpdateStaffAverageRating((Guid)review.Booking.StaffId);
-                        }
+                        UpdateStaffAverageRating(staffId);
                     }
                 }
             }
@@ -101,7 +117,6 @@ namespace DataAccessObjects
                 throw new Exception(e.Message);
             }
         }
-
         public static Review GetReviewById(Guid id)
         {
             try
@@ -183,14 +198,20 @@ namespace DataAccessObjects
                 using var context = new MyDbContext();
                 var reviews = context.Reviews
                     .Include(r => r.Booking)
-                    .Where(r => r.Booking != null && r.Booking.StaffId == staffId)
+                    .Where(r => r.BookingId.HasValue)
+                    .Join(
+                        context.Bookings,
+                        r => r.BookingId,
+                        b => b.BookingId,
+                        (r, b) => new { Review = r, Booking = b }
+                    )
+                    .Where(rb => rb.Booking.StaffId == staffId && rb.Review.RatingStar.HasValue)
+                    .Select(rb => rb.Review)
                     .ToList();
 
                 if (reviews.Any())
                 {
-                    double avgRating = reviews
-                                        .Where(r => r.RatingStar.HasValue)
-                                        .Average(r => r.RatingStar.Value);
+                    double avgRating = reviews.Average(r => r.RatingStar.Value);
                     
                     var staff = context.Staffs.FirstOrDefault(s => s.UserId == staffId);
                     if (staff != null)
