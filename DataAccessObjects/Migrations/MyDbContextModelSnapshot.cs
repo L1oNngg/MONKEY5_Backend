@@ -34,6 +34,9 @@ namespace DataAccessObjects.Migrations
                     b.Property<Guid?>("CustomerId")
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Note")
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("ServiceEndTime")
                         .HasColumnType("timestamp with time zone");
 
@@ -71,6 +74,7 @@ namespace DataAccessObjects.Migrations
                             BookingId = new Guid("60000000-0000-0000-0000-000000000001"),
                             BookingDateTime = new DateTime(2025, 3, 2, 0, 0, 0, 0, DateTimeKind.Utc),
                             CustomerId = new Guid("40000000-0000-0000-0000-000000000001"),
+                            Note = "Please focus on kitchen and bathroom cleaning. Customer has a cat, so be careful when entering.",
                             ServiceEndTime = new DateTime(2025, 3, 3, 13, 0, 0, 0, DateTimeKind.Utc),
                             ServiceId = new Guid("20000000-0000-0000-0000-000000000001"),
                             ServiceStartTime = new DateTime(2025, 3, 3, 10, 0, 0, 0, DateTimeKind.Utc),
@@ -84,6 +88,7 @@ namespace DataAccessObjects.Migrations
                             BookingId = new Guid("60000000-0000-0000-0000-000000000002"),
                             BookingDateTime = new DateTime(2025, 3, 3, 0, 0, 0, 0, DateTimeKind.Utc),
                             CustomerId = new Guid("40000000-0000-0000-0000-000000000002"),
+                            Note = "Child is 5 years old and has homework to complete. Allergic to peanuts.",
                             ServiceEndTime = new DateTime(2025, 3, 4, 18, 0, 0, 0, DateTimeKind.Utc),
                             ServiceId = new Guid("20000000-0000-0000-0000-000000000002"),
                             ServiceStartTime = new DateTime(2025, 3, 4, 14, 0, 0, 0, DateTimeKind.Utc),
@@ -97,6 +102,7 @@ namespace DataAccessObjects.Migrations
                             BookingId = new Guid("60000000-0000-0000-0000-000000000003"),
                             BookingDateTime = new DateTime(2025, 3, 4, 0, 0, 0, 0, DateTimeKind.Utc),
                             CustomerId = new Guid("40000000-0000-0000-0000-000000000003"),
+                            Note = "Family prefers vegetarian dishes. Please use less spicy ingredients.",
                             ServiceEndTime = new DateTime(2025, 3, 5, 18, 0, 0, 0, DateTimeKind.Utc),
                             ServiceId = new Guid("20000000-0000-0000-0000-000000000004"),
                             ServiceStartTime = new DateTime(2025, 3, 5, 15, 0, 0, 0, DateTimeKind.Utc),
@@ -110,6 +116,7 @@ namespace DataAccessObjects.Migrations
                             BookingId = new Guid("60000000-0000-0000-0000-000000000004"),
                             BookingDateTime = new DateTime(2025, 3, 5, 0, 0, 0, 0, DateTimeKind.Utc),
                             CustomerId = new Guid("40000000-0000-0000-0000-000000000001"),
+                            Note = "Deep cleaning needed for living room. Customer will provide special cleaning products for wooden furniture.",
                             ServiceEndTime = new DateTime(2025, 3, 6, 11, 0, 0, 0, DateTimeKind.Utc),
                             ServiceId = new Guid("20000000-0000-0000-0000-000000000001"),
                             ServiceStartTime = new DateTime(2025, 3, 6, 7, 0, 0, 0, DateTimeKind.Utc),
@@ -123,6 +130,7 @@ namespace DataAccessObjects.Migrations
                             BookingId = new Guid("60000000-0000-0000-0000-000000000005"),
                             BookingDateTime = new DateTime(2025, 3, 6, 0, 0, 0, 0, DateTimeKind.Utc),
                             CustomerId = new Guid("40000000-0000-0000-0000-000000000002"),
+                            Note = "Two children ages 3 and 6. The older child has online classes from 9-10 AM. Both children need lunch prepared.",
                             ServiceEndTime = new DateTime(2025, 3, 7, 13, 0, 0, 0, DateTimeKind.Utc),
                             ServiceId = new Guid("20000000-0000-0000-0000-000000000003"),
                             ServiceStartTime = new DateTime(2025, 3, 7, 8, 0, 0, 0, DateTimeKind.Utc),
@@ -176,6 +184,63 @@ namespace DataAccessObjects.Migrations
                             BookingId = new Guid("60000000-0000-0000-0000-000000000003"),
                             ReportDateTime = new DateTime(2025, 3, 5, 18, 10, 0, 0, DateTimeKind.Utc),
                             ReportText = "Prepared 5 dishes: spring rolls, pho, grilled chicken, stir-fried vegetables, and mango sticky rice for dessert."
+                        });
+                });
+
+            modelBuilder.Entity("MONKEY5.BusinessObjects.LeaveRequest", b =>
+                {
+                    b.Property<Guid>("RequestId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("LeaveEnd")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("LeaveReasons")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("LeaveStart")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime?>("RequestDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid?>("StaffId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("RequestId");
+
+                    b.HasIndex("StaffId");
+
+                    b.ToTable("LeaveRequests");
+
+                    b.HasData(
+                        new
+                        {
+                            RequestId = new Guid("c0000000-0000-0000-0000-000000000001"),
+                            LeaveEnd = new DateTime(2025, 3, 15, 0, 0, 0, 0, DateTimeKind.Utc),
+                            LeaveReasons = "Family vacation planned months in advance.",
+                            LeaveStart = new DateTime(2025, 3, 10, 0, 0, 0, 0, DateTimeKind.Utc),
+                            RequestDate = new DateTime(2025, 2, 15, 0, 0, 0, 0, DateTimeKind.Utc),
+                            StaffId = new Guid("50000000-0000-0000-0000-000000000001")
+                        },
+                        new
+                        {
+                            RequestId = new Guid("c0000000-0000-0000-0000-000000000002"),
+                            LeaveEnd = new DateTime(2025, 3, 22, 0, 0, 0, 0, DateTimeKind.Utc),
+                            LeaveReasons = "Medical appointment and recovery.",
+                            LeaveStart = new DateTime(2025, 3, 20, 0, 0, 0, 0, DateTimeKind.Utc),
+                            RequestDate = new DateTime(2025, 2, 20, 0, 0, 0, 0, DateTimeKind.Utc),
+                            StaffId = new Guid("50000000-0000-0000-0000-000000000003")
+                        },
+                        new
+                        {
+                            RequestId = new Guid("c0000000-0000-0000-0000-000000000003"),
+                            LeaveEnd = new DateTime(2025, 4, 10, 0, 0, 0, 0, DateTimeKind.Utc),
+                            LeaveReasons = "Professional development course on advanced culinary techniques.",
+                            LeaveStart = new DateTime(2025, 4, 5, 0, 0, 0, 0, DateTimeKind.Utc),
+                            RequestDate = new DateTime(2025, 2, 25, 0, 0, 0, 0, DateTimeKind.Utc),
+                            StaffId = new Guid("50000000-0000-0000-0000-000000000005")
                         });
                 });
 
@@ -576,7 +641,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Nguyen Van A",
                             Gender = "Male",
                             IdNumber = "123456789012",
-                            PasswordHash = "IHRwTi8VhdnTb0d/nMOUmg==.Z2DSlhOZKC3gZPOtnZ/bGWhmZxRWt0aI4ymfFFDV7cM=",
+                            PasswordHash = "glom/pSlKDB2yfyNxXBi9A==.fA92GkA+PzRos13/6tzG/018+RppnvMsj1EIukxJHbU=",
                             PhoneNumber = "0123456781",
                             Role = "Customer",
                             LocationId = new Guid("10000000-0000-0000-0000-000000000001"),
@@ -590,7 +655,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Tran Thi B",
                             Gender = "Female",
                             IdNumber = "234567890123",
-                            PasswordHash = "KedxBHujsDV81XLotZWiNQ==.veAQgYpWRYzlUxA2fffjPFodMQb8G+6Xrd3IsY1S+88=",
+                            PasswordHash = "77dXzxVgy68ltbC2RprB9A==.A2TQZN0nnn2YHHPZW4uZxAtP6XN7XdbQ56+6b4eERwA=",
                             PhoneNumber = "0123456782",
                             Role = "Customer",
                             LocationId = new Guid("10000000-0000-0000-0000-000000000002"),
@@ -604,7 +669,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Le Van C",
                             Gender = "Male",
                             IdNumber = "345678901234",
-                            PasswordHash = "2sr0bmZ9+0J3AFXOqNEzvA==.1Bx2DxtklMYx+SFr+CYa2evAiNk9WOkbq3PFwGk6qzk=",
+                            PasswordHash = "jMs3IDn1CrHKZr01MllLuw==.CWOCJVB3wT8pu8epd7eu5yunxW9fTscB02nNki4C8H4=",
                             PhoneNumber = "0123456783",
                             Role = "Customer",
                             LocationId = new Guid("10000000-0000-0000-0000-000000000003"),
@@ -627,7 +692,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Admin User",
                             Gender = "Male",
                             IdNumber = "123456789",
-                            PasswordHash = "fiJ1VrQhH+gs2c8WKPAZMg==.MY4ErrEQtrow3OQHg9IOliTYOioepK5x29KdOVB4MZ4=",
+                            PasswordHash = "vvZPVbI8OQbro9uQWddxCw==.CkHd5tLUjfzdzZoqj+re0QaJCh27IqZ7/vaAakfwzIE=",
                             PhoneNumber = "0123456789",
                             Role = "Manager"
                         });
@@ -654,7 +719,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Pham Thi D",
                             Gender = "Female",
                             IdNumber = "456789012345",
-                            PasswordHash = "cIWHlSA4e5VStTY/MNvepQ==.kU92yv936ZtTC+97C/5NS9nnhSXtv4G5AE7OTQv3n5c=",
+                            PasswordHash = "CkL8Cv92V7V36qT3HGpEPQ==.XZhH/CzMUU321uzA1S0S/32+S9382LNE0Zr0qv8HxL4=",
                             PhoneNumber = "0234567891",
                             Role = "Staff",
                             AvgRating = 4.5,
@@ -668,7 +733,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Hoang Van E",
                             Gender = "Male",
                             IdNumber = "567890123456",
-                            PasswordHash = "z+UV2jVRe8vAoFGqCKAQeQ==.P1faYWi0jSXTDQMQrjhSI85y25z3G1OPdRD86DFDoyc=",
+                            PasswordHash = "bzLi68cgP7UhPb5m+TH4Jw==.pSzlGGLi50TgDhhNhKNaxNrj0OyWkp4v2CzDIhHaPyE=",
                             PhoneNumber = "0234567892",
                             Role = "Staff",
                             AvgRating = 4.2000000000000002,
@@ -682,7 +747,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Nguyen Thi F",
                             Gender = "Female",
                             IdNumber = "678901234567",
-                            PasswordHash = "+WbVMvxtsitpl7Rr/6s9EQ==.MGMlMmiji5IB6+DLGDgo4iU/iyMEVwEjzo3tHkzC98c=",
+                            PasswordHash = "I4+96JIQBFTKAcQAfMlB8g==.rfijViCysG/qQHt/pq84LUHR4tbDQJPVOH8/tUO0r8U=",
                             PhoneNumber = "0234567893",
                             Role = "Staff",
                             AvgRating = 4.7999999999999998,
@@ -696,7 +761,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Tran Van G",
                             Gender = "Male",
                             IdNumber = "789012345678",
-                            PasswordHash = "6F5/mWyFdtVxhfGUt6iI8g==.d1VOvy8Y8Vd+B5sbkzheqKFXgUcBxFTTPJzHqnfma2o=",
+                            PasswordHash = "Bsay0jbUkrg0CwX2zRDmnA==.pZvNqXlKuh7Tqkv78eUX/xBmIMqgVNanyfThr627Nyo=",
                             PhoneNumber = "0234567894",
                             Role = "Staff",
                             AvgRating = 4.2999999999999998,
@@ -710,7 +775,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Le Thi H",
                             Gender = "Female",
                             IdNumber = "890123456789",
-                            PasswordHash = "9EpOeGt4UoNaYqsKGpeOTQ==.l/9NohuEZ4CLGEzx7Nl7LI54RMoUk6jgIwwEJmFiF5I=",
+                            PasswordHash = "/8DVaGbsN9Y72NH3pkwlZQ==.t16px5T7WG9qnpNGv7GQ/ghmESAo8F4kxaOCLGcuAUE=",
                             PhoneNumber = "0234567895",
                             Role = "Staff",
                             AvgRating = 4.9000000000000004,
@@ -724,7 +789,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Pham Van I",
                             Gender = "Male",
                             IdNumber = "901234567890",
-                            PasswordHash = "qX96XUwOm6ozseyaiPuGPw==.86Qn8RSajtYgnjwunnNHgqkPYT9FmsFV0qFSqv/o9g0=",
+                            PasswordHash = "HpOp5NRhR4ssaypLqIu3nA==.U/PXv6YM0vyX+T8Dak2cT6gedZIy8Q1D6QNBOajdXl8=",
                             PhoneNumber = "0234567896",
                             Role = "Staff",
                             AvgRating = 4.5999999999999996,
@@ -764,6 +829,16 @@ namespace DataAccessObjects.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Booking");
+                });
+
+            modelBuilder.Entity("MONKEY5.BusinessObjects.LeaveRequest", b =>
+                {
+                    b.HasOne("MONKEY5.BusinessObjects.Staff", "Staff")
+                        .WithMany()
+                        .HasForeignKey("StaffId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Staff");
                 });
 
             modelBuilder.Entity("MONKEY5.BusinessObjects.Payment", b =>

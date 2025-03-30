@@ -57,6 +57,7 @@ namespace MONKEY5.DataAccessObjects
         public DbSet<Refund> Refunds { get; set; }
         public DbSet<CompletionReport> CompletionReports { get; set; }
         public DbSet<ReportImage> ReportImages { get; set; }
+        public DbSet<LeaveRequest> LeaveRequests { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -136,6 +137,13 @@ namespace MONKEY5.DataAccessObjects
                 .HasMany(c => c.ReportImages)
                 .WithOne(r => r.CompletionReport)
                 .HasForeignKey(r => r.ReportId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Staff 1 requests 0..N LeaveRequest
+            modelBuilder.Entity<LeaveRequest>()
+                .HasOne(l => l.Staff)
+                .WithMany()
+                .HasForeignKey(l => l.StaffId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // // Configure required fields and other constraints
@@ -420,7 +428,8 @@ namespace MONKEY5.DataAccessObjects
                     ServiceStartTime = new DateTime(2025, 3, 3, 10, 0, 0, DateTimeKind.Utc),
                     ServiceEndTime = new DateTime(2025, 3, 3, 13, 0, 0, DateTimeKind.Utc),
                     ServiceUnitAmount = 3, // 3 hours
-                    TotalPrice = 270000f // 90,000 x 3
+                    TotalPrice = 270000f, // 90,000 x 3
+                    Note = "Please focus on kitchen and bathroom cleaning. Customer has a cat, so be careful when entering."
                 },
                 new Booking
                 {
@@ -433,7 +442,8 @@ namespace MONKEY5.DataAccessObjects
                     ServiceStartTime = new DateTime(2025, 3, 4, 14, 0, 0, DateTimeKind.Utc),
                     ServiceEndTime = new DateTime(2025, 3, 4, 18, 0, 0, DateTimeKind.Utc),
                     ServiceUnitAmount = 4, // 4 hours
-                    TotalPrice = 600000f // 150,000 x 4
+                    TotalPrice = 600000f, // 150,000 x 4
+                    Note = "Child is 5 years old and has homework to complete. Allergic to peanuts."
                 },
                 new Booking
                 {
@@ -446,7 +456,8 @@ namespace MONKEY5.DataAccessObjects
                     ServiceStartTime = new DateTime(2025, 3, 5, 15, 0, 0, DateTimeKind.Utc),
                     ServiceEndTime = new DateTime(2025, 3, 5, 18, 0, 0, DateTimeKind.Utc),
                     ServiceUnitAmount = 5, // 5 dishes
-                    TotalPrice = 400000f // 80,000 x 5
+                    TotalPrice = 400000f, // 80,000 x 5
+                    Note = "Family prefers vegetarian dishes. Please use less spicy ingredients."
                 },
                 new Booking
                 {
@@ -459,7 +470,8 @@ namespace MONKEY5.DataAccessObjects
                     ServiceStartTime = new DateTime(2025, 3, 6, 7, 0, 0, DateTimeKind.Utc),
                     ServiceEndTime = new DateTime(2025, 3, 6, 11, 0, 0, DateTimeKind.Utc),
                     ServiceUnitAmount = 4, // 4 hours
-                    TotalPrice = 360000f // 90,000 x 4
+                    TotalPrice = 360000f, // 90,000 x 4
+                    Note = "Deep cleaning needed for living room. Customer will provide special cleaning products for wooden furniture."
                 },
                 new Booking
                 {
@@ -472,7 +484,8 @@ namespace MONKEY5.DataAccessObjects
                     ServiceStartTime = new DateTime(2025, 3, 7, 8, 0, 0, DateTimeKind.Utc),
                     ServiceEndTime = new DateTime(2025, 3, 7, 13, 0, 0, DateTimeKind.Utc),
                     ServiceUnitAmount = 5, // 5 hours
-                    TotalPrice = 1000000f // 200,000 x 5
+                    TotalPrice = 1000000f, // 200,000 x 5
+                    Note = "Two children ages 3 and 6. The older child has online classes from 9-10 AM. Both children need lunch prepared."
                 }
             };
 
@@ -653,6 +666,41 @@ namespace MONKEY5.DataAccessObjects
             };
 
             modelBuilder.Entity<ReportImage>().HasData(reportImages);
+
+            // Sample Leave Requests
+            var leaveRequests = new List<LeaveRequest>
+            {
+                new LeaveRequest
+                {
+                    RequestId = Guid.Parse("C0000000-0000-0000-0000-000000000001"),
+                    StaffId = staffs[0].UserId, // Cleaning staff
+                    RequestDate = new DateTime(2025, 2, 15, 0, 0, 0, DateTimeKind.Utc),
+                    LeaveStart = new DateTime(2025, 3, 10, 0, 0, 0, DateTimeKind.Utc),
+                    LeaveEnd = new DateTime(2025, 3, 15, 0, 0, 0, DateTimeKind.Utc),
+                    LeaveReasons = "Family vacation planned months in advance."
+                },
+                new LeaveRequest
+                {
+                    RequestId = Guid.Parse("C0000000-0000-0000-0000-000000000002"),
+                    StaffId = staffs[2].UserId, // Childcare staff
+                    RequestDate = new DateTime(2025, 2, 20, 0, 0, 0, DateTimeKind.Utc),
+                    LeaveStart = new DateTime(2025, 3, 20, 0, 0, 0, DateTimeKind.Utc),
+                    LeaveEnd = new DateTime(2025, 3, 22, 0, 0, 0, DateTimeKind.Utc),
+                    LeaveReasons = "Medical appointment and recovery."
+                },
+                new LeaveRequest
+                {
+                    RequestId = Guid.Parse("C0000000-0000-0000-0000-000000000003"),
+                    StaffId = staffs[4].UserId, // Cooking staff
+                    RequestDate = new DateTime(2025, 2, 25, 0, 0, 0, DateTimeKind.Utc),
+                    LeaveStart = new DateTime(2025, 4, 5, 0, 0, 0, DateTimeKind.Utc),
+                    LeaveEnd = new DateTime(2025, 4, 10, 0, 0, 0, DateTimeKind.Utc),
+                    LeaveReasons = "Professional development course on advanced culinary techniques."
+                }
+            };
+
+            modelBuilder.Entity<LeaveRequest>().HasData(leaveRequests);
+
         }
 
     }
