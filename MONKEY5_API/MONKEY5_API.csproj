@@ -25,6 +25,7 @@
   <ItemGroup>
     <Folder Include="images\" />
     <Folder Include="images\reports\" />
+    <Folder Include="MockImages\" />
     <Folder Include="uploads\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>

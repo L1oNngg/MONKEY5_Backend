@@ -3,6 +3,7 @@ using MONKEY5.DataAccessObjects;
 using Microsoft.OpenApi.Models;
 using Microsoft.Extensions.Logging;
 using System.Text.Json.Serialization;
+using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,11 +56,40 @@ using (var scope = app.Services.CreateScope())
         logger.LogInformation("Applying database migrations...");
         context.Database.Migrate();
         logger.LogInformation("Database migrations applied successfully.");
+        
+        // Create uploads directory if it doesn't exist
+        var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "uploads");
+        if (!Directory.Exists(uploadsFolder))
+        {
+            Directory.CreateDirectory(uploadsFolder);
+            logger.LogInformation("Created uploads directory.");
+        }
+        
+        // Copy mock images from embedded resources or content root
+        var mockImagesFolder = Path.Combine(app.Environment.ContentRootPath, "MockImages");
+        if (Directory.Exists(mockImagesFolder))
+        {
+            logger.LogInformation("Found MockImages directory, copying files...");
+            foreach (var file in Directory.GetFiles(mockImagesFolder))
+            {
+                var fileName = Path.GetFileName(file);
+                var destPath = Path.Combine(uploadsFolder, fileName);
+                if (!System.IO.File.Exists(destPath))
+                {
+                    System.IO.File.Copy(file, destPath);
+                    logger.LogInformation($"Copied mock image: {fileName}");
+                }
+            }
+        }
+        else
+        {
+            logger.LogWarning("MockImages directory not found at: " + mockImagesFolder);
+        }
     }
     catch (Exception ex)
     {
         var logger = services.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred while migrating or seeding the database.");
+        logger.LogError(ex, "An error occurred while migrating or seeding the database or copying mock images.");
     }
 }
 

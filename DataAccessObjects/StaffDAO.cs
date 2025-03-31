@@ -55,15 +55,32 @@ namespace DataAccessObjects
                     throw new Exception("Staff not found");
                 }
                 
-                // Update properties
-                existingStaff.FullName = staff.FullName;
-                existingStaff.Email = staff.Email;
-                existingStaff.PhoneNumber = staff.PhoneNumber;
-                existingStaff.DateOfBirth = staff.DateOfBirth;
-                existingStaff.Gender = staff.Gender;
-                existingStaff.IdNumber = staff.IdNumber;
-                existingStaff.Status = staff.Status;
-                existingStaff.AvgRating = staff.AvgRating;
+                // Only update properties that are provided (not null)
+                if (!string.IsNullOrEmpty(staff.FullName))
+                    existingStaff.FullName = staff.FullName;
+                    
+                if (!string.IsNullOrEmpty(staff.Email))
+                    existingStaff.Email = staff.Email;
+                    
+                if (!string.IsNullOrEmpty(staff.PhoneNumber))
+                    existingStaff.PhoneNumber = staff.PhoneNumber;
+                    
+                if (staff.DateOfBirth != default(DateTime) && staff.DateOfBirth != null)
+                    existingStaff.DateOfBirth = staff.DateOfBirth;
+                    
+                if (!string.IsNullOrEmpty(staff.Gender))
+                    existingStaff.Gender = staff.Gender;
+                    
+                if (!string.IsNullOrEmpty(staff.IdNumber))
+                    existingStaff.IdNumber = staff.IdNumber;
+                    
+                // For status, we need to check if it's not the default value
+                if (staff.Status != default(MONKEY5.BusinessObjects.Helpers.AvailabilityStatus))
+                    existingStaff.Status = staff.Status;
+                    
+                // For avgRating, check if it's not the default value (0)
+                if (staff.AvgRating != 0)
+                    existingStaff.AvgRating = staff.AvgRating;
                 
                 // Always ensure the role is Staff
                 existingStaff.Role = MONKEY5.BusinessObjects.Helpers.Role.Staff;
@@ -82,6 +99,7 @@ namespace DataAccessObjects
                 throw new Exception(e.Message);
             }
         }
+
 
         public static void DeleteStaff(Staff staff)
         {
