@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MONKEY5.BusinessObjects;
+using MONKEY5.BusinessObjects.DTOs;
+using MONKEY5.BusinessObjects.DTOs.Mappers;
 using MONKEY5.BusinessObjects.Helpers;
 using Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MONKEY5_API.Controllers
 {
@@ -20,14 +23,15 @@ namespace MONKEY5_API.Controllers
 
         // GET: api/Bookings
         [HttpGet]
-        public ActionResult<IEnumerable<Booking>> GetBookings()
+        public ActionResult<IEnumerable<BookingDTO>> GetBookings()
         {
-            return _bookingService.GetBookings();
+            var bookings = _bookingService.GetBookings();
+            return bookings.ToBookingDtoList();
         }
 
         // GET: api/Bookings/5
         [HttpGet("{id}")]
-        public ActionResult<Booking> GetBooking(Guid id)
+        public ActionResult<BookingDTO> GetBooking(Guid id)
         {
             var booking = _bookingService.GetBookingById(id);
 
@@ -36,35 +40,39 @@ namespace MONKEY5_API.Controllers
                 return NotFound();
             }
 
-            return booking;
+            return booking.ToBookingDto();
         }
 
         // GET: api/Bookings/customer/{customerId}
         [HttpGet("customer/{customerId}")]
-        public ActionResult<IEnumerable<Booking>> GetBookingsByCustomerId(Guid customerId)
+        public ActionResult<IEnumerable<BookingDTO>> GetBookingsByCustomerId(Guid customerId)
         {
-            return _bookingService.GetBookingsByCustomerId(customerId);
+            var bookings = _bookingService.GetBookingsByCustomerId(customerId);
+            return bookings.ToBookingDtoList();
         }
 
         // GET: api/Bookings/staff/{staffId}
         [HttpGet("staff/{staffId}")]
-        public ActionResult<IEnumerable<Booking>> GetBookingsByStaffId(Guid staffId)
+        public ActionResult<IEnumerable<BookingDTO>> GetBookingsByStaffId(Guid staffId)
         {
-            return _bookingService.GetBookingsByStaffId(staffId);
+            var bookings = _bookingService.GetBookingsByStaffId(staffId);
+            return bookings.ToBookingDtoList();
         }
 
         // GET: api/Bookings/status/{status}
         [HttpGet("status/{status}")]
-        public ActionResult<IEnumerable<Booking>> GetBookingsByStatus(OrderStatus status)
+        public ActionResult<IEnumerable<BookingDTO>> GetBookingsByStatus(OrderStatus status)
         {
-            return _bookingService.GetBookingsByStatus(status);
+            var bookings = _bookingService.GetBookingsByStatus(status);
+            return bookings.ToBookingDtoList();
         }
 
         // GET: api/Bookings/daterange
         [HttpGet("daterange")]
-        public ActionResult<IEnumerable<Booking>> GetBookingsByDateRange([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
+        public ActionResult<IEnumerable<BookingDTO>> GetBookingsByDateRange([FromQuery] DateTime startDate, [FromQuery] DateTime endDate)
         {
-            return _bookingService.GetBookingsByDateRange(startDate, endDate);
+            var bookings = _bookingService.GetBookingsByDateRange(startDate, endDate);
+            return bookings.ToBookingDtoList();
         }
 
         // GET: api/Bookings/staffavailable
@@ -90,11 +98,12 @@ namespace MONKEY5_API.Controllers
 
         // POST: api/Bookings
         [HttpPost]
-        public ActionResult<Booking> PostBooking(Booking booking)
+        public ActionResult<BookingDTO> PostBooking(Booking booking)
         {
             _bookingService.SaveBooking(booking);
 
-            return CreatedAtAction("GetBooking", new { id = booking.BookingId }, booking);
+            var createdBooking = _bookingService.GetBookingById(booking.BookingId);
+            return CreatedAtAction("GetBooking", new { id = booking.BookingId }, createdBooking.ToBookingDto());
         }
 
         // DELETE: api/Bookings/5

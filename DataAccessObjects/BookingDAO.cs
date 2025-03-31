@@ -18,6 +18,7 @@ namespace DataAccessObjects
                 using var db = new MyDbContext();
                 listBookings = db.Bookings
                     .Include(b => b.Customer)
+                        .ThenInclude(c => c.Location)
                     .Include(b => b.Staff)
                     .Include(b => b.Service)
                     .ToList();
@@ -145,6 +146,7 @@ namespace DataAccessObjects
                 using var db = new MyDbContext();
                 return db.Bookings
                     .Include(b => b.Customer)
+                        .ThenInclude(c => c.Location)
                     .Include(b => b.Staff)
                     .Include(b => b.Service)
                     .FirstOrDefault(b => b.BookingId.Equals(id));
@@ -162,6 +164,7 @@ namespace DataAccessObjects
                 using var db = new MyDbContext();
                 return db.Bookings
                     .Include(b => b.Customer)
+                        .ThenInclude(c => c.Location)
                     .Include(b => b.Staff)
                     .Include(b => b.Service)
                     .Where(b => b.CustomerId.Equals(customerId))
@@ -180,6 +183,7 @@ namespace DataAccessObjects
                 using var db = new MyDbContext();
                 return db.Bookings
                     .Include(b => b.Customer)
+                        .ThenInclude(c => c.Location)
                     .Include(b => b.Staff)
                     .Include(b => b.Service)
                     .Where(b => b.StaffId.Equals(staffId))
@@ -198,6 +202,7 @@ namespace DataAccessObjects
                 using var db = new MyDbContext();
                 return db.Bookings
                     .Include(b => b.Customer)
+                        .ThenInclude(c => c.Location)
                     .Include(b => b.Staff)
                     .Include(b => b.Service)
                     .Where(b => b.Status == status)
@@ -216,6 +221,7 @@ namespace DataAccessObjects
                 using var db = new MyDbContext();
                 return db.Bookings
                     .Include(b => b.Customer)
+                        .ThenInclude(c => c.Location)
                     .Include(b => b.Staff)
                     .Include(b => b.Service)
                     .Where(b => b.ServiceStartTime >= startDate && b.ServiceEndTime <= endDate)
