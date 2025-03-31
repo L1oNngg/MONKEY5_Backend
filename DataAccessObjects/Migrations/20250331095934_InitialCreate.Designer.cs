@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccessObjects.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20250331052924_InitialCreate")]
+    [Migration("20250331095934_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -644,7 +644,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Nguyen Van A",
                             Gender = "Male",
                             IdNumber = "123456789012",
-                            PasswordHash = "znClThiLuErN9wNXXrO0Xg==.Fbrkptcw5GkZiXPlgeycaYF685FdTSu32yioTFEMYPQ=",
+                            PasswordHash = "am1Hsg/JHGpUNka/cvC/Tg==.RuL2IwAJ2MC7TFSMmuGhwPVSrg2XUPlNnEn9s1rqW7M=",
                             PhoneNumber = "0123456781",
                             Role = "Customer",
                             LocationId = new Guid("10000000-0000-0000-0000-000000000001"),
@@ -658,7 +658,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Tran Thi B",
                             Gender = "Female",
                             IdNumber = "234567890123",
-                            PasswordHash = "JX1NxMbHd88mmbyDQBDeEg==.n83jBM3E3svFG0fVO4JrKYGsFC5flZXCWuwqkklnh98=",
+                            PasswordHash = "BlQR/lZtEQz7hJ5vcpon7g==.2lOrmvOmV9JXwmk0BP+RWmTQU+yzuK5NR+rF8A9px98=",
                             PhoneNumber = "0123456782",
                             Role = "Customer",
                             LocationId = new Guid("10000000-0000-0000-0000-000000000002"),
@@ -672,7 +672,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Le Van C",
                             Gender = "Male",
                             IdNumber = "345678901234",
-                            PasswordHash = "hH8ZymGKb1YLvQsdOcH/iw==.hBxvRyZoInq5MO1QssbpvGI6IbrfiM5KTRovoaMLlCs=",
+                            PasswordHash = "HZEufrQ5aRnW8TL2a50yaw==./ilCbwL1rigc7CbFnC5EaI05LkxahYO590Urv15zE6k=",
                             PhoneNumber = "0123456783",
                             Role = "Customer",
                             LocationId = new Guid("10000000-0000-0000-0000-000000000003"),
@@ -695,7 +695,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Admin User",
                             Gender = "Male",
                             IdNumber = "123456789",
-                            PasswordHash = "mKP10AxW/p5XFI+wYlNXUw==.J0HfhIYLOKl0Z4c0aSex7daDAXecvn74Jt5U6StKgWY=",
+                            PasswordHash = "d8z91w6m5FcU72fMbHZbow==.A5dMhvVRXrkz8BXPR9GXHh7rdfTUZNh+sAG3pGCUemc=",
                             PhoneNumber = "0123456789",
                             Role = "Manager"
                         });
@@ -722,7 +722,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Pham Thi D",
                             Gender = "Female",
                             IdNumber = "456789012345",
-                            PasswordHash = "PDGtReUmc2o3OZicBhB+ag==.sAaa4bkUnyTQqP+2wLjhDU2ebkgbFvgE02Yld2iFGT8=",
+                            PasswordHash = "4L+hQRT1vR6t83yI/ipWyg==.+4LaO3rKhC9HO0O+UJN1crnMxBa/e+ojL5d6yh7vwuE=",
                             PhoneNumber = "0234567891",
                             Role = "Staff",
                             AvgRating = 4.5,
@@ -736,7 +736,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Hoang Van E",
                             Gender = "Male",
                             IdNumber = "567890123456",
-                            PasswordHash = "jtkSn+46MtsSky2pRJhedw==.68P2UECpKa67b9gsbG2xCvxh1emgbWqPSEVSX2EXoTQ=",
+                            PasswordHash = "HJ9xeLwG65OixXmSPx4gcg==.fnQ9mG1lEoxVJkVixm+sJT01g5jRc8vOA4taN/Z6W1c=",
                             PhoneNumber = "0234567892",
                             Role = "Staff",
                             AvgRating = 4.2000000000000002,
@@ -750,7 +750,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Nguyen Thi F",
                             Gender = "Female",
                             IdNumber = "678901234567",
-                            PasswordHash = "do3/8hGKWaGV77Dw+75TlQ==.JV2bd4HImEmEUCT1UrtDQlpZIqsh78Y6ttjYtzg2uX8=",
+                            PasswordHash = "TOPvuNMypoXaoAKX5hUBGA==.RPvZiyIctZ1aOj/7FtEfVDOvbBsJx+K1qAI5THArKig=",
                             PhoneNumber = "0234567893",
                             Role = "Staff",
                             AvgRating = 4.7999999999999998,
@@ -764,7 +764,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Tran Van G",
                             Gender = "Male",
                             IdNumber = "789012345678",
-                            PasswordHash = "7ApGcLOFakLzoayl1DD49g==.zKiz2kBHdFMyytWBPMHcV8rTOumDH4z9cuze/fDC1Nk=",
+                            PasswordHash = "Hjd9ZtEqDD+XJY3BSImpeQ==.eqTpFfMeuMEdCfBJaipE+5xMHdteKxUPeva4ik+23nc=",
                             PhoneNumber = "0234567894",
                             Role = "Staff",
                             AvgRating = 4.2999999999999998,
@@ -778,7 +778,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Le Thi H",
                             Gender = "Female",
                             IdNumber = "890123456789",
-                            PasswordHash = "EUPCB2Sd7P1YXvfHOe+B0g==.+kZiZzIbdvO521fP2D8lGLMm1XZWPoEal2U2d3r+kKQ=",
+                            PasswordHash = "Mji0DWb64FKwruUHJzdkzA==.z/HUNavKOgsW5z6qkYHIuivLe6rg0Zkl3PCgHDWUq3s=",
                             PhoneNumber = "0234567895",
                             Role = "Staff",
                             AvgRating = 4.9000000000000004,
@@ -792,7 +792,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Pham Van I",
                             Gender = "Male",
                             IdNumber = "901234567890",
-                            PasswordHash = "bbX7sJhVeBxMCq/yvLvGGA==.+E7NDN1oE31DlAx97zZV4q6yVXCOCvseXV2vsSPKiSk=",
+                            PasswordHash = "zbG+E1GA8jsiI20uEcSugQ==.ZV1mBJyakD4eUSrRdIgUUaqWJY494DJC3Ut5DzOaXg8=",
                             PhoneNumber = "0234567896",
                             Role = "Staff",
                             AvgRating = 4.5999999999999996,
