@@ -65,26 +65,43 @@ using (var scope = app.Services.CreateScope())
             logger.LogInformation("Created uploads directory.");
         }
         
-        // Copy mock images from embedded resources or content root
-        var mockImagesFolder = Path.Combine(app.Environment.ContentRootPath, "MockImages");
-        if (Directory.Exists(mockImagesFolder))
+        // Try multiple possible locations for MockImages
+        string[] possiblePaths = new string[] {
+            Path.Combine(app.Environment.ContentRootPath, "MockImages"),
+            Path.Combine(app.Environment.ContentRootPath, "MONKEY5_API", "MockImages"),
+            Path.Combine(Directory.GetCurrentDirectory(), "MockImages"),
+            Path.Combine(Directory.GetCurrentDirectory(), "MONKEY5_API", "MockImages"),
+            "/app/MockImages",
+            "/app/MONKEY5_API/MockImages"
+        };
+
+        bool foundMockImages = false;
+        foreach (var path in possiblePaths)
         {
-            logger.LogInformation("Found MockImages directory, copying files...");
-            foreach (var file in Directory.GetFiles(mockImagesFolder))
+            logger.LogInformation($"Checking for MockImages at: {path}");
+            if (Directory.Exists(path))
             {
-                var fileName = Path.GetFileName(file);
-                var destPath = Path.Combine(uploadsFolder, fileName);
-                if (!System.IO.File.Exists(destPath))
+                logger.LogInformation($"Found MockImages directory at: {path}");
+                foreach (var file in Directory.GetFiles(path))
                 {
-                    System.IO.File.Copy(file, destPath);
-                    logger.LogInformation($"Copied mock image: {fileName}");
+                    var fileName = Path.GetFileName(file);
+                    var destPath = Path.Combine(uploadsFolder, fileName);
+                    if (!System.IO.File.Exists(destPath))
+                    {
+                        System.IO.File.Copy(file, destPath);
+                        logger.LogInformation($"Copied mock image: {fileName}");
+                    }
                 }
+                foundMockImages = true;
+                break;
             }
         }
-        else
+
+        if (!foundMockImages)
         {
-            logger.LogWarning("MockImages directory not found at: " + mockImagesFolder);
+            logger.LogWarning("MockImages directory not found in any of the checked locations.");
         }
+
     }
     catch (Exception ex)
     {
