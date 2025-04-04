@@ -1,3 +1,4 @@
+using BusinessObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MONKEY5.BusinessObjects;
@@ -58,6 +59,7 @@ namespace MONKEY5.DataAccessObjects
         public DbSet<CompletionReport> CompletionReports { get; set; }
         public DbSet<ReportImage> ReportImages { get; set; }
         public DbSet<LeaveRequest> LeaveRequests { get; set; }
+        public DbSet<Avatar> Avatars { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -76,7 +78,12 @@ namespace MONKEY5.DataAccessObjects
                     v => (Role)Enum.Parse(typeof(Role), v) // String -> Enum (Read from DB)
                 );
 
-            // Customer 1 has 0..N Locations
+            // Customer has 0..1 Avatar
+            modelBuilder.Entity<Avatar>()
+                .HasOne(a => a.Customer)
+                .WithOne()
+                .HasForeignKey<Avatar>(a => a.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
             // Customer 1 has 0..N Locations
             modelBuilder.Entity<Location>()
                 .HasOne<Customer>()
@@ -745,9 +752,6 @@ namespace MONKEY5.DataAccessObjects
             };
 
             modelBuilder.Entity<LeaveRequest>().HasData(leaveRequests);
-
-        }
-
-
+        }       
     }
 }
