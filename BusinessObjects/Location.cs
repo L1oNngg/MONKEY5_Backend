@@ -15,5 +15,6 @@ namespace MONKEY5.BusinessObjects
         
         public string? PostalCode { get; set; } = string.Empty;
 
+        public Guid? CustomerId { get; set; }
     }
 }

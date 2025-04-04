@@ -1,6 +1,7 @@
-﻿using BusinessObjects.DTOs;
+﻿﻿using BusinessObjects.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using MONKEY5.BusinessObjects;
+using MONKEY5.BusinessObjects.DTOs;
 using Services;
 using System;
 using System.Collections.Generic;
@@ -108,6 +109,27 @@ namespace MONKEY5_API.Controllers
             }
 
             return customer;
+        }
+
+        // GET: api/Customers/5/locations
+        [HttpGet("{id}/locations")]
+        public ActionResult<ICollection<LocationDTO>> GetCustomerLocations(Guid id)
+        {
+            var locations = _customerService.GetCustomerLocations(id);
+            if (locations == null || !locations.Any())
+            {
+                return NotFound();
+            }
+
+            return Ok(locations);
+        }
+
+        // POST: api/Customers/5/locations
+        [HttpPost("{customerId}/locations")]
+        public ActionResult<LocationDTO> PostCustomerLocation(Guid customerId, LocationDTO locationDto)
+        {
+            _customerService.AddLocationToCustomer(customerId, locationDto);
+            return CreatedAtAction(nameof(GetCustomerLocations), new { id = customerId }, locationDto);
         }
     }
 }

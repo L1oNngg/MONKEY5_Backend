@@ -1,4 +1,5 @@
 using MONKEY5.BusinessObjects;
+using MONKEY5.BusinessObjects.DTOs;
 using Repositories;
 using System;
 using System.Collections.Generic;
@@ -27,5 +28,32 @@ namespace Services
         public Customer GetCustomerByEmail(string email) => customerRepository.GetCustomerByEmail(email);
 
         public Customer? Login(string email, string password) => customerRepository.Login(email, password);
+
+        public ICollection<LocationDTO> GetCustomerLocations(Guid customerId)
+        {
+            var locations = customerRepository.GetCustomerLocations(customerId);
+            return locations.Select(l => new LocationDTO
+            {
+                LocationId = l.LocationId,
+                Address = l.Address,
+                City = l.City,
+                Country = l.Country,
+                PostalCode = l.PostalCode
+            }).ToList();
+        }
+
+        public void AddLocationToCustomer(Guid customerId, LocationDTO locationDto)
+        {
+            var location = new Location
+            {
+                Address = locationDto.Address,
+                City = locationDto.City,
+                Country = locationDto.Country,
+                PostalCode = locationDto.PostalCode,
+                CustomerId = customerId
+            };
+
+            customerRepository.AddLocationToCustomer(customerId, location);
+        }
     }
 }

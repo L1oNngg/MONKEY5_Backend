@@ -20,5 +20,21 @@ namespace Repositories
         public Customer GetCustomerByEmail(string email) => CustomerDAO.GetCustomerByEmail(email);
 
         public Customer? Login(string email, string password) => CustomerDAO.Login(email, password);
+
+        public ICollection<Location> GetCustomerLocations(Guid customerId)
+        {
+            var customer = CustomerDAO.GetCustomerById(customerId);
+            return customer?.Locations ?? new List<Location>();
+        }
+
+        public void AddLocationToCustomer(Guid customerId, Location location)
+        {
+            var customer = CustomerDAO.GetCustomerById(customerId);
+            if (customer != null)
+            {
+                customer.Locations.Add(location);
+                CustomerDAO.UpdateCustomer(customer);
+            }
+        }
     }
 }

@@ -15,7 +15,8 @@ namespace MONKEY5.BusinessObjects.DTOs.Mappers
                 Address = location.Address,
                 City = location.City,
                 Country = location.Country,
-                PostalCode = location.PostalCode
+                PostalCode = location.PostalCode,
+                CustomerId = location.CustomerId
             };
         }
         
@@ -33,8 +34,7 @@ namespace MONKEY5.BusinessObjects.DTOs.Mappers
                 Gender = customer.Gender,
                 IdNumber = customer.IdNumber,
                 Role = customer.Role.ToString(),
-                LocationId = customer.LocationId,
-                Location = customer.Location?.ToLocationDto(),
+                Locations = customer.Locations?.Select(l => l.ToLocationDto()).ToList(),
                 RegistrationDate = customer.RegistrationDate
             };
         }
@@ -91,7 +91,9 @@ namespace MONKEY5.BusinessObjects.DTOs.Mappers
                 ServiceEndTime = booking.ServiceEndTime,
                 ServiceUnitAmount = booking.ServiceUnitAmount,
                 TotalPrice = booking.TotalPrice,
-                Note = booking.Note
+                Note = booking.Note,
+                LocationId = booking.LocationId,
+                Location = booking.Location?.ToLocationDto()
             };
         }
         

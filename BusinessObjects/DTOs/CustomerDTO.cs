@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace MONKEY5.BusinessObjects.DTOs
 {
@@ -12,8 +13,7 @@ namespace MONKEY5.BusinessObjects.DTOs
         public string? Gender { get; set; }
         public string? IdNumber { get; set; }
         public string? Role { get; set; }
-        public Guid? LocationId { get; set; }
-        public LocationDTO? Location { get; set; }
+        public ICollection<LocationDTO>? Locations { get; set; }
         public DateTime RegistrationDate { get; set; }
     }
 }

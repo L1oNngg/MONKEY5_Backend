@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataAccessObjects.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20250331125752_InitialCreate")]
+    [Migration("20250404032728_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -35,6 +35,9 @@ namespace DataAccessObjects.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid?>("CustomerId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("LocationId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Note")
@@ -65,6 +68,8 @@ namespace DataAccessObjects.Migrations
 
                     b.HasIndex("CustomerId");
 
+                    b.HasIndex("LocationId");
+
                     b.HasIndex("ServiceId");
 
                     b.HasIndex("StaffId");
@@ -77,6 +82,7 @@ namespace DataAccessObjects.Migrations
                             BookingId = new Guid("60000000-0000-0000-0000-000000000001"),
                             BookingDateTime = new DateTime(2025, 3, 2, 0, 0, 0, 0, DateTimeKind.Utc),
                             CustomerId = new Guid("40000000-0000-0000-0000-000000000001"),
+                            LocationId = new Guid("10000000-0000-0000-0000-000000000001"),
                             Note = "Please focus on kitchen and bathroom cleaning. Customer has a cat, so be careful when entering.",
                             ServiceEndTime = new DateTime(2025, 3, 3, 13, 0, 0, 0, DateTimeKind.Utc),
                             ServiceId = new Guid("20000000-0000-0000-0000-000000000001"),
@@ -91,6 +97,7 @@ namespace DataAccessObjects.Migrations
                             BookingId = new Guid("60000000-0000-0000-0000-000000000002"),
                             BookingDateTime = new DateTime(2025, 3, 3, 0, 0, 0, 0, DateTimeKind.Utc),
                             CustomerId = new Guid("40000000-0000-0000-0000-000000000002"),
+                            LocationId = new Guid("10000000-0000-0000-0000-000000000003"),
                             Note = "Child is 5 years old and has homework to complete. Allergic to peanuts.",
                             ServiceEndTime = new DateTime(2025, 3, 4, 18, 0, 0, 0, DateTimeKind.Utc),
                             ServiceId = new Guid("20000000-0000-0000-0000-000000000002"),
@@ -105,6 +112,7 @@ namespace DataAccessObjects.Migrations
                             BookingId = new Guid("60000000-0000-0000-0000-000000000003"),
                             BookingDateTime = new DateTime(2025, 3, 4, 0, 0, 0, 0, DateTimeKind.Utc),
                             CustomerId = new Guid("40000000-0000-0000-0000-000000000003"),
+                            LocationId = new Guid("10000000-0000-0000-0000-000000000005"),
                             Note = "Family prefers vegetarian dishes. Please use less spicy ingredients.",
                             ServiceEndTime = new DateTime(2025, 3, 5, 18, 0, 0, 0, DateTimeKind.Utc),
                             ServiceId = new Guid("20000000-0000-0000-0000-000000000004"),
@@ -119,6 +127,7 @@ namespace DataAccessObjects.Migrations
                             BookingId = new Guid("60000000-0000-0000-0000-000000000004"),
                             BookingDateTime = new DateTime(2025, 3, 5, 0, 0, 0, 0, DateTimeKind.Utc),
                             CustomerId = new Guid("40000000-0000-0000-0000-000000000001"),
+                            LocationId = new Guid("10000000-0000-0000-0000-000000000002"),
                             Note = "Deep cleaning needed for living room. Customer will provide special cleaning products for wooden furniture.",
                             ServiceEndTime = new DateTime(2025, 3, 6, 11, 0, 0, 0, DateTimeKind.Utc),
                             ServiceId = new Guid("20000000-0000-0000-0000-000000000001"),
@@ -133,6 +142,7 @@ namespace DataAccessObjects.Migrations
                             BookingId = new Guid("60000000-0000-0000-0000-000000000005"),
                             BookingDateTime = new DateTime(2025, 3, 6, 0, 0, 0, 0, DateTimeKind.Utc),
                             CustomerId = new Guid("40000000-0000-0000-0000-000000000002"),
+                            LocationId = new Guid("10000000-0000-0000-0000-000000000004"),
                             Note = "Two children ages 3 and 6. The older child has online classes from 9-10 AM. Both children need lunch prepared.",
                             ServiceEndTime = new DateTime(2025, 3, 7, 13, 0, 0, 0, DateTimeKind.Utc),
                             ServiceId = new Guid("20000000-0000-0000-0000-000000000003"),
@@ -262,10 +272,15 @@ namespace DataAccessObjects.Migrations
                     b.Property<string>("Country")
                         .HasColumnType("text");
 
+                    b.Property<Guid?>("CustomerId")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("PostalCode")
                         .HasColumnType("text");
 
                     b.HasKey("LocationId");
+
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("Locations");
 
@@ -276,6 +291,7 @@ namespace DataAccessObjects.Migrations
                             Address = "123 Nguyen Hue Street",
                             City = "Ho Chi Minh City",
                             Country = "Vietnam",
+                            CustomerId = new Guid("40000000-0000-0000-0000-000000000001"),
                             PostalCode = "70000"
                         },
                         new
@@ -284,6 +300,7 @@ namespace DataAccessObjects.Migrations
                             Address = "456 Le Loi Street",
                             City = "Hanoi",
                             Country = "Vietnam",
+                            CustomerId = new Guid("40000000-0000-0000-0000-000000000001"),
                             PostalCode = "10000"
                         },
                         new
@@ -292,7 +309,35 @@ namespace DataAccessObjects.Migrations
                             Address = "789 Tran Hung Dao Street",
                             City = "Da Nang",
                             Country = "Vietnam",
+                            CustomerId = new Guid("40000000-0000-0000-0000-000000000002"),
                             PostalCode = "50000"
+                        },
+                        new
+                        {
+                            LocationId = new Guid("10000000-0000-0000-0000-000000000004"),
+                            Address = "101 Ba Trieu Street",
+                            City = "Hai Phong",
+                            Country = "Vietnam",
+                            CustomerId = new Guid("40000000-0000-0000-0000-000000000002"),
+                            PostalCode = "18000"
+                        },
+                        new
+                        {
+                            LocationId = new Guid("10000000-0000-0000-0000-000000000005"),
+                            Address = "202 Le Duan Street",
+                            City = "Can Tho",
+                            Country = "Vietnam",
+                            CustomerId = new Guid("40000000-0000-0000-0000-000000000003"),
+                            PostalCode = "90000"
+                        },
+                        new
+                        {
+                            LocationId = new Guid("10000000-0000-0000-0000-000000000006"),
+                            Address = "303 Quang Trung Street",
+                            City = "Nha Trang",
+                            Country = "Vietnam",
+                            CustomerId = new Guid("40000000-0000-0000-0000-000000000003"),
+                            PostalCode = "65000"
                         });
                 });
 
@@ -365,7 +410,7 @@ namespace DataAccessObjects.Migrations
                             BookingId = new Guid("60000000-0000-0000-0000-000000000004"),
                             PaymentCreatedAt = new DateTime(2025, 3, 5, 0, 0, 0, 0, DateTimeKind.Utc),
                             PaymentMethod = 2,
-                            PaymentStatus = 0
+                            PaymentStatus = 1
                         },
                         new
                         {
@@ -374,7 +419,7 @@ namespace DataAccessObjects.Migrations
                             BookingId = new Guid("60000000-0000-0000-0000-000000000005"),
                             PaymentCreatedAt = new DateTime(2025, 3, 6, 0, 0, 0, 0, DateTimeKind.Utc),
                             PaymentMethod = 1,
-                            PaymentStatus = 0
+                            PaymentStatus = 1
                         });
                 });
 
@@ -625,13 +670,8 @@ namespace DataAccessObjects.Migrations
                 {
                     b.HasBaseType("MONKEY5.BusinessObjects.User");
 
-                    b.Property<Guid?>("LocationId")
-                        .HasColumnType("uuid");
-
                     b.Property<DateTime>("RegistrationDate")
                         .HasColumnType("timestamp with time zone");
-
-                    b.HasIndex("LocationId");
 
                     b.ToTable("Customers", (string)null);
 
@@ -644,10 +684,9 @@ namespace DataAccessObjects.Migrations
                             FullName = "Nguyen Van A",
                             Gender = "Male",
                             IdNumber = "123456789012",
-                            PasswordHash = "6EWPhMIzswfhpCXVNXGU9A==./5M/zflau4lbdKWoCCRNjGBIl8K90e9SwB2UaVtsQNQ=",
+                            PasswordHash = "wFtFzMGFPfPu3yIQtY1XRg==.ndXmscRKdJHHWo/2w1hiYFBTte5EcpK+3zt4nvD5tiY=",
                             PhoneNumber = "0123456781",
                             Role = "Customer",
-                            LocationId = new Guid("10000000-0000-0000-0000-000000000001"),
                             RegistrationDate = new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -658,10 +697,9 @@ namespace DataAccessObjects.Migrations
                             FullName = "Tran Thi B",
                             Gender = "Female",
                             IdNumber = "234567890123",
-                            PasswordHash = "SBX1L2Ud1uZaja7DeEuxBw==.wQq3Hswz6WvId/RQiGf6fEHsqI1AUoimCSVRgLKwZVs=",
+                            PasswordHash = "o9U9hbUaBzcb+dWatboRxw==.8+Cx1LWUEY942DKPkgakS/JWC5Osh/+CDgZi2EtecpA=",
                             PhoneNumber = "0123456782",
                             Role = "Customer",
-                            LocationId = new Guid("10000000-0000-0000-0000-000000000002"),
                             RegistrationDate = new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         },
                         new
@@ -672,10 +710,9 @@ namespace DataAccessObjects.Migrations
                             FullName = "Le Van C",
                             Gender = "Male",
                             IdNumber = "345678901234",
-                            PasswordHash = "vQ47gUxNoa1Wy6AuKG6kvA==.Gm2Yqc6AANIzfr5AlJYWPqjAi56B+Yo6TcMtDBL7fGA=",
+                            PasswordHash = "QhriILb+9JwlA6bu1zXHLQ==.xYDzkIAI9Y5WGN9J8n/yF1Vt2LTqsqy1dGV5yNQXv24=",
                             PhoneNumber = "0123456783",
                             Role = "Customer",
-                            LocationId = new Guid("10000000-0000-0000-0000-000000000003"),
                             RegistrationDate = new DateTime(2025, 3, 1, 0, 0, 0, 0, DateTimeKind.Utc)
                         });
                 });
@@ -695,7 +732,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Admin User",
                             Gender = "Male",
                             IdNumber = "123456789",
-                            PasswordHash = "xoEkkHvDXQdo+g+sGMCwWw==.7Ds+rL90/t6JQ7X1ukmDAzYwQRyQ9DkEqmEkpsGPfDk=",
+                            PasswordHash = "7Trozvev7mZfiH4yPNWQ3g==.EeWONvf9XNaeuCSMVSCYJjS8TCgtcxGZTLPc/chQtMo=",
                             PhoneNumber = "0123456789",
                             Role = "Manager"
                         });
@@ -722,7 +759,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Pham Thi D",
                             Gender = "Female",
                             IdNumber = "456789012345",
-                            PasswordHash = "384zy+tSBIrwPPt/kk2Jpg==.2jyJ8MhzvG1U7JIo+TR8wPPsyh6E6Gaw6N8cO37PgDo=",
+                            PasswordHash = "vn3Y0Jf0D6mKfyPh3uqL2A==.3BH55NZDBzSTuD/KaSqE1QWEhFV4m0kOtm7iK4kZuvc=",
                             PhoneNumber = "0234567891",
                             Role = "Staff",
                             AvgRating = 4.5,
@@ -736,7 +773,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Hoang Van E",
                             Gender = "Male",
                             IdNumber = "567890123456",
-                            PasswordHash = "Ci1up0LXTLHzel6z2zmJbA==.Yl/hMB1RjgkYexu5dXooq/ki7/Sc9FXuVgcw4MenWhs=",
+                            PasswordHash = "poAttC5XrQyWxaGpk0pH1Q==.zE4UfEcjdq/HmKJ8k5rvomOHABg6SF8pB4rLskqtOB0=",
                             PhoneNumber = "0234567892",
                             Role = "Staff",
                             AvgRating = 4.2000000000000002,
@@ -750,7 +787,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Nguyen Thi F",
                             Gender = "Female",
                             IdNumber = "678901234567",
-                            PasswordHash = "JDTicAJpOxKDlrQAA/7U1g==.73lcm/Ot50Nuk82BcII2ulQ/jyChtocmVnIrEzo2b8k=",
+                            PasswordHash = "IKFsjJQcHE7GatboiKWlJA==.o4WuejYQH1oxumkiTDrid+hgWiVD7p5bV8FhFWy7EEA=",
                             PhoneNumber = "0234567893",
                             Role = "Staff",
                             AvgRating = 4.7999999999999998,
@@ -764,7 +801,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Tran Van G",
                             Gender = "Male",
                             IdNumber = "789012345678",
-                            PasswordHash = "RRZMG7TF+irCimeegiUYSA==.bufpyO9z6S8jhEBoU/Q2bi9rWgmdsqDOPGjSHEgT7YA=",
+                            PasswordHash = "+VEJWg4cOOri1wCLf+Wq6w==.KNezYBTe6v/h1ipl6Jvba13EAO9yn5AghAUrfOC21OI=",
                             PhoneNumber = "0234567894",
                             Role = "Staff",
                             AvgRating = 4.2999999999999998,
@@ -778,7 +815,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Le Thi H",
                             Gender = "Female",
                             IdNumber = "890123456789",
-                            PasswordHash = "T7JDiR3H/NvIMERM07a8MA==.18jZVTHSfl3fxjxZI75EJkqdczIQNG1vH2dq0UPijoU=",
+                            PasswordHash = "Epoi0VQZT6tlazmJUGZfDA==.I2fsRs5lFgG0GJk7UbzBF3FKzr3zvObtN6HLkt4Sd74=",
                             PhoneNumber = "0234567895",
                             Role = "Staff",
                             AvgRating = 4.9000000000000004,
@@ -792,7 +829,7 @@ namespace DataAccessObjects.Migrations
                             FullName = "Pham Van I",
                             Gender = "Male",
                             IdNumber = "901234567890",
-                            PasswordHash = "hjbJp7T7XTCL+15d+gJVCw==.Y5YOmwy5LKq9xN2vZXXR3hYcxVQrkw4vngdPJ2LAuxM=",
+                            PasswordHash = "CUsgA6CBKZlyZ4uni6sdDA==.T8BZKWZwjKrd4UtP8xdpWQC+gkvzce/MHIBcIu6UTBo=",
                             PhoneNumber = "0234567896",
                             Role = "Staff",
                             AvgRating = 4.5999999999999996,
@@ -807,6 +844,11 @@ namespace DataAccessObjects.Migrations
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("MONKEY5.BusinessObjects.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("MONKEY5.BusinessObjects.Service", "Service")
                         .WithMany()
                         .HasForeignKey("ServiceId")
@@ -818,6 +860,8 @@ namespace DataAccessObjects.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Customer");
+
+                    b.Navigation("Location");
 
                     b.Navigation("Service");
 
@@ -842,6 +886,14 @@ namespace DataAccessObjects.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Staff");
+                });
+
+            modelBuilder.Entity("MONKEY5.BusinessObjects.Location", b =>
+                {
+                    b.HasOne("MONKEY5.BusinessObjects.Customer", null)
+                        .WithMany("Locations")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("MONKEY5.BusinessObjects.Payment", b =>
@@ -886,18 +938,11 @@ namespace DataAccessObjects.Migrations
 
             modelBuilder.Entity("MONKEY5.BusinessObjects.Customer", b =>
                 {
-                    b.HasOne("MONKEY5.BusinessObjects.Location", "Location")
-                        .WithMany()
-                        .HasForeignKey("LocationId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("MONKEY5.BusinessObjects.User", null)
                         .WithOne()
                         .HasForeignKey("MONKEY5.BusinessObjects.Customer", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Location");
                 });
 
             modelBuilder.Entity("MONKEY5.BusinessObjects.Manager", b =>
@@ -921,6 +966,11 @@ namespace DataAccessObjects.Migrations
             modelBuilder.Entity("MONKEY5.BusinessObjects.CompletionReport", b =>
                 {
                     b.Navigation("ReportImages");
+                });
+
+            modelBuilder.Entity("MONKEY5.BusinessObjects.Customer", b =>
+                {
+                    b.Navigation("Locations");
                 });
 #pragma warning restore 612, 618
         }

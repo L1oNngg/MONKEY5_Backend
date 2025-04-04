@@ -19,5 +19,7 @@ namespace MONKEY5.BusinessObjects.DTOs
         public int? ServiceUnitAmount { get; set; }
         public float? TotalPrice { get; set; }
         public string? Note { get; set; }
+        public Guid? LocationId { get; set; }
+        public LocationDTO? Location { get; set; }
     }
 }

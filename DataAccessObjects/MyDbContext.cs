@@ -76,18 +76,25 @@ namespace MONKEY5.DataAccessObjects
                     v => (Role)Enum.Parse(typeof(Role), v) // String -> Enum (Read from DB)
                 );
 
-            // Customer 1 has 1..N Location
-            modelBuilder.Entity<Customer>()
-                .HasOne(c => c.Location)
-                .WithMany()
-                .HasForeignKey(c => c.LocationId)
-                .OnDelete(DeleteBehavior.Restrict);
+            // Customer 1 has 0..N Locations
+            // Customer 1 has 0..N Locations
+            modelBuilder.Entity<Location>()
+                .HasOne<Customer>()
+                .WithMany(c => c.Locations)
+                .HasForeignKey(l => l.CustomerId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Customer 1 places 0..N Booking
             modelBuilder.Entity<Booking>()
                 .HasOne(b => b.Customer)
                 .WithMany()
                 .HasForeignKey(b => b.CustomerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Booking>()
+                .HasOne(b => b.Location)
+                .WithMany()
+                .HasForeignKey(b => b.LocationId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Staff 1 performs 0..N Booking
@@ -188,13 +195,15 @@ namespace MONKEY5.DataAccessObjects
             // Seed Locations (Vietnam)
             var locations = new List<Location>
             {
+                // Customer 1's locations
                 new Location
                 {
                     LocationId = Guid.Parse("10000000-0000-0000-0000-000000000001"),
                     Address = "123 Nguyen Hue Street",
                     City = "Ho Chi Minh City",
                     Country = "Vietnam",
-                    PostalCode = "70000"
+                    PostalCode = "70000",
+                    CustomerId = Guid.Parse("40000000-0000-0000-0000-000000000001") // Customer 1
                 },
                 new Location
                 {
@@ -202,15 +211,48 @@ namespace MONKEY5.DataAccessObjects
                     Address = "456 Le Loi Street",
                     City = "Hanoi",
                     Country = "Vietnam",
-                    PostalCode = "10000"
+                    PostalCode = "10000",
+                    CustomerId = Guid.Parse("40000000-0000-0000-0000-000000000001") // Customer 1
                 },
+                
+                // Customer 2's locations
                 new Location
                 {
                     LocationId = Guid.Parse("10000000-0000-0000-0000-000000000003"),
                     Address = "789 Tran Hung Dao Street",
                     City = "Da Nang",
                     Country = "Vietnam",
-                    PostalCode = "50000"
+                    PostalCode = "50000",
+                    CustomerId = Guid.Parse("40000000-0000-0000-0000-000000000002") // Customer 2
+                },
+                new Location
+                {
+                    LocationId = Guid.Parse("10000000-0000-0000-0000-000000000004"),
+                    Address = "101 Ba Trieu Street",
+                    City = "Hai Phong",
+                    Country = "Vietnam",
+                    PostalCode = "18000",
+                    CustomerId = Guid.Parse("40000000-0000-0000-0000-000000000002") // Customer 2
+                },
+                
+                // Customer 3's locations
+                new Location
+                {
+                    LocationId = Guid.Parse("10000000-0000-0000-0000-000000000005"),
+                    Address = "202 Le Duan Street",
+                    City = "Can Tho",
+                    Country = "Vietnam",
+                    PostalCode = "90000",
+                    CustomerId = Guid.Parse("40000000-0000-0000-0000-000000000003") // Customer 3
+                },
+                new Location
+                {
+                    LocationId = Guid.Parse("10000000-0000-0000-0000-000000000006"),
+                    Address = "303 Quang Trung Street",
+                    City = "Nha Trang",
+                    Country = "Vietnam",
+                    PostalCode = "65000",
+                    CustomerId = Guid.Parse("40000000-0000-0000-0000-000000000003") // Customer 3
                 }
             };
 
@@ -285,7 +327,6 @@ namespace MONKEY5.DataAccessObjects
                     Gender = "Male",
                     IdNumber = "123456789012",
                     Role = MONKEY5.BusinessObjects.Helpers.Role.Customer,
-                    LocationId = locations[0].LocationId,
                     RegistrationDate = new DateTime(2025, 3, 1, 0, 0, 0, DateTimeKind.Utc)
                 },
                 new Customer
@@ -299,7 +340,6 @@ namespace MONKEY5.DataAccessObjects
                     Gender = "Female",
                     IdNumber = "234567890123",
                     Role = MONKEY5.BusinessObjects.Helpers.Role.Customer,
-                    LocationId = locations[1].LocationId,
                     RegistrationDate = new DateTime(2025, 3, 1, 0, 0, 0, DateTimeKind.Utc)
                 },
                 new Customer
@@ -313,7 +353,6 @@ namespace MONKEY5.DataAccessObjects
                     Gender = "Male",
                     IdNumber = "345678901234",
                     Role = MONKEY5.BusinessObjects.Helpers.Role.Customer,
-                    LocationId = locations[2].LocationId,
                     RegistrationDate = new DateTime(2025, 3, 1, 0, 0, 0, DateTimeKind.Utc)
                 }
             };
@@ -429,7 +468,8 @@ namespace MONKEY5.DataAccessObjects
                     ServiceEndTime = new DateTime(2025, 3, 3, 13, 0, 0, DateTimeKind.Utc),
                     ServiceUnitAmount = 3, // 3 hours
                     TotalPrice = 270000f, // 90,000 x 3
-                    Note = "Please focus on kitchen and bathroom cleaning. Customer has a cat, so be careful when entering."
+                    Note = "Please focus on kitchen and bathroom cleaning. Customer has a cat, so be careful when entering.",
+                    LocationId = locations[0].LocationId // Using the first location for Customer 1
                 },
                 new Booking
                 {
@@ -443,7 +483,8 @@ namespace MONKEY5.DataAccessObjects
                     ServiceEndTime = new DateTime(2025, 3, 4, 18, 0, 0, DateTimeKind.Utc),
                     ServiceUnitAmount = 4, // 4 hours
                     TotalPrice = 600000f, // 150,000 x 4
-                    Note = "Child is 5 years old and has homework to complete. Allergic to peanuts."
+                    Note = "Child is 5 years old and has homework to complete. Allergic to peanuts.",
+                    LocationId = locations[2].LocationId // Using the first location for Customer 2
                 },
                 new Booking
                 {
@@ -457,7 +498,8 @@ namespace MONKEY5.DataAccessObjects
                     ServiceEndTime = new DateTime(2025, 3, 5, 18, 0, 0, DateTimeKind.Utc),
                     ServiceUnitAmount = 5, // 5 dishes
                     TotalPrice = 400000f, // 80,000 x 5
-                    Note = "Family prefers vegetarian dishes. Please use less spicy ingredients."
+                    Note = "Family prefers vegetarian dishes. Please use less spicy ingredients.",
+                    LocationId = locations[4].LocationId // Using the first location for Customer 3
                 },
                 new Booking
                 {
@@ -471,7 +513,8 @@ namespace MONKEY5.DataAccessObjects
                     ServiceEndTime = new DateTime(2025, 3, 6, 11, 0, 0, DateTimeKind.Utc),
                     ServiceUnitAmount = 4, // 4 hours
                     TotalPrice = 360000f, // 90,000 x 4
-                    Note = "Deep cleaning needed for living room. Customer will provide special cleaning products for wooden furniture."
+                    Note = "Deep cleaning needed for living room. Customer will provide special cleaning products for wooden furniture.",
+                    LocationId = locations[1].LocationId // Using the second location for Customer 1
                 },
                 new Booking
                 {
@@ -485,11 +528,13 @@ namespace MONKEY5.DataAccessObjects
                     ServiceEndTime = new DateTime(2025, 3, 7, 13, 0, 0, DateTimeKind.Utc),
                     ServiceUnitAmount = 5, // 5 hours
                     TotalPrice = 1000000f, // 200,000 x 5
-                    Note = "Two children ages 3 and 6. The older child has online classes from 9-10 AM. Both children need lunch prepared."
+                    Note = "Two children ages 3 and 6. The older child has online classes from 9-10 AM. Both children need lunch prepared.",
+                    LocationId = locations[3].LocationId // Using the second location for Customer 2
                 }
             };
 
             modelBuilder.Entity<Booking>().HasData(bookings);
+
 
             // Sample Payments
             var payments = new List<Payment>
@@ -530,7 +575,7 @@ namespace MONKEY5.DataAccessObjects
                     BookingId = bookings[3].BookingId,
                     Amount = 360000M,
                     PaymentMethod = MONKEY5.BusinessObjects.Helpers.PaymentMethod.CreditCard,
-                    PaymentStatus = MONKEY5.BusinessObjects.Helpers.PaymentStatus.Pending,
+                    PaymentStatus = MONKEY5.BusinessObjects.Helpers.PaymentStatus.Completed,
                     PaymentCreatedAt = bookings[3].BookingDateTime,
                     PaymentPaidAt = null
                 },
@@ -540,7 +585,7 @@ namespace MONKEY5.DataAccessObjects
                     BookingId = bookings[4].BookingId,
                     Amount = 1000000M,
                     PaymentMethod = MONKEY5.BusinessObjects.Helpers.PaymentMethod.BankTransfer,
-                    PaymentStatus = MONKEY5.BusinessObjects.Helpers.PaymentStatus.Pending,
+                    PaymentStatus = MONKEY5.BusinessObjects.Helpers.PaymentStatus.Completed,
                     PaymentCreatedAt = bookings[4].BookingDateTime,
                     PaymentPaidAt = null
                 }
@@ -702,6 +747,7 @@ namespace MONKEY5.DataAccessObjects
             modelBuilder.Entity<LeaveRequest>().HasData(leaveRequests);
 
         }
+
 
     }
 }

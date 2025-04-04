@@ -13,5 +13,7 @@ namespace Repositories
         Customer GetCustomerById(Guid id);
         Customer GetCustomerByEmail(string email);
         Customer? Login(string email, string password);
+        ICollection<Location> GetCustomerLocations(Guid customerId);
+        void AddLocationToCustomer(Guid customerId, Location location);
     }
 }

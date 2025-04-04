@@ -16,7 +16,7 @@ namespace DataAccessObjects
             try
             {
                 using var db = new MyDbContext();
-                listCustomers = db.Customers.Include(c => c.Location).ToList();
+                listCustomers = db.Customers.Include(c => c.Locations).ToList();
             }
             catch (Exception e)
             {
@@ -85,7 +85,7 @@ namespace DataAccessObjects
             try
             {
                 using var db = new MyDbContext();
-                return db.Customers.Include(c => c.Location).FirstOrDefault(c => c.UserId.Equals(id));
+                return db.Customers.Include(c => c.Locations).FirstOrDefault(c => c.UserId.Equals(id));
             }
             catch (Exception e)
             {
@@ -98,7 +98,7 @@ namespace DataAccessObjects
             try
             {
                 using var db = new MyDbContext();
-                return db.Customers.Include(c => c.Location).FirstOrDefault(c => c.Email.Equals(email));
+                return db.Customers.Include(c => c.Locations).FirstOrDefault(c => c.Email.Equals(email));
             }
             catch (Exception e)
             {
@@ -111,7 +111,7 @@ namespace DataAccessObjects
             try
             {
                 using var db = new MyDbContext();
-                var customer = db.Customers.Include(c => c.Location).FirstOrDefault(c => c.Email.Equals(email));
+                var customer = db.Customers.Include(c => c.Locations).FirstOrDefault(c => c.Email.Equals(email));
                 
                 if (customer != null && !string.IsNullOrEmpty(customer.PasswordHash))
                 {

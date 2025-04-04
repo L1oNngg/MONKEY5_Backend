@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using MONKEY5.BusinessObjects.Helpers;
+using MONKEY5.BusinessObjects.DTOs;
 
 namespace MONKEY5.BusinessObjects
 {
@@ -29,5 +30,9 @@ namespace MONKEY5.BusinessObjects
         public int? ServiceUnitAmount { get; set; }
         public float? TotalPrice { get; set; }
         public string? Note { get; set; }
+
+        [ForeignKey("LocationId")]
+        public Guid? LocationId { get; set; }
+        public Location? Location { get; set; }
     }
 }

@@ -18,9 +18,10 @@ namespace DataAccessObjects
                 using var db = new MyDbContext();
                 listBookings = db.Bookings
                     .Include(b => b.Customer)
-                        .ThenInclude(c => c.Location)
+                        .ThenInclude(c => c.Locations)
                     .Include(b => b.Staff)
                     .Include(b => b.Service)
+                    .Include(b => b.Location)
                     .ToList();
             }
             catch (Exception e)
@@ -43,7 +44,7 @@ namespace DataAccessObjects
                     // Calculate total price based on service unit price and booking amount
                     booking.TotalPrice = (float)(service.UnitPrice * booking.ServiceUnitAmount);
                 }
-                
+
                 context.Bookings.Add(booking);
                 context.SaveChanges();
             }
@@ -59,21 +60,27 @@ namespace DataAccessObjects
             {
                 using var context = new MyDbContext();
                 
-                // Get the existing booking from the database
-                var existingBooking = context.Bookings.FirstOrDefault(b => b.BookingId == booking.BookingId);
+                // Get the existing booking from the database with all related entities
+                var existingBooking = context.Bookings
+                    .Include(b => b.Customer)
+                    .Include(b => b.Staff)
+                    .Include(b => b.Service)
+                    .Include(b => b.Location)
+                    .FirstOrDefault(b => b.BookingId == booking.BookingId);
+                    
                 if (existingBooking == null)
                 {
                     throw new Exception("Booking not found");
                 }
                 
                 // Only update fields that are provided (not null or default)
-                if (booking.CustomerId != Guid.Empty)
+                if (booking.CustomerId.HasValue && booking.CustomerId != Guid.Empty)
                     existingBooking.CustomerId = booking.CustomerId;
                     
-                if (booking.StaffId != Guid.Empty)
+                if (booking.StaffId.HasValue && booking.StaffId != Guid.Empty)
                     existingBooking.StaffId = booking.StaffId;
                     
-                if (booking.ServiceId != Guid.Empty)
+                if (booking.ServiceId.HasValue && booking.ServiceId != Guid.Empty)
                     existingBooking.ServiceId = booking.ServiceId;
                     
                 // Enum values can be explicitly checked
@@ -90,24 +97,28 @@ namespace DataAccessObjects
                     existingBooking.ServiceEndTime = booking.ServiceEndTime;
                     
                 // For numeric values, you might need to check if they're provided
-                // This depends on your business logic
-                if (booking.ServiceUnitAmount > 0)
+                if (booking.ServiceUnitAmount.HasValue && booking.ServiceUnitAmount > 0)
                     existingBooking.ServiceUnitAmount = booking.ServiceUnitAmount;
                     
                 // Update Note field if provided
                 if (booking.Note != null)
                     existingBooking.Note = booking.Note;
+
+                // Update LocationId if provided
+                if (booking.LocationId.HasValue && booking.LocationId != Guid.Empty)
+                    existingBooking.LocationId = booking.LocationId;
                     
                 // Recalculate total price if needed
-                if (booking.ServiceId != Guid.Empty || booking.ServiceUnitAmount > 0)
+                if ((booking.ServiceId.HasValue && booking.ServiceId != Guid.Empty) || 
+                    (booking.ServiceUnitAmount.HasValue && booking.ServiceUnitAmount > 0))
                 {
                     var service = context.Services.FirstOrDefault(s => s.ServiceId == existingBooking.ServiceId);
-                    if (service != null)
+                    if (service != null && existingBooking.ServiceUnitAmount.HasValue)
                     {
                         existingBooking.TotalPrice = (float)(service.UnitPrice * existingBooking.ServiceUnitAmount);
                     }
                 }
-                else if (booking.TotalPrice > 0)
+                else if (booking.TotalPrice.HasValue && booking.TotalPrice > 0)
                 {
                     existingBooking.TotalPrice = booking.TotalPrice;
                 }
@@ -119,7 +130,6 @@ namespace DataAccessObjects
                 throw new Exception(e.Message);
             }
         }
-
 
         public static void DeleteBooking(Booking booking)
         {
@@ -146,10 +156,11 @@ namespace DataAccessObjects
                 using var db = new MyDbContext();
                 return db.Bookings
                     .Include(b => b.Customer)
-                        .ThenInclude(c => c.Location)
+                        .ThenInclude(c => c.Locations)
                     .Include(b => b.Staff)
                     .Include(b => b.Service)
-                    .FirstOrDefault(b => b.BookingId.Equals(id));
+                    .Include(b => b.Location)
+                    .FirstOrDefault(b => b.BookingId == id);
             }
             catch (Exception e)
             {
@@ -164,10 +175,11 @@ namespace DataAccessObjects
                 using var db = new MyDbContext();
                 return db.Bookings
                     .Include(b => b.Customer)
-                        .ThenInclude(c => c.Location)
+                        .ThenInclude(c => c.Locations)
                     .Include(b => b.Staff)
                     .Include(b => b.Service)
-                    .Where(b => b.CustomerId.Equals(customerId))
+                    .Include(b => b.Location)
+                    .Where(b => b.CustomerId == customerId)
                     .ToList();
             }
             catch (Exception e)
@@ -183,10 +195,11 @@ namespace DataAccessObjects
                 using var db = new MyDbContext();
                 return db.Bookings
                     .Include(b => b.Customer)
-                        .ThenInclude(c => c.Location)
+                        .ThenInclude(c => c.Locations)
                     .Include(b => b.Staff)
                     .Include(b => b.Service)
-                    .Where(b => b.StaffId.Equals(staffId))
+                    .Include(b => b.Location)
+                    .Where(b => b.StaffId == staffId)
                     .ToList();
             }
             catch (Exception e)
@@ -202,10 +215,11 @@ namespace DataAccessObjects
                 using var db = new MyDbContext();
                 return db.Bookings
                     .Include(b => b.Customer)
-                        .ThenInclude(c => c.Location)
+                        .ThenInclude(c => c.Locations)
                     .Include(b => b.Staff)
                     .Include(b => b.Service)
-                    .Where(b => b.Status == status)
+                    .Include(b => b.Location)
+                    .Where(b => b.Status.Equals(status))
                     .ToList();
             }
             catch (Exception e)
@@ -221,9 +235,10 @@ namespace DataAccessObjects
                 using var db = new MyDbContext();
                 return db.Bookings
                     .Include(b => b.Customer)
-                        .ThenInclude(c => c.Location)
+                        .ThenInclude(c => c.Locations)
                     .Include(b => b.Staff)
                     .Include(b => b.Service)
+                    .Include(b => b.Location)
                     .Where(b => b.ServiceStartTime >= startDate && b.ServiceEndTime <= endDate)
                     .ToList();
             }
@@ -232,6 +247,7 @@ namespace DataAccessObjects
                 throw new Exception(e.Message);
             }
         }
+
 
         public static bool IsStaffAvailable(Guid staffId, DateTime startTime, DateTime endTime)
         {

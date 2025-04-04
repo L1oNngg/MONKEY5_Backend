@@ -84,7 +84,7 @@ namespace MONKEY5_API.Controllers
 
         // PUT: api/Bookings/5
         [HttpPut("{id}")]
-        public IActionResult PutBooking(Guid id, Booking booking)
+        public ActionResult<BookingDTO> PutBooking(Guid id, Booking booking)
         {
             if (id != booking.BookingId)
             {
@@ -92,9 +92,13 @@ namespace MONKEY5_API.Controllers
             }
 
             _bookingService.UpdateBooking(booking);
-
-            return NoContent();
+            
+            // Fetch the updated booking with all its related entities
+            var updatedBooking = _bookingService.GetBookingById(id);
+            
+            return updatedBooking.ToBookingDto();
         }
+
 
         // POST: api/Bookings
         [HttpPost]

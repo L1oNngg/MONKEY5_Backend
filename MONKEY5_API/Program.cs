@@ -126,6 +126,14 @@ app.UseCors("AllowAll");
 
 app.UseAuthorization();
 
+var wwwrootPath = Path.Combine(app.Environment.ContentRootPath, "wwwroot");
+if (!Directory.Exists(wwwrootPath))
+{
+    Directory.CreateDirectory(wwwrootPath);
+    var logger = app.Services.GetRequiredService<ILogger<Program>>();
+    logger.LogInformation("Created wwwroot directory.");
+}
+
 app.UseStaticFiles();
 
 app.MapControllers();
