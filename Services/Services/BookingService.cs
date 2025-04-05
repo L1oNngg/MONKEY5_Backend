@@ -39,5 +39,15 @@ namespace Services
         
         public bool IsStaffAvailable(Guid staffId, DateTime startTime, DateTime endTime) => 
             bookingRepository.IsStaffAvailable(staffId, startTime, endTime);
+
+        public Staff AssignStaffToBooking(Guid bookingId) => 
+            bookingRepository.AssignStaffToBooking(bookingId);
+
+        public bool AcceptBookingAssignment(Guid bookingId, Guid staffId) => 
+            bookingRepository.AcceptBookingAssignment(bookingId, staffId);
+
+        public Staff ReassignBookingToNextAvailableStaff(Guid bookingId, Guid declinedStaffId) => 
+            bookingRepository.ReassignBookingToNextAvailableStaff(bookingId, declinedStaffId);
+
     }
 }

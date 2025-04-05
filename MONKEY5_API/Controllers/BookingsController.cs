@@ -124,5 +124,43 @@ namespace MONKEY5_API.Controllers
 
             return NoContent();
         }
+
+        // POST: api/Bookings/assign/{id}
+        [HttpPost("assign/{id}")]
+        public ActionResult<BookingDTO> AssignStaffToBooking(Guid id)
+        {
+            try
+            {
+                var staff = _bookingService.AssignStaffToBooking(id);
+                var booking = _bookingService.GetBookingById(id);
+                return booking.ToBookingDto();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        // POST: api/Bookings/response
+        [HttpPost("response")]
+        public ActionResult<BookingDTO> RespondToBookingAssignment(BookingAssignmentResponseDTO response)
+        {
+            if (response.IsAccepted)
+            {
+                bool success = _bookingService.AcceptBookingAssignment(response.BookingId, response.StaffId);
+                if (!success)
+                    return BadRequest("Failed to accept booking assignment");
+            }
+            else
+            {
+                // Staff declined, reassign to next available staff
+                var staff = _bookingService.ReassignBookingToNextAvailableStaff(response.BookingId, response.StaffId);
+                // If staff is null, it means no more available staff and booking was cancelled
+            }
+            
+            var booking = _bookingService.GetBookingById(response.BookingId);
+            return booking.ToBookingDto();
+        }
+
     }
 }

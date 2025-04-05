@@ -17,5 +17,9 @@ namespace Services
         List<Booking> GetBookingsByStatus(OrderStatus status);
         List<Booking> GetBookingsByDateRange(DateTime startDate, DateTime endDate);
         bool IsStaffAvailable(Guid staffId, DateTime startTime, DateTime endTime);
+        Staff AssignStaffToBooking(Guid bookingId);
+        bool AcceptBookingAssignment(Guid bookingId, Guid staffId);
+        Staff ReassignBookingToNextAvailableStaff(Guid bookingId, Guid declinedStaffId);
+
     }
 }

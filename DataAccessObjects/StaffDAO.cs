@@ -183,5 +183,33 @@ namespace DataAccessObjects
                 throw new Exception(e.Message);
             }
         }
+        public static List<Staff> GetAvailableStaffsWithBookingCounts(DateTime monthStart, DateTime monthEnd)
+        {
+            try
+            {
+                using var db = new MyDbContext();
+                
+                // Get all available staff
+                var availableStaffs = db.Staffs
+                    .Where(s => s.Status == MONKEY5.BusinessObjects.Helpers.AvailabilityStatus.Available)
+                    .ToList();
+                    
+                // For each staff, count their bookings this month
+                foreach (var staff in availableStaffs)
+                {
+                    staff.BookingCount = db.Bookings
+                        .Count(b => b.StaffId == staff.UserId && 
+                                b.ServiceStartTime >= monthStart && 
+                                b.ServiceStartTime <= monthEnd);
+                }
+                
+                // Order by booking count (ascending)
+                return availableStaffs.OrderBy(s => s.BookingCount).ToList();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }
