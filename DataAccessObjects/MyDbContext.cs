@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MONKEY5.BusinessObjects;
 using MONKEY5.BusinessObjects.Helpers;
+using BusinessObjects.Helpers;
 using System.IO;
 
 namespace MONKEY5.DataAccessObjects
@@ -261,7 +262,8 @@ namespace MONKEY5.DataAccessObjects
                     ServiceName = "Cleaning",
                     Description = "Professional home cleaning service",
                     UnitPrice = 90000M,
-                    UnitType = "hour"
+                    UnitType = "hour",
+                    Status = ServiceStatus.Available
                 },
                 new Service
                 {
@@ -269,7 +271,8 @@ namespace MONKEY5.DataAccessObjects
                     ServiceName = "Child care (1 child)",
                     Description = "Childcare service for one child",
                     UnitPrice = 150000M,
-                    UnitType = "hour"
+                    UnitType = "hour",
+                    Status = ServiceStatus.Available
                 },
                 new Service
                 {
@@ -277,7 +280,8 @@ namespace MONKEY5.DataAccessObjects
                     ServiceName = "Child care (2 children)",
                     Description = "Childcare service for two children",
                     UnitPrice = 200000M,
-                    UnitType = "hour"
+                    UnitType = "hour",
+                    Status = ServiceStatus.Available
                 },
                 new Service
                 {
@@ -285,7 +289,8 @@ namespace MONKEY5.DataAccessObjects
                     ServiceName = "Cooking",
                     Description = "Professional cooking service",
                     UnitPrice = 80000M,
-                    UnitType = "dish"
+                    UnitType = "dish",
+                    Status = ServiceStatus.Available
                 }
             };
 

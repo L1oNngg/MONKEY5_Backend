@@ -2,6 +2,8 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+using BusinessObjects.Helpers;
+
 namespace MONKEY5.BusinessObjects
 {
     public class Service
@@ -15,5 +17,8 @@ namespace MONKEY5.BusinessObjects
         public decimal? UnitPrice { get; set; }
 
         public string? UnitType { get; set; }
+
+        // Add status property for service
+        public ServiceStatus Status { get; set; } = ServiceStatus.Available;
     }
 }

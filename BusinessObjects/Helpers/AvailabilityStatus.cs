@@ -6,6 +6,7 @@ namespace MONKEY5.BusinessObjects.Helpers
     {
         Available,  // Sẵn sàng
         Busy,     // Đang bận
-        OnBreak     // Tạm nghỉ
+        OnBreak,     // Tạm nghỉ
+        Disabled, // Không thể làm việc
     }
 }
