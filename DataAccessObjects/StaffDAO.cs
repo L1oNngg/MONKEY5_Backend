@@ -74,9 +74,8 @@ namespace DataAccessObjects
                 if (!string.IsNullOrEmpty(staff.IdNumber))
                     existingStaff.IdNumber = staff.IdNumber;
                     
-                // For status, we need to check if it's not the default value
-                if (staff.Status != default(MONKEY5.BusinessObjects.Helpers.AvailabilityStatus))
-                    existingStaff.Status = staff.Status;
+                // Always update status (including to Available)
+                existingStaff.Status = staff.Status;
                     
                 // For avgRating, check if it's not the default value (0)
                 if (staff.AvgRating != 0)
