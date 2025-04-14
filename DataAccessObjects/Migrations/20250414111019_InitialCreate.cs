@@ -21,7 +21,8 @@ namespace DataAccessObjects.Migrations
                     ServiceName = table.Column<string>(type: "text", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: true),
                     UnitPrice = table.Column<decimal>(type: "numeric(10,2)", nullable: true),
-                    UnitType = table.Column<string>(type: "text", nullable: true)
+                    UnitType = table.Column<string>(type: "text", nullable: true),
+                    Status = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -316,13 +317,13 @@ namespace DataAccessObjects.Migrations
 
             migrationBuilder.InsertData(
                 table: "Services",
-                columns: new[] { "ServiceId", "Description", "ServiceName", "UnitPrice", "UnitType" },
+                columns: new[] { "ServiceId", "Description", "ServiceName", "Status", "UnitPrice", "UnitType" },
                 values: new object[,]
                 {
-                    { new Guid("20000000-0000-0000-0000-000000000001"), "Professional home cleaning service", "Cleaning", 90000m, "hour" },
-                    { new Guid("20000000-0000-0000-0000-000000000002"), "Childcare service for one child", "Child care (1 child)", 150000m, "hour" },
-                    { new Guid("20000000-0000-0000-0000-000000000003"), "Childcare service for two children", "Child care (2 children)", 200000m, "hour" },
-                    { new Guid("20000000-0000-0000-0000-000000000004"), "Professional cooking service", "Cooking", 80000m, "dish" }
+                    { new Guid("20000000-0000-0000-0000-000000000001"), "Professional home cleaning service", "Cleaning", 0, 90000m, "hour" },
+                    { new Guid("20000000-0000-0000-0000-000000000002"), "Childcare service for one child", "Child care (1 child)", 0, 150000m, "hour" },
+                    { new Guid("20000000-0000-0000-0000-000000000003"), "Childcare service for two children", "Child care (2 children)", 0, 200000m, "hour" },
+                    { new Guid("20000000-0000-0000-0000-000000000004"), "Professional cooking service", "Cooking", 0, 80000m, "dish" }
                 });
 
             migrationBuilder.InsertData(
@@ -330,16 +331,16 @@ namespace DataAccessObjects.Migrations
                 columns: new[] { "UserId", "DateOfBirth", "Email", "FullName", "Gender", "IdNumber", "PasswordHash", "PhoneNumber", "Role" },
                 values: new object[,]
                 {
-                    { new Guid("30000000-0000-0000-0000-000000000001"), new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "admin@monkey5.com", "Admin User", "Male", "123456789", "Zt0Axu17LpuX/CSZlAmQgw==.kw8b2EiWap0vTgNqa9ASruxXrxU7E12V+u6ukLJnfSM=", "0123456789", "Manager" },
-                    { new Guid("40000000-0000-0000-0000-000000000001"), new DateTime(1985, 5, 15, 0, 0, 0, 0, DateTimeKind.Utc), "nguyenvana@example.com", "Nguyen Van A", "Male", "123456789012", "hicFGjbQOWNkoe8tOFBNYg==./XKRR4lU8kDrz74UUjxrvm858dri0gGu5sG3nMetNuU=", "0123456781", "Customer" },
-                    { new Guid("40000000-0000-0000-0000-000000000002"), new DateTime(1990, 8, 20, 0, 0, 0, 0, DateTimeKind.Utc), "tranthib@example.com", "Tran Thi B", "Female", "234567890123", "PB+MMvfFgRoncVIfijqvUQ==.WhDBouWuR5DSF6Uwg62RiKi3eaLCe19l9/AxwZMDoJY=", "0123456782", "Customer" },
-                    { new Guid("40000000-0000-0000-0000-000000000003"), new DateTime(1988, 3, 10, 0, 0, 0, 0, DateTimeKind.Utc), "levanc@example.com", "Le Van C", "Male", "345678901234", "kOOMXH6mI9bq5oEnw9+/Lw==.lZuJuf8Hgg8iAQ7U0CtaWL+B++I4vNVZ+zH4Ihd5bsw=", "0123456783", "Customer" },
-                    { new Guid("50000000-0000-0000-0000-000000000001"), new DateTime(1992, 4, 25, 0, 0, 0, 0, DateTimeKind.Utc), "phamthid@example.com", "Pham Thi D", "Female", "456789012345", "WZdGIO24VUr17nzhfBgGXw==.eK4zG6IDIcS4jWV+brshcDNMy8SQ++3RWAxX/mIXl+w=", "0234567891", "Staff" },
-                    { new Guid("50000000-0000-0000-0000-000000000002"), new DateTime(1991, 7, 15, 0, 0, 0, 0, DateTimeKind.Utc), "hoangvane@example.com", "Hoang Van E", "Male", "567890123456", "T6CiQxgDBG/YBafK89XlWg==.D+404PkI76alSgRcNh3iWInmOgz2dRXeMwFGWqBglNE=", "0234567892", "Staff" },
-                    { new Guid("50000000-0000-0000-0000-000000000003"), new DateTime(1989, 9, 5, 0, 0, 0, 0, DateTimeKind.Utc), "nguyenthif@example.com", "Nguyen Thi F", "Female", "678901234567", "8/10XYAuvDzcJRxluVBugA==.tVvuLiAzx8a3ASoEiq/08tKLC0JSuhpOOSm5jFEbSZI=", "0234567893", "Staff" },
-                    { new Guid("50000000-0000-0000-0000-000000000004"), new DateTime(1993, 2, 18, 0, 0, 0, 0, DateTimeKind.Utc), "tranvang@example.com", "Tran Van G", "Male", "789012345678", "KORhr71KLsqF89YgoypqLg==.eoXTh+HGi6qdCf6UuJthqVzMrFIoDAir+3KtdQnV4i4=", "0234567894", "Staff" },
-                    { new Guid("50000000-0000-0000-0000-000000000005"), new DateTime(1987, 11, 30, 0, 0, 0, 0, DateTimeKind.Utc), "lethih@example.com", "Le Thi H", "Female", "890123456789", "1U3H9ig+JXfUMzEk8Dx5KQ==.A+zCgUccjRFgOtDaubDyRfPXTcBJWj+p2qTuJgi6gjI=", "0234567895", "Staff" },
-                    { new Guid("50000000-0000-0000-0000-000000000006"), new DateTime(1990, 6, 12, 0, 0, 0, 0, DateTimeKind.Utc), "phamvani@example.com", "Pham Van I", "Male", "901234567890", "s+bJWxdXZAd8HGRm3YmGpA==.pj3L1D871MI52C9arOXCek1sgFEbLPGHyoGFvXFSTx8=", "0234567896", "Staff" }
+                    { new Guid("30000000-0000-0000-0000-000000000001"), new DateTime(1990, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), "admin@monkey5.com", "Admin User", "Male", "123456789", "MNkrC/czgc/7CmBe3rTnCA==.dxOCWb/rQ/wASxmG5y8W5BoAJWQzExRYintWjBzQmsA=", "0123456789", "Manager" },
+                    { new Guid("40000000-0000-0000-0000-000000000001"), new DateTime(1985, 5, 15, 0, 0, 0, 0, DateTimeKind.Utc), "nguyenvana@example.com", "Nguyen Van A", "Male", "123456789012", "HoGltHg1ipy8nBRinQWl1Q==.c5PVCcSkylpBW66q9HjA5yrID+d0XHThQsTYm0m0pN8=", "0123456781", "Customer" },
+                    { new Guid("40000000-0000-0000-0000-000000000002"), new DateTime(1990, 8, 20, 0, 0, 0, 0, DateTimeKind.Utc), "tranthib@example.com", "Tran Thi B", "Female", "234567890123", "9JjgUSWL+LiThYVUfh2u6A==.c9jjGXGr4grGV2W+siG6BH+9PeCbfSpOvNLUDecizbE=", "0123456782", "Customer" },
+                    { new Guid("40000000-0000-0000-0000-000000000003"), new DateTime(1988, 3, 10, 0, 0, 0, 0, DateTimeKind.Utc), "levanc@example.com", "Le Van C", "Male", "345678901234", "qSid2UZJMuQfz9e0jMwoDg==.sTd7V/Enw15abFx8yCgNxHTB3W5uU4lg64Z4RpxcNbU=", "0123456783", "Customer" },
+                    { new Guid("50000000-0000-0000-0000-000000000001"), new DateTime(1992, 4, 25, 0, 0, 0, 0, DateTimeKind.Utc), "phamthid@example.com", "Pham Thi D", "Female", "456789012345", "Qj2TiNDh0WqVfWODZ0Ayfg==./yLw3KlpcQL11Lqcr6ywZC8Si1BuZafJ/Xkhl/cbX3A=", "0234567891", "Staff" },
+                    { new Guid("50000000-0000-0000-0000-000000000002"), new DateTime(1991, 7, 15, 0, 0, 0, 0, DateTimeKind.Utc), "hoangvane@example.com", "Hoang Van E", "Male", "567890123456", "0QnllRQFplP6a4j7cW7ZSg==.JBgOuD8TmnHInDDVvf7ePGd0qyfRvatuV7EbD5A7Fas=", "0234567892", "Staff" },
+                    { new Guid("50000000-0000-0000-0000-000000000003"), new DateTime(1989, 9, 5, 0, 0, 0, 0, DateTimeKind.Utc), "nguyenthif@example.com", "Nguyen Thi F", "Female", "678901234567", "pNtNRoh0mgnrQ/8F+6fvYQ==.Xf08aXyNjimml//4QHFMoOpD6+IxxHthB8B6bz3kMsg=", "0234567893", "Staff" },
+                    { new Guid("50000000-0000-0000-0000-000000000004"), new DateTime(1993, 2, 18, 0, 0, 0, 0, DateTimeKind.Utc), "tranvang@example.com", "Tran Van G", "Male", "789012345678", "IGl4typ8StWOmz37dpGP+Q==.jGzlec+NAJ2oybff8OKpuW+XOaKLTQHNUcAjlzQUHa0=", "0234567894", "Staff" },
+                    { new Guid("50000000-0000-0000-0000-000000000005"), new DateTime(1987, 11, 30, 0, 0, 0, 0, DateTimeKind.Utc), "lethih@example.com", "Le Thi H", "Female", "890123456789", "Xf5srTxp2dAhatXj414r/A==.QM0kADqiLaOpAIddUnD7AqDPpFYMK1+x+uj/bcrVLQ8=", "0234567895", "Staff" },
+                    { new Guid("50000000-0000-0000-0000-000000000006"), new DateTime(1990, 6, 12, 0, 0, 0, 0, DateTimeKind.Utc), "phamvani@example.com", "Pham Van I", "Male", "901234567890", "5/0Q3y69WhsvyVbiQ8T9Jg==.jG1vWis8Ene+x2TShyPhUI66eG97Qc5RLWhdlrtAc6o=", "0234567896", "Staff" }
                 });
 
             migrationBuilder.InsertData(
