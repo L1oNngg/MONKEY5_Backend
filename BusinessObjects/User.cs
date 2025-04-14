@@ -11,7 +11,6 @@ namespace MONKEY5.BusinessObjects
         public Guid UserId { get; set; } = Guid.NewGuid();
         public string? FullName { get; set; }
 
-        // [EmailAddress(ErrorMessage = "Email không đúng định dạng. Vui lòng nhập lại!")]
         public string? Email { get; set; }
 
         [NotMapped] // Exclude from database
@@ -29,7 +28,6 @@ namespace MONKEY5.BusinessObjects
             }
         }
 
-        // [Phone]
         public string? PhoneNumber { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public string? Gender { get; set; }

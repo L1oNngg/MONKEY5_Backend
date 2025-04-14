@@ -160,19 +160,6 @@ namespace MONKEY5.DataAccessObjects
                 .HasForeignKey(l => l.StaffId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // // Configure required fields and other constraints
-            // modelBuilder.Entity<User>()
-            //     .Property(u => u.Email)
-            //     .IsRequired();
-
-            // modelBuilder.Entity<User>()
-            //     .Property(u => u.PasswordHash)
-            //     .IsRequired();
-
-            // modelBuilder.Entity<User>()
-            //     .Property(u => u.PhoneNumber)
-            //     .IsRequired();
-
             // Configure decimal precision for money values
             modelBuilder.Entity<Service>()
                 .Property(s => s.UnitPrice)

@@ -163,7 +163,22 @@ namespace MONKEY5_API.Controllers
                 return NotFound();
             }
 
-            _reportImageService.DeleteReportImage(reportImage);
+            try
+            {
+                _reportImageService.DeleteReportImage(reportImage);
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.Message.Contains("FOREIGN KEY"))
+                {
+                    return Conflict(new { error = "Cannot delete report image because it is referenced by other records." });
+                }
+                if (ex.Message.Contains("FOREIGN KEY"))
+                {
+                    return Conflict(new { error = "Cannot delete report image because it is referenced by other records." });
+                }
+                return Conflict(new { error = "Failed to delete report image. It may be referenced by other records. Details: " + ex.Message });
+            }
 
             return NoContent();
         }

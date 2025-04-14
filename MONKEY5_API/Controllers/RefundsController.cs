@@ -99,7 +99,22 @@ namespace MONKEY5_API.Controllers
                 return NotFound();
             }
 
-            _refundService.DeleteRefund(refund);
+            try
+            {
+                _refundService.DeleteRefund(refund);
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.Message.Contains("FOREIGN KEY"))
+                {
+                    return Conflict(new { error = "Cannot delete refund because it is referenced by other records." });
+                }
+                if (ex.Message.Contains("FOREIGN KEY"))
+                {
+                    return Conflict(new { error = "Cannot delete refund because it is referenced by other records." });
+                }
+                return Conflict(new { error = "Failed to delete refund. It may be referenced by other records. Details: " + ex.Message });
+            }
 
             return NoContent();
         }

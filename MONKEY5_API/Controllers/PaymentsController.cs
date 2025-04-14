@@ -107,7 +107,22 @@ namespace MONKEY5_API.Controllers
                 return NotFound();
             }
 
-            _paymentService.DeletePayment(payment);
+            try
+            {
+                _paymentService.DeletePayment(payment);
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null && ex.InnerException.Message.Contains("FOREIGN KEY"))
+                {
+                    return Conflict(new { error = "Cannot delete payment because it is referenced by other records." });
+                }
+                if (ex.Message.Contains("FOREIGN KEY"))
+                {
+                    return Conflict(new { error = "Cannot delete payment because it is referenced by other records." });
+                }
+                return Conflict(new { error = "Failed to delete payment. It may be referenced by other records. Details: " + ex.Message });
+            }
 
             return NoContent();
         }

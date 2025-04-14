@@ -85,7 +85,24 @@ namespace MONKEY5_API.Controllers
                 return NotFound();
             }
 
-            _serviceService.DeleteService(service);
+            try
+            {
+                _serviceService.DeleteService(service);
+            }
+            catch (Exception ex)
+            {
+                // Check for foreign key violation (Postgres/SQLServer/SQLite all have different codes, so use message as fallback)
+                if (ex.InnerException != null && ex.InnerException.Message.Contains("FOREIGN KEY"))
+                {
+                    return Conflict(new { error = "Cannot delete service because it is referenced by other records (e.g., bookings)." });
+                }
+                if (ex.Message.Contains("FOREIGN KEY"))
+                {
+                    return Conflict(new { error = "Cannot delete service because it is referenced by other records (e.g., bookings)." });
+                }
+                // Fallback: generic error
+                return Conflict(new { error = "Failed to delete service. It may be referenced by other records. Details: " + ex.Message });
+            }
 
             return NoContent();
         }
