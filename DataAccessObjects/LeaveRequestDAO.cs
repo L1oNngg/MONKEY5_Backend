@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using MONKEY5.BusinessObjects;
+using BusinessObjects.Helpers;
 using MONKEY5.DataAccessObjects;
 
 namespace DataAccessObjects
@@ -17,6 +18,7 @@ namespace DataAccessObjects
                 using var db = new MyDbContext();
                 listRequests = db.LeaveRequests
                     .Include(l => l.Staff)
+                    .OrderByDescending(l => l.RequestDate)
                     .ToList();
             }
             catch (Exception e)
@@ -95,6 +97,7 @@ namespace DataAccessObjects
                 return db.LeaveRequests
                     .Include(l => l.Staff)
                     .Where(l => l.StaffId.Equals(staffId))
+                    .OrderByDescending(l => l.RequestDate)
                     .ToList();
             }
             catch (Exception e)
@@ -110,10 +113,12 @@ namespace DataAccessObjects
                 using var db = new MyDbContext();
                 return db.LeaveRequests
                     .Include(l => l.Staff)
-                    .Where(l => 
-                        (l.LeaveStart >= startDate && l.LeaveStart <= endDate) || 
-                        (l.LeaveEnd >= startDate && l.LeaveEnd <= endDate) ||
-                        (l.LeaveStart <= startDate && l.LeaveEnd >= endDate))
+                    .Where(l =>
+                        ((l.LeaveStart >= startDate && l.LeaveStart <= endDate) ||
+                         (l.LeaveEnd >= startDate && l.LeaveEnd <= endDate) ||
+                         (l.LeaveStart <= startDate && l.LeaveEnd >= endDate)) &&
+                        l.Status != LeaveRequestStatus.Rejected)
+                    .OrderByDescending(l => l.RequestDate)
                     .ToList();
             }
             catch (Exception e)

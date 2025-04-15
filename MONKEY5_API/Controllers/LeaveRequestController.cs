@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MONKEY5.BusinessObjects;
+using BusinessObjects.Helpers;
 using Services;
 using System;
 using System.Collections.Generic;
@@ -102,6 +103,22 @@ namespace MONKEY5_API.Controllers
                 return Conflict(new { error = "Failed to delete leave request. It may be referenced by other records. Details: " + ex.Message });
             }
 
+            return NoContent();
+        }
+    
+        // PUT: api/LeaveRequests/5/status
+        [HttpPut("{id}/status")]
+        public IActionResult UpdateLeaveRequestStatus(Guid id, [FromBody] LeaveRequestStatus status)
+        {
+            var leaveRequest = _leaveRequestService.GetLeaveRequestById(id);
+            if (leaveRequest == null)
+            {
+                return NotFound();
+            }
+    
+            leaveRequest.Status = status;
+            _leaveRequestService.UpdateLeaveRequest(leaveRequest);
+    
             return NoContent();
         }
     }

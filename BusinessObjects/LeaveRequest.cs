@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using BusinessObjects.Helpers;
 
 namespace MONKEY5.BusinessObjects
 {
@@ -21,5 +22,7 @@ namespace MONKEY5.BusinessObjects
         public DateTime? LeaveEnd { get; set; }
         
         public string? LeaveReasons { get; set; }
+        
+        public LeaveRequestStatus Status { get; set; } = LeaveRequestStatus.Pending;
     }
 }

@@ -721,7 +721,8 @@ namespace MONKEY5.DataAccessObjects
                     RequestDate = new DateTime(2025, 2, 15, 0, 0, 0, DateTimeKind.Utc),
                     LeaveStart = new DateTime(2025, 3, 10, 0, 0, 0, DateTimeKind.Utc),
                     LeaveEnd = new DateTime(2025, 3, 15, 0, 0, 0, DateTimeKind.Utc),
-                    LeaveReasons = "Family vacation planned months in advance."
+                    LeaveReasons = "Family vacation planned months in advance.",
+                    Status = LeaveRequestStatus.Approved
                 },
                 new LeaveRequest
                 {
@@ -730,7 +731,8 @@ namespace MONKEY5.DataAccessObjects
                     RequestDate = new DateTime(2025, 2, 20, 0, 0, 0, DateTimeKind.Utc),
                     LeaveStart = new DateTime(2025, 3, 20, 0, 0, 0, DateTimeKind.Utc),
                     LeaveEnd = new DateTime(2025, 3, 22, 0, 0, 0, DateTimeKind.Utc),
-                    LeaveReasons = "Medical appointment and recovery."
+                    LeaveReasons = "Medical appointment and recovery.",
+                    Status = LeaveRequestStatus.Pending
                 },
                 new LeaveRequest
                 {
@@ -739,7 +741,8 @@ namespace MONKEY5.DataAccessObjects
                     RequestDate = new DateTime(2025, 2, 25, 0, 0, 0, DateTimeKind.Utc),
                     LeaveStart = new DateTime(2025, 4, 5, 0, 0, 0, DateTimeKind.Utc),
                     LeaveEnd = new DateTime(2025, 4, 10, 0, 0, 0, DateTimeKind.Utc),
-                    LeaveReasons = "Professional development course on advanced culinary techniques."
+                    LeaveReasons = "Professional development course on advanced culinary techniques.",
+                    Status = LeaveRequestStatus.Rejected
                 }
             };
 
